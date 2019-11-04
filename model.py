@@ -49,3 +49,13 @@ class Track(db.Model):
     href = db.Column(db.String(300))
 
 
+class MatchingKey(db.Model):
+    """Keys that pair well with the primary key of a track."""
+
+    __tablename__ = "matching_keys"
+
+    key_id = db.Column(db.Integer, db.ForeignKey("tracks.key"))
+    matching_key = db.Column(db.Integer)
+
+
+
