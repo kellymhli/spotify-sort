@@ -17,6 +17,15 @@ class User(db.Model):
     url = db.Column(db.String(200))
     img_url = db.Column(db.String(200))
 
+    # Set up relationships between tables
+    # User can have many playlists
+    playlists = db.relationship("Playlist",
+                                backref="users")
+
+    # User can have many tracks
+    tracks = db.relationship("Track",
+                             backref="users")
+
 
 class Playlist(db.Model):
     """Playlist information."""
@@ -26,6 +35,26 @@ class Playlist(db.Model):
     playlist_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     pl_name = db.Column(db.String(50))
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+
+    # Set up relationship between playlists and tracks
+    # Many-to-many relationship, so pass through track_playlist class
+    track_playlists = db.relationship("TrackPlaylist")
+    tracks = db.relationship("Track",
+                             secondary="track_playlists"
+                             backref="playlists")
+
+
+class TrackPlaylist(db.Model):
+    """Playlists that a track is found in."""
+
+    __tablename__ = "track_playlists"
+
+    track_id = db.Column(db.String(200), db.ForeignKey("tracks.track_id"))
+    playlist_id = db.Column(db.Integer, db.ForeignKey("playlists.playlist_id"))
+
+    # Set up many-to-many relationship between playlists and tracks
+    playlist = db.relationship("Playlist")
+    track = db.relationship("Track")
 
 
 class Track(db.Model):
@@ -47,6 +76,10 @@ class Track(db.Model):
     tempo = db.Column(db.Float)  # BPM
     uri = db.Column(db.String(200))
     href = db.Column(db.String(300))
+    user_id = db.Column(db.Integer, db.ForeignKey(users.user_id))
+
+    # Set up relationship between tracks, track_playlists, and playlists
+    track_playlists = db.relationship("TrackPlaylist")
 
 
 class MatchingKey(db.Model):
@@ -56,6 +89,10 @@ class MatchingKey(db.Model):
 
     key_id = db.Column(db.Integer, db.ForeignKey("tracks.key"))
     matching_key = db.Column(db.Integer)
+
+    # Set up relationship between tracks and keys
+    tracks = db.relationship("Track",
+                             backref="tracks")
 
 
 
