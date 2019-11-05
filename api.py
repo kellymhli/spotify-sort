@@ -1,0 +1,1 @@
+# Functions that request data from spotify api

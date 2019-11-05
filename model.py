@@ -129,8 +129,6 @@ class MatchingKey(db.Model):
     # Set up relationship between keys and matching keys
     key = db.relationship("Key", db.foreign_keys=[matching_key],
                           backref="matching_keys", db.foreign_keys=[key_id])
-                        
-    
 
     def __repr__(self):
         """Provide useful information about track keys."""
