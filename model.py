@@ -109,7 +109,10 @@ class Key(db.Model):
     __tablename__ = "keys"
 
     key_id = db.Column(db.Integer, primary_key=True)
-    matching_key = db.Column(db.Integer)
+
+    # Set up relationship between tracks and keys
+    tracks = db.relationship("Track",
+                             backref="keys")
 
 
 class MatchingKey(db.Model):
@@ -117,12 +120,13 @@ class MatchingKey(db.Model):
 
     __tablename__ = "matching_keys"
 
-    key_id = db.Column(db.Integer, db.ForeignKey("tracks.key"), primary_key=True)
+    key_pair = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    key_id = db.Column(db.Integer, db.ForeignKey("keys.key_id"))
     matching_key = db.Column(db.Integer)
 
-    # Set up relationship between tracks and keys
-    tracks = db.relationship("Track",
-                             backref="tracks")
+    # Set up relationship between keys and matching keys
+    keys = db.relationship("Key", 
+                           backref="matching_keys")
 
     def __repr__(self):
         """Provide useful information about track keys."""
