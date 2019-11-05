@@ -110,6 +110,7 @@ class Key(db.Model):
     __tablename__ = "keys"
 
     key_id = db.Column(db.Integer, primary_key=True)
+    key_name = db.Column(db.String(20))
 
     # Set up relationship between tracks and keys
     tracks = db.relationship("Track",
