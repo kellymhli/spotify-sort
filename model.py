@@ -103,6 +103,15 @@ class Track(db.Model):
         return f"<Track id: {self.track_id} name: {self.name} key: {self.key}>"
 
 
+class Key(db.Model):
+    """All possible keys for tracks."""
+
+    __tablename__ = "keys"
+
+    key_id = db.Column(db.Integer, primary_key=True)
+    matching_key = db.Column(db.Integer)
+
+
 class MatchingKey(db.Model):
     """Keys that pair well with the primary key of a track."""
 
