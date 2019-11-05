@@ -16,7 +16,7 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """Homepage."""
 
-    pass
+    return render_template("homepage.html")
 
 
 if __name__ == "__main__":
@@ -26,7 +26,7 @@ if __name__ == "__main__":
     # Make sure templates, etc. are not cached in debug mode
     app.jinja_env.auto_reload = app.debug 
 
-    connect_to_db(app)
+    model.connect_to_db(app)
     DebugToolbarExtension(app)
 
-    app.run(port=8888, host='0.0.0.0')
+    app.run(port=8888, host="0.0.0.0")
