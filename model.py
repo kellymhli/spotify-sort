@@ -1,4 +1,4 @@
-from flask_sqlalchemy import flask_sqlalchemy
+from flask_sqlalchemy import SQLAlchemy
 
 # Create connection to PostgreSQL database through Flask-SQLAlchemy library. 
 # Contains the session object.
@@ -45,7 +45,7 @@ class Playlist(db.Model):
     # Many-to-many relationship, so pass through track_playlist class
     track_playlists = db.relationship("TrackPlaylist")
     tracks = db.relationship("Track",
-                             secondary="track_playlists"
+                             secondary="track_playlists",
                              backref="playlists")
 
     def __repr__(self):
@@ -59,8 +59,8 @@ class TrackPlaylist(db.Model):
 
     __tablename__ = "track_playlists"
 
+    playlist_id = db.Column(db.Integer, db.ForeignKey("playlists.playlist_id"), primary_key=True)
     track_id = db.Column(db.String(200), db.ForeignKey("tracks.track_id"))
-    playlist_id = db.Column(db.Integer, db.ForeignKey("playlists.playlist_id"))
 
     # Set up many-to-many relationship between playlists and tracks
     playlist = db.relationship("Playlist")
@@ -78,7 +78,7 @@ class Track(db.Model):
 
     __tablename__ = "tracks"
 
-    track_id = db.Column(db.String(200))
+    track_id = db.Column(db.String(200), primary_key=True)
     name = db.Column(db.String(300))
     key = db.Column(db.Integer)
     mode = db.Column(db.Integer)  # Major/minor mode
@@ -108,7 +108,7 @@ class MatchingKey(db.Model):
 
     __tablename__ = "matching_keys"
 
-    key_id = db.Column(db.Integer, db.ForeignKey("tracks.key"))
+    key_id = db.Column(db.Integer, db.ForeignKey("tracks.key"), primary_key=True)
     matching_key = db.Column(db.Integer)
 
     # Set up relationship between tracks and keys
