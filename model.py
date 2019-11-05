@@ -26,6 +26,11 @@ class User(db.Model):
     tracks = db.relationship("Track",
                              backref="users")
 
+    def __repr__(self):
+        """Provide helpful representation of user."""
+
+        return f"<User id: {self.user_id} name: {self.display_name}>"
+
 
 class Playlist(db.Model):
     """Playlist information."""
@@ -43,6 +48,11 @@ class Playlist(db.Model):
                              secondary="track_playlists"
                              backref="playlists")
 
+    def __repr__(self):
+        """Provide useful information about a playlist."""
+
+        return f"Playlist id: {self.playlist_id} name: {self.pl_name}"
+
 
 class TrackPlaylist(db.Model):
     """Playlists that a track is found in."""
@@ -55,6 +65,11 @@ class TrackPlaylist(db.Model):
     # Set up many-to-many relationship between playlists and tracks
     playlist = db.relationship("Playlist")
     track = db.relationship("Track")
+
+    def __repr__(self):
+        """Provide useful informaton about playlist and track relationship."""
+
+        return f"<TrackPlaylist track: {self.track_id} playlist: {self.playlist_id}>"
 
 
 class Track(db.Model):
@@ -76,10 +91,16 @@ class Track(db.Model):
     tempo = db.Column(db.Float)  # BPM
     uri = db.Column(db.String(200))
     href = db.Column(db.String(300))
-    user_id = db.Column(db.Integer, db.ForeignKey(users.user_id))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    playlist_id = db.Column(db.Integer, db.ForeignKey("playlists.playlist_id"))
 
     # Set up relationship between tracks, track_playlists, and playlists
     track_playlists = db.relationship("TrackPlaylist")
+
+    def __repr__(self):
+        """Provide useful information about track."""
+
+        return f"<Track id: {self.track_id} name: {self.name} key: {self.key}>"
 
 
 class MatchingKey(db.Model):
@@ -93,6 +114,11 @@ class MatchingKey(db.Model):
     # Set up relationship between tracks and keys
     tracks = db.relationship("Track",
                              backref="tracks")
+
+    def __repr__(self):
+        """Provide useful information about track keys."""
+
+        return f"<Keys key: {self.key_id} matching_key: {self.matching_key}>"
 
 
 def connect_to_db(app):
