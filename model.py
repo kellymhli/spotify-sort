@@ -91,6 +91,7 @@ class Track(db.Model):
     tempo = db.Column(db.Float)  # BPM
     uri = db.Column(db.String(200))
     href = db.Column(db.String(300))
+    artist = db.Column(db.String(100))
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     playlist_id = db.Column(db.Integer, db.ForeignKey("playlists.playlist_id"))
 
