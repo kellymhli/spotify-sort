@@ -1,5 +1,4 @@
-#!/home/vagrant/src/spotifysort/env/bin/python3.6
-
+#!/Users/kelly/src/spotifysort/env/bin/python3.7
 # -*- coding: utf-8 -*-
 import re
 import sys

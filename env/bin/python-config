@@ -1,4 +1,4 @@
-#!/home/vagrant/src/spotifysort/env/bin/python
+#!/Users/kelly/src/spotifysort/env/bin/python
 
 import sys
 import getopt
