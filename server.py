@@ -19,6 +19,13 @@ def index():
     return render_template("homepage.html")
 
 
+@app.route("/callback/")
+def callback():
+    """Callback page after authorization through spotify."""
+
+    return render_template("callback.html")
+
+
 if __name__ == "__main__":
 
     # Needs to be true upon invoking DebugToolbarExtension
