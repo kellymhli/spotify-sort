@@ -22,27 +22,25 @@ def get_access_token(username):
         return None
 
 
-def authorize(username):
-    """Instantiate Spotify object for user using given username."""
-
-    token = get_access_token(username)
-    sp = spotipy.Spotify(auth=token)
-    
-    get_playlists(username, sp)
-
-
-def get_playlist_tracks(username, playlist_id, sp):
+def get_playlist_tracks(username, sp, playlist_id='5vt2cOxZrcn9yVzTTIURJe'):
     """Return all the tracks in a playlist."""
 
-    playlist_tracks = sp.user_playlist_tracks(username, playlist_id)
+    results = sp.user_playlist_tracks(username, playlist_id)
+    playlist_tracks = results['items']
+    while results['next']:
+        results = sp.next(results)
+        playlist_tracks.extend(results['items'])
+
     for item in playlist_tracks:
         track = item['track']
-        print(f"{track['name']} - {track['artists'][0]['name']}")
+        print(f"{playlist_id}|||{track['id']}")
         
-    # results = sp.current_user_saved_tracks(limit=50)
-    # for item in results['items']:
-    #     track = item['track']
-    #     print(f"{track['name']} - {track['artists'][0]['name']}")
+    # Tracks of user's saved songs list (songs not in a playlist) 
+    # results = sp.current_user_saved_tracks()
+    # playlist_tracks = results['items']
+    # while results['next']:
+        # results = sp.next(results)
+        # playlist_tracks.extend(results['items'])
 
 
 def get_playlists(username, sp):
@@ -59,4 +57,11 @@ def get_playlists(username, sp):
             print(f"{playlist['id']}|||{playlist['name']}|||{playlist['owner']['id']}")
 
 
+def authorize(username):
+    """Instantiate Spotify object for user using given username."""
 
+    token = get_access_token(username)
+    sp = spotipy.Spotify(auth=token)
+    
+    get_playlists(username, sp)
+    get_playlist_tracks(username, sp)
