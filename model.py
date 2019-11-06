@@ -92,6 +92,7 @@ class Track(db.Model):
     uri = db.Column(db.String(200))
     href = db.Column(db.String(300))
     artist = db.Column(db.String(100))
+    duration = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     playlist_id = db.Column(db.Integer, db.ForeignKey("playlists.playlist_id"))
 

@@ -23,7 +23,7 @@ def get_access_token(username):
 
 
 def get_playlist_tracks(username, sp, playlist_id='5vt2cOxZrcn9yVzTTIURJe'):
-    """Return all the tracks in a playlist."""
+    """Print all the tracks in a playlist."""
 
     results = sp.user_playlist_tracks(username, playlist_id)
     playlist_tracks = results['items']
@@ -44,7 +44,7 @@ def get_playlist_tracks(username, sp, playlist_id='5vt2cOxZrcn9yVzTTIURJe'):
 
 
 def get_playlists(username, sp):
-    """Return a list of all user playlists."""
+    """Print all user playlists."""
 
     results = sp.user_playlists(username)
     playlists = results['items']
@@ -57,6 +57,13 @@ def get_playlists(username, sp):
             print(f"{playlist['id']}|||{playlist['name']}|||{playlist['owner']['id']}")
 
 
+def get_track_audio_features(sp, track_id='0Brf1s65f8eekORKK9gpe4'):
+    """Print audio features of a track."""
+
+    track_fts = sp.audio_features(track_id)
+    print(track_fts)
+
+
 def authorize(username):
     """Instantiate Spotify object for user using given username."""
 
@@ -65,3 +72,4 @@ def authorize(username):
     
     get_playlists(username, sp)
     get_playlist_tracks(username, sp)
+    get_track_audio_features(sp)
