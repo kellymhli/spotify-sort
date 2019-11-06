@@ -1,6 +1,7 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, redirect, request, session
 from flask_debugtoolbar import DebugToolbarExtension
+from authorization import authorize
 
 import model
 
@@ -19,7 +20,16 @@ def index():
     return render_template("homepage.html")
 
 
-@app.route("/callback/")
+@app.route("/auth")
+def authorization():
+    """Process username to authorize access to user Spotify data."""
+
+    username = request.args.get("username")
+    authorize(username)  # Request user authorization through Spotify
+    return redirect("/callback")
+
+
+@app.route("/callback")
 def callback():
     """Callback page after authorization through spotify."""
 

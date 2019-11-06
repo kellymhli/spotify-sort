@@ -1,3 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}Homepage{% endblock %}
-{% block content %}This is a test of the homepage{% endblock %}
+{% block content %}
+    This is a test of the homepage
+    <form action="/auth">
+        Username: <input type="text" name="username">
+    </form>
+{% endblock %}
