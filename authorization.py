@@ -5,8 +5,8 @@ SPOTIPY_CLIENT_ID = os.environ.get('SPOTIPY_CLIENT_ID')
 SPOTIPY_CLIENT_SECRET = os.environ.get('SPOTIPY_CLIENT_SECRET')
 SPOTIPY_REDIRECT_URI='http://localhost:8888/callback'
 
-def authorize(username):
-    """Take in username and prompt user to authorize access to Spotify data."""
+def get_access_token(username):
+    """Return access token from Spotify for defined scopes."""
 
     scope = 'user-library-read'
 
@@ -17,10 +17,24 @@ def authorize(username):
                                        redirect_uri = SPOTIPY_REDIRECT_URI)
 
     if token:
-        sp = spotipy.Spotify(auth=token)
-        results = sp.current_user_saved_tracks()
-        for item in results['items']:
-            track = item['track']
-            print(f"{track['name']} - {track['artists'][0]['name']}")
+        print(token)
+        return token 
     else:
-        print(f"Can't get token for {username}")
+        return None
+
+
+def authorize(username):
+    """Instantiate Spotify object for user using given username."""
+
+    token = get_access_token(username)
+    sp = spotipy.Spotify(auth=token)
+
+    results = sp.current_user_saved_tracks(limit=50)
+    for item in results['items']:
+        track = item['track']
+        print(f"{track['name']} - {track['artists'][0]['name']}")
+
+    playlists = sp.user_playlists(username)
+    for playlist in playlists['items']:
+        if playlist['owner']['id'] == username:
+            print(playlist['name'])
