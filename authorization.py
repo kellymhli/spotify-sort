@@ -10,7 +10,7 @@ def get_access_token(username):
 
     scope = 'user-library-read'
 
-    # Get access token from Spotify authorization server
+    # Get access token from Spotify authorization server.
     token = util.prompt_for_user_token(username, scope, 
                                        client_id = SPOTIPY_CLIENT_ID, 
                                        client_secret = SPOTIPY_CLIENT_SECRET, 
@@ -22,18 +22,27 @@ def get_access_token(username):
         return None
 
 
-def get_playlist_tracks(username, sp, playlist_id='5vt2cOxZrcn9yVzTTIURJe'):
+def get_playlist_tracks(username, sp, playlist_list=['5vt2cOxZrcn9yVzTTIURJe', '4xP6FbKJ28lbo9JSqJ9MbZ']):
     """Print all the tracks in a playlist."""
 
-    results = sp.user_playlist_tracks(username, playlist_id)
-    playlist_tracks = results['items']
-    while results['next']:
-        results = sp.next(results)
-        playlist_tracks.extend(results['items'])
+    file = open('seed_data/u.playlist-tracks', 'w+')
+    for playlist_id in playlist_list:
 
-    for item in playlist_tracks:
-        track = item['track']
-        print(f"{playlist_id}|||{track['id']}")
+        # Get all tracks of a playlist.
+        results = sp.user_playlist_tracks(username, playlist_id)
+        playlist_tracks = results['items']
+
+        # If number of tracks exceeds the limit,
+        # continue getting the next set until all tracks are retrieved.
+        while results['next']:
+            results = sp.next(results)
+            playlist_tracks.extend(results['items'])
+
+        for item in playlist_tracks:
+            track = item['track']
+            file.write(f"{playlist_id}|||{track['id']}\n")
+
+    file.close()
     
     # Tracks of user's saved songs list (songs not in a playlist) 
     # results = sp.current_user_saved_tracks()
@@ -50,16 +59,16 @@ def get_playlists(username, sp):
     results = sp.user_playlists(username)
     playlists = results['items']
 
-    # Number of playlists retrieved in inital call is limited 
-    # If the user has more playlists than the limit, retrieve the remaining
+    # Number of playlists retrieved in inital call is limited.
+    # If the user has more playlists than the limit, retrieve the remaining.
     while results['next']:
         results = sp.next(results)
         playlists.extend(results['items'])
 
-    # Open file in seed_data directory to write playlist data into
-    file = open("seed_data/u.playlists", "w+")
+    # Open file in seed_data directory to write playlist data into.
+    file = open('seed_data/u.playlists', 'w+')
 
-    # Print playlist_id, playlist_name, and username to file
+    # Print playlist_id, playlist_name, and username to file.
     for playlist in playlists:
         if playlist['owner']['id'] == username:
             file.write(f"{playlist['id']}|||{playlist['name']}|||{playlist['owner']['id']}\n")
@@ -70,7 +79,7 @@ def get_playlists(username, sp):
 def get_track_audio_features(username, sp, track_list=['0Brf1s65f8eekORKK9gpe4']):
     """Print audio features of a track."""
 
-    # Audio_features funtion returns a list of dictionaries
+    # Audio_features funtion returns a list of dictionaries.
     track_fts = sp.audio_features(track_list)
     for track in track_fts:
         #General info of track
