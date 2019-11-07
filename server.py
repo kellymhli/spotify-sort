@@ -3,7 +3,7 @@ from flask import Flask, render_template, redirect, request, session
 from flask_debugtoolbar import DebugToolbarExtension
 import api
 
-import model
+from model import User, Playlist, TrackPlaylist, Track, Key, MatchingKey, connect_to_db, db
 
 app = Flask(__name__)
 app.secret_key = "ILIKEWIGGLINGTOMUSIC"
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     # Make sure templates, etc. are not cached in debug mode
     app.jinja_env.auto_reload = app.debug 
 
-    model.connect_to_db(app)
+    connect_to_db(app)
     DebugToolbarExtension(app)
 
     app.run(port=8888, host="0.0.0.0")

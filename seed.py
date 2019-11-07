@@ -2,7 +2,7 @@
 # and seeds spotify database with that data
 
 import api
-from model import User, Playlist, TrackPlaylist, Track, Key, MatchingKey
+from model import User, Playlist, TrackPlaylist, Track, Key, MatchingKey, connect_to_db, db
 from server import app
 
 def load_user():
@@ -29,3 +29,13 @@ def load_playlists():
     
     # Commit added playlists to database.
     db.session.commit()
+
+
+if __name__ == "__main__":
+    connect_to_db(app)
+
+    # In case tables haven't been created, create them
+    db.create_all()
+
+    # Import data into db
+    load_playlist()
