@@ -79,6 +79,6 @@ if __name__ == "__main__":
     db.create_all()
 
     # Import data into db
-    load_playlist()
+    load_playlists()
     load_keys()
     load_matching_keys()

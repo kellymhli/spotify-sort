@@ -39,7 +39,7 @@ class Playlist(db.Model):
 
     playlist_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     pl_name = db.Column(db.String(50))
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    user_id = db.Column(db.Integer)
 
     # Set up relationship between playlists and tracks
     # Many-to-many relationship, so pass through track_playlist class
@@ -83,7 +83,7 @@ class Track(db.Model):
     artist = db.Column(db.String(100))
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     playlist_id = db.Column(db.Integer, db.ForeignKey("playlists.playlist_id"))
-    key = db.Column(db.Integer)
+    key = db.Column(db.Integer, db.ForeignKey("keys.key_id"))
     mode = db.Column(db.Integer)  # Major/minor mode
     danceability = db.Column(db.Float)  # How suitable track if for dancing
     energy = db.Column(db.Float)  # Intensity and activity
@@ -124,11 +124,11 @@ class MatchingKey(db.Model):
     __tablename__ = "matching_keys"
 
     key_pair = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    key_id = db.Column(db.Integer, db.ForeignKey("keys.key_id"))
+    key_id = db.Column(db.Integer)  #, db.ForeignKey("keys.key_id"))
     matching_key = db.Column(db.Integer, db.ForeignKey("keys.key_id"))
 
     # Set up relationship between keys and matching keys
-    # key = db.relationship("Key", db.foreign_keys=[matching_key], backref="matching_keys", db.foreign_keys=[key_id])
+    #key = db.relationship("Key", db.foreign_keys=[matching_key], backref="matching_keys", db.foreign_keys=[key_id])
     key = db.relationship("Key", 
                           backref="matching_keys")
 
