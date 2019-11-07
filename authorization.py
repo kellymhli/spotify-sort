@@ -76,7 +76,7 @@ def get_playlists(username, sp):
     file.close()
 
 
-def get_track_audio_features(username, sp, track_list=['0Brf1s65f8eekORKK9gpe4']):
+def get_track_audio_features(username, sp, track_list=['0Brf1s65f8eekORKK9gpe4', '3hYdai5p5sQ3vAmHQ6uaK6']):
     """Print audio features of a track."""
 
     # Audio_features funtion returns a list of dictionaries.
