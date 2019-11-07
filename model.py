@@ -80,6 +80,9 @@ class Track(db.Model):
 
     track_id = db.Column(db.String(200), primary_key=True)
     name = db.Column(db.String(300))
+    artist = db.Column(db.String(100))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    playlist_id = db.Column(db.Integer, db.ForeignKey("playlists.playlist_id"))
     key = db.Column(db.Integer)
     mode = db.Column(db.Integer)  # Major/minor mode
     danceability = db.Column(db.Float)  # How suitable track if for dancing
@@ -91,10 +94,7 @@ class Track(db.Model):
     tempo = db.Column(db.Float)  # BPM
     uri = db.Column(db.String(200))
     href = db.Column(db.String(300))
-    artist = db.Column(db.String(100))
     duration = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
-    playlist_id = db.Column(db.Integer, db.ForeignKey("playlists.playlist_id"))
 
     # Set up relationship between tracks, track_playlists, and playlists
     track_playlists = db.relationship("TrackPlaylist")
