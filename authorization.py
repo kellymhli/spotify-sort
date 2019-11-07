@@ -34,7 +34,7 @@ def get_playlist_tracks(username, sp, playlist_id='5vt2cOxZrcn9yVzTTIURJe'):
     for item in playlist_tracks:
         track = item['track']
         print(f"{playlist_id}|||{track['id']}")
-        
+    
     # Tracks of user's saved songs list (songs not in a playlist) 
     # results = sp.current_user_saved_tracks()
     # playlist_tracks = results['items']
@@ -46,15 +46,25 @@ def get_playlist_tracks(username, sp, playlist_id='5vt2cOxZrcn9yVzTTIURJe'):
 def get_playlists(username, sp):
     """Print all user playlists."""
 
+    # Get user playlists
     results = sp.user_playlists(username)
     playlists = results['items']
+
+    # Number of playlists retrieved in inital call is limited 
+    # If the user has more playlists than the limit, retrieve the remaining
     while results['next']:
         results = sp.next(results)
         playlists.extend(results['items'])
 
+    # Open file in seed_data directory to write playlist data into
+    file = open("seed_data/u.playlists", "w+")
+
+    # Print playlist_id, playlist_name, and username to file
     for playlist in playlists:
         if playlist['owner']['id'] == username:
-            print(f"{playlist['id']}|||{playlist['name']}|||{playlist['owner']['id']}")
+            file.write(f"{playlist['id']}|||{playlist['name']}|||{playlist['owner']['id']}\n")
+
+    file.close()
 
 
 def get_track_audio_features(username, sp, track_list=['0Brf1s65f8eekORKK9gpe4']):
