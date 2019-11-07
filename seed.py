@@ -11,18 +11,18 @@ def load_user():
     pass
 
 
-def load_playlists(playlists):
+def load_playlists():
     """Load playlists into database."""
-    # playlists = [username, [playlist_id, pl_name], [playlist_id, pl_name]]
     
-    uaer_id = playlist[0]  # username
+    Playlist.query.delete()
+    playlists = api.get_playlists()
 
-    for playlist_id, pl_name in playlists[1:]:
+    for playlist in playlists[1:]:
 
         # Create new playlist row
-        playlist = Playlist(playlist_id = playlist_id,
-                            pl_name = pl_name,
-                            user_id = user_id)
+        playlist = Playlist(playlist_id = playlist['id'],
+                            pl_name = playlist['name'],
+                            user_id = playlist['owner']['id'])
         
         # Add playlist to database
         db.session.add(playlist)
