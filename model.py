@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+import api
 
 # Create connection to PostgreSQL database through Flask-SQLAlchemy library. 
 # Contains the session object.
@@ -11,11 +12,10 @@ class User(db.Model):
 
     __tablename__ = "users"
 
-    user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    spotify_username = db.Column(db.String(25))
-    token = db.Column(db.String(100))
-    img_url = db.Column(db.String(200))
-    url = db.Column(db.String(200))
+    user_id = db.Column(db.String(100), primary_key=True)
+    token = db.Column(db.String(500))
+    # img_url = db.Column(db.String(200))
+    # url = db.Column(db.String(200))
 
     # Set up relationships between tables
     # User can have many playlists
@@ -39,7 +39,7 @@ class Playlist(db.Model):
 
     playlist_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     pl_name = db.Column(db.String(50))
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    user_id = db.Column(db.String, db.ForeignKey("users.user_id"))
 
     # Set up relationship between playlists and tracks
     # Many-to-many relationship, so pass through playlist_track class
@@ -81,7 +81,7 @@ class Track(db.Model):
     track_id = db.Column(db.String(200), primary_key=True)
     name = db.Column(db.String(300))
     artist = db.Column(db.String(100))
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    user_id = db.Column(db.String, db.ForeignKey("users.user_id"))
     playlist_id = db.Column(db.Integer, db.ForeignKey("playlists.playlist_id"))
     key = db.Column(db.Integer, db.ForeignKey("keys.key_id"))
     mode = db.Column(db.Integer)  # Major/minor mode

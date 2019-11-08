@@ -3,14 +3,15 @@
 
 import api
 from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connect_to_db, db
-from server import app
 
-spotify = app.session['spotify']
-
-def load_user():
+def load_user(username, token):
     """Load user information into database."""
 
-    pass
+    user = User(user_id = username, 
+                token = token)
+
+    db.session.add(user)
+    db.session.commit()
 
 
 def load_playlists():

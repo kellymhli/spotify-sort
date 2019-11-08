@@ -1,7 +1,7 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, redirect, request, session
 from flask_debugtoolbar import DebugToolbarExtension
-import api
+import api, seed
 from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connect_to_db, db
 
 app = Flask(__name__)
@@ -24,9 +24,8 @@ def authorization():
     """Process username to authorize access to user Spotify data."""
 
     username = request.args.get("username")
-    spotify =  api.Spotify(username) # Request user authorization through Spotify
-    session['username'] = username
-    # session['spotify'] = spotify
+    access_token =  api.get_access_token(username) # Get access token for Spotify oAuth
+    seed.load_user(username, access_token)
     return redirect("/callback")
 
 

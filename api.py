@@ -5,29 +5,22 @@ SPOTIPY_CLIENT_ID = os.environ.get('SPOTIPY_CLIENT_ID')
 SPOTIPY_CLIENT_SECRET = os.environ.get('SPOTIPY_CLIENT_SECRET')
 SPOTIPY_REDIRECT_URI='http://localhost:8888/callback'
 
-def get_access_token(self):
+def get_access_token(username):
     """Return access token from Spotify for defined scopes."""
 
     scope = 'user-library-read'
 
     # Get access token from Spotify authorization server.
-    token = util.prompt_for_user_token(self.username, scope, 
+    token = util.prompt_for_user_token(username, scope, 
                                     client_id = SPOTIPY_CLIENT_ID, 
                                     client_secret = SPOTIPY_CLIENT_SECRET, 
                                     redirect_uri = SPOTIPY_REDIRECT_URI)
 
     if token:
-        return token 
+        # sp = spotipy.Spotify(auth=token)
+        return token  
     else:
         return None
-
-
-def authorize(self, username):
-    """Get Spotify oAuth authroization and store attributes."""
-
-    self.username = username
-    self.token = self.get_access_token()
-    self.sp = spotipy.Spotify(auth=self.token)
 
 
 def get_playlist_tracks(playlist_list=['5vt2cOxZrcn9yVzTTIURJe', '4xP6FbKJ28lbo9JSqJ9MbZ']):
@@ -38,13 +31,13 @@ def get_playlist_tracks(playlist_list=['5vt2cOxZrcn9yVzTTIURJe', '4xP6FbKJ28lbo9
     for playlist_id in playlist_list:
 
         # Get all tracks of a playlist.
-        results = self.sp.user_playlist_tracks(self.username, playlist_id)
+        results = sp.user_playlist_tracks(username, playlist_id)
         playlist_tracks = results['items']
 
         # If number of tracks exceeds the limit,
         # continue getting the next set until all tracks are retrieved.
         while results['next']:
-            results = self.sp.next(results)
+            results = sp.next(results)
             playlist_tracks.extend(results['items'])
         
         # Add to dictionary where key = playlist_id and value = list of tracks
@@ -60,13 +53,13 @@ def get_playlists():
     """Print all user playlists."""
 
     # Get user playlists
-    results = self.sp.user_playlists(username)
+    results = sp.user_playlists(username)
     playlists = results['items']
 
     # Number of playlists retrieved in inital call is limited.
     # If the user has more playlists than the limit, retrieve the remaining.
     while results['next']:
-        results = self.sp.next(results)
+        results = sp.next(results)
         playlists.extend(results['items'])
     
     print(playlists)
@@ -77,7 +70,7 @@ def get_track_audio_features(track_list=['0Brf1s65f8eekORKK9gpe4', '3hYdai5p5sQ3
     """Print audio features of a track."""
 
     # Audio_features function returns a list of dictionaries.
-    track_fts = self.sp.audio_features(track_list)
+    track_fts = sp.audio_features(track_list)
     print(track_fts)
     return track_fts
 
