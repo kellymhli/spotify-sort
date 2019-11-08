@@ -5,6 +5,8 @@ import api
 from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connect_to_db, db
 from server import app
 
+spotify = app.session['spotify']
+
 def load_user():
     """Load user information into database."""
 
@@ -15,7 +17,7 @@ def load_playlists():
     """Load playlists into database."""
     
     Playlist.query.delete()
-    playlists = api.get_playlists()  #pass in username and sp
+    playlists = spotify.get_playlists()  #pass in username and sp
 
     for playlist in playlists[1:]:
 
@@ -35,7 +37,7 @@ def load_playlist_tracks():
     """Load tracks from a list of playlists into database."""
 
     TrackPlaylist.query.delete()
-    playlist_tracks = api.get_playlist_tracks()  #pass in username, sp, and list of playlists
+    playlist_tracks = spotify.get_playlist_tracks()  #pass in username, sp, and list of playlists
 
     for playlist_id, tracks in playlist_tracks:
         for track in tracks:
@@ -49,11 +51,11 @@ def load_playlist_tracks():
 
 def load_tracks():
      
-     Track.query.delete()
-     tracks = api.get_track_audio_features()  # pass in username, sp, and list of tracks
+    Track.query.delete()
+    tracks = spotify.get_track_audio_features()  # pass in username, sp, and list of tracks
 
-     for track in tracks:
-         add_track = Track(track_is = track['id'],
+    for track in tracks:
+        add_track = Track(track_is = track['id'],
                            key = track['key'],
                            mode = track['mode'],
                            danceability = track['danceability'],
@@ -118,8 +120,8 @@ if __name__ == "__main__":
     db.create_all()
 
     # Import data into db
-    load_keys()
-    load_matching_keys()
     load_playlists()
     load_playlist_tracks()
     load_tracks()
+    load_keys()
+    load_matching_keys()

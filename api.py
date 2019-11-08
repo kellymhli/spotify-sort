@@ -25,7 +25,7 @@ class Spotify:
 
 
     def __init__(self, username):
-        """Get Spotify oAuth authroization."""
+        """Get Spotify oAuth authroization and store attributes."""
 
         self.username = username
         self.token = self.get_access_token()
@@ -54,7 +54,7 @@ class Spotify:
                 track = item['track']
                 playlist = compiled_playlist_tracks.get(playlist_id, [])
                 playlist.append(track['id'])
-
+        print(compiled_playlist_tracks)
         return compiled_playlist_tracks
 
 
@@ -70,7 +70,8 @@ class Spotify:
         while results['next']:
             results = self.sp.next(results)
             playlists.extend(results['items'])
-
+        
+        print(playlists)
         return playlists
 
 
@@ -79,7 +80,7 @@ class Spotify:
 
         # Audio_features function returns a list of dictionaries.
         track_fts = self.sp.audio_features(track_list)
-
+        print(track_fts)
         return track_fts
 
         # for track in track_fts:
