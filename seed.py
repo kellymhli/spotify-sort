@@ -47,7 +47,7 @@ def load_playlist_tracks():
     db.session.commit()
 
 
-def load_track():
+def load_tracks():
      
      Track.query.delete()
 
@@ -119,3 +119,4 @@ if __name__ == "__main__":
     load_matching_keys()
     load_playlists()
     load_playlist_tracks()
+    load_tracks()
