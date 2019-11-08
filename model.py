@@ -12,15 +12,15 @@ class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    display_name = db.Column(db.String(50))
-    playlist_id = db.Column(db.Integer, db.ForeignKey("playlists.playlist_id"))
+    spotify_username = db.Column(db.String(25))
     url = db.Column(db.String(200))
+    token = db.Column(db.String(100))
     img_url = db.Column(db.String(200))
 
     # Set up relationships between tables
     # User can have many playlists
     playlists = db.relationship("Playlist",
-                                backref="users")
+                                backref="user")
 
     # User can have many tracks
     tracks = db.relationship("Track",
@@ -39,7 +39,7 @@ class Playlist(db.Model):
 
     playlist_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     pl_name = db.Column(db.String(50))
-    user_id = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
 
     # Set up relationship between playlists and tracks
     # Many-to-many relationship, so pass through playlist_track class

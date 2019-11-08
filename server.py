@@ -26,7 +26,7 @@ def authorization():
     username = request.args.get("username")
     spotify =  api.Spotify(username) # Request user authorization through Spotify
     session['username'] = username
-    session['spotify'] = spotify
+    # session['spotify'] = spotify
     return redirect("/callback")
 
 
