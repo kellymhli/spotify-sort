@@ -50,7 +50,6 @@ def load_playlist_tracks():
 def load_tracks():
      
      Track.query.delete()
-
      tracks = api.get_track_audio_features()  # pass in username, sp, and list of tracks
 
      for track in tracks:
@@ -68,6 +67,10 @@ def load_tracks():
                            href = track['track_href'],
                            duration = track['duration_ms'])
                            # name, user_id, playlist_id
+
+        db.session.add(add_track)
+    
+    db.session.commit()
 
 
 def load_keys():
