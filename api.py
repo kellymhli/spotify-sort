@@ -32,7 +32,8 @@ def authorize(username):
 def get_playlist_tracks(username, sp, playlist_list=['5vt2cOxZrcn9yVzTTIURJe', '4xP6FbKJ28lbo9JSqJ9MbZ']):
     """Print all the tracks in a playlist."""
 
-    file = open('seed_data/u.playlist-tracks', 'w+')
+    compiled_playlist_tracks = {}
+
     for playlist_id in playlist_list:
 
         # Get all tracks of a playlist.
@@ -44,12 +45,14 @@ def get_playlist_tracks(username, sp, playlist_list=['5vt2cOxZrcn9yVzTTIURJe', '
         while results['next']:
             results = sp.next(results)
             playlist_tracks.extend(results['items'])
-
+        
+        # Add to dictionary where key = playlist_id and value = list of tracks
         for item in playlist_tracks:
             track = item['track']
-            file.write(f"{playlist_id}|||{track['id']}\n")
+            playlist = compiled_playlist_tracks.get(playlist_id, [])
+            playlist.append(track['id'])
 
-    file.close()
+    return compiled_playlist_tracks
 
 
 def get_playlists():
