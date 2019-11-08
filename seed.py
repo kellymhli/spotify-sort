@@ -2,7 +2,7 @@
 # and seeds spotify database with that data
 
 import api
-from model import User, Playlist, TrackPlaylist, Track, Key, MatchingKey, connect_to_db, db
+from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connect_to_db, db
 from server import app
 
 def load_user():
@@ -15,7 +15,7 @@ def load_playlists():
     """Load playlists into database."""
     
     Playlist.query.delete()
-    playlists = api.get_playlists()
+    playlists = api.get_playlists()  #pass in username and sp
 
     for playlist in playlists[1:]:
 
@@ -31,10 +31,20 @@ def load_playlists():
     db.session.commit()
 
 
+def load_playlist_tracks():
+    """Load tracks from a list of playlists into database."""
+
+    TrackPlaylist.query.delete()
+    playlist_tracks = api.get_playlist_tracks()  #pass in username, sp, and list of playlists
+
+    for playlist_id, tracks in playlist_tracks:
+        for track in tracks:
+            playlist_track = PlaylistTrack(playlist_id = playlist_id,
+                                           track_id = track['id'])
+
+
 def load_keys():
     """Load music keys into database."""
-
-    Key.query.delete()
     
     for row in open("seed_data/u.keys"):
         row = row.rstrip()
@@ -43,7 +53,6 @@ def load_keys():
         # Parse file to get key id and name
         key_id = row_list[0]
         key_name = row_list[1:]  # List as some keys have more than one name
-        print(key_id, key_name)
 
         # Create new key entry for database.
         key = Key(key_id = key_id,
@@ -51,13 +60,12 @@ def load_keys():
 
         db.session.add(key)
 
-    db.session.commit()    
+    db.session.commit()   
+    print("Loaded keys to db.") 
 
 
 def load_matching_keys():
     """Load keys' matching keys into database."""
-
-    MatchingKey.query.delete()
 
     for row in open("seed_data/u.keymatch"):
         row = row.rstrip()
@@ -70,6 +78,7 @@ def load_matching_keys():
         db.session.add(matching_key)
     
     db.session.commit()
+    print("Loaded matching keys to db.")
 
 
 if __name__ == "__main__":
@@ -79,6 +88,7 @@ if __name__ == "__main__":
     db.create_all()
 
     # Import data into db
-    load_playlists()
     load_keys()
     load_matching_keys()
+    load_playlists()
+    load_playlist_tracks()

@@ -3,7 +3,7 @@ from flask import Flask, render_template, redirect, request, session
 from flask_debugtoolbar import DebugToolbarExtension
 import api
 
-from model import User, Playlist, TrackPlaylist, Track, Key, MatchingKey, connect_to_db, db
+from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connect_to_db, db
 
 app = Flask(__name__)
 app.secret_key = "ILIKEWIGGLINGTOMUSIC"
