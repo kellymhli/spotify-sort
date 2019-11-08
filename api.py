@@ -76,26 +76,29 @@ def get_track_audio_features(username, sp, track_list=['0Brf1s65f8eekORKK9gpe4',
 
     # Audio_features function returns a list of dictionaries.
     track_fts = sp.audio_features(track_list)
-    for track in track_fts:
-        #General info of track
-        track_id = track['id']
-        track_general_info = sp.track(track_id)
-        name = track_general_info['name']
-        # artist = 
-        user_id = username
-        # playlist_id = 
 
-        # Track features
-        key = track['key']
-        mode = track['mode']
-        danceability = track['danceability']
-        energy = track['energy']
-        instrumentalness = track['instrumentalness']
-        loudness = track['loudness']
-        speechiness = track['speechiness']
-        valence = track['valence']   
-        tempo = track['tempo']   
-        uri = track['uri']   
-        href = track['track_href']   
-        duration = track['duration_ms'] 
-        print(f"key: {key}, mode: {mode}, energy: {energy}, tempo: {tempo}, uri: {uri}")   
+    return track_fts
+    
+    # for track in track_fts:
+    #     #General info of track
+    #     track_id = track['id']
+    #     track_general_info = sp.track(track_id)
+    #     name = track_general_info['name']
+    #     # artist = 
+    #     user_id = username
+    #     # playlist_id = 
+
+    #     # Track features
+    #     key = track['key']
+    #     mode = track['mode']
+    #     danceability = track['danceability']
+    #     energy = track['energy']
+    #     instrumentalness = track['instrumentalness']
+    #     loudness = track['loudness']
+    #     speechiness = track['speechiness']
+    #     valence = track['valence']   
+    #     tempo = track['tempo']   
+    #     uri = track['uri']   
+    #     href = track['track_href']   
+    #     duration = track['duration_ms'] 
+    #     print(f"key: {key}, mode: {mode}, energy: {energy}, tempo: {tempo}, uri: {uri}")   

@@ -47,6 +47,29 @@ def load_playlist_tracks():
     db.session.commit()
 
 
+def load_track():
+     
+     Track.query.delete()
+
+     tracks = api.get_track_audio_features()  # pass in username, sp, and list of tracks
+
+     for track in tracks:
+         add_track = Track(track_is = track['id'],
+                           key = track['key'],
+                           mode = track['mode'],
+                           danceability = track['danceability'],
+                           energy = track['energy'],
+                           instrumentalness = track['instrumentalness'],
+                           loudness = track['loudness'],
+                           speechiness = track['speechiness'],
+                           valence = track['valence'],
+                           tempo = track['tempo'],
+                           uri = track['uri'],
+                           href = track['track_href'],
+                           duration = track['duration_ms'])
+                           # name, user_id, playlist_id
+
+
 def load_keys():
     """Load music keys into database."""
     
