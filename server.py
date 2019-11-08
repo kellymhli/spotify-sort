@@ -25,7 +25,7 @@ def authorization():
     """Process username to authorize access to user Spotify data."""
 
     username = request.args.get("username")
-    spotify =  api.authorize(username) # Request user authorization through Spotify
+    spotify =  api.Spotify(username) # Request user authorization through Spotify
     return redirect("/callback")
 
 
