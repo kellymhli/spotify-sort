@@ -41,6 +41,10 @@ def load_playlist_tracks():
         for track in tracks:
             playlist_track = PlaylistTrack(playlist_id = playlist_id,
                                            track_id = track['id'])
+        
+        db.session.add(playlist_track)
+    
+    db.session.commit()
 
 
 def load_keys():
