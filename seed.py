@@ -17,7 +17,7 @@ def load_playlists():
     """Load playlists into database."""
     
     Playlist.query.delete()
-    playlists = spotify.get_playlists()  #pass in username and sp
+    playlists = api.get_playlists()  #pass in username and sp
 
     for playlist in playlists[1:]:
 
@@ -37,7 +37,7 @@ def load_playlist_tracks():
     """Load tracks from a list of playlists into database."""
 
     TrackPlaylist.query.delete()
-    playlist_tracks = spotify.get_playlist_tracks()  #pass in username, sp, and list of playlists
+    playlist_tracks = api.get_playlist_tracks()  #pass in username, sp, and list of playlists
 
     for playlist_id, tracks in playlist_tracks:
         for track in tracks:
@@ -52,7 +52,7 @@ def load_playlist_tracks():
 def load_tracks():
      
     Track.query.delete()
-    tracks = spotify.get_track_audio_features()  # pass in username, sp, and list of tracks
+    tracks = api.get_track_audio_features()  # pass in username, sp, and list of tracks
 
     for track in tracks:
         add_track = Track(track_is = track['id'],
