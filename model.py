@@ -29,7 +29,7 @@ class User(db.Model):
     def __repr__(self):
         """Provide helpful representation of user."""
 
-        return f"<User id: {self.user_id} name: {self.display_name}>"
+        return f"<User id: {self.user_id}>"
 
 
 class Playlist(db.Model):
@@ -37,7 +37,7 @@ class Playlist(db.Model):
 
     __tablename__ = "playlists"
 
-    playlist_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    playlist_id = db.Column(db.String(200), primary_key=True)
     pl_name = db.Column(db.String(50))
     user_id = db.Column(db.String, db.ForeignKey("users.user_id"))
 
@@ -59,7 +59,7 @@ class PlaylistTrack(db.Model):
 
     __tablename__ = "playlist_tracks"
 
-    playlist_id = db.Column(db.Integer, db.ForeignKey("playlists.playlist_id"), primary_key=True)
+    playlist_id = db.Column(db.String(200), db.ForeignKey("playlists.playlist_id"), primary_key=True)
     track_id = db.Column(db.String(200), db.ForeignKey("tracks.track_id"))
 
     # Set up many-to-many relationship between playlists and tracks
@@ -81,8 +81,8 @@ class Track(db.Model):
     track_id = db.Column(db.String(200), primary_key=True)
     name = db.Column(db.String(300))
     artist = db.Column(db.String(100))
-    user_id = db.Column(db.String, db.ForeignKey("users.user_id"))
-    playlist_id = db.Column(db.Integer, db.ForeignKey("playlists.playlist_id"))
+    user_id = db.Column(db.String(100), db.ForeignKey("users.user_id"))
+    playlist_id = db.Column(db.String(200), db.ForeignKey("playlists.playlist_id"))
     key = db.Column(db.Integer, db.ForeignKey("keys.key_id"))
     mode = db.Column(db.Integer)  # Major/minor mode
     danceability = db.Column(db.Float)  # How suitable track if for dancing

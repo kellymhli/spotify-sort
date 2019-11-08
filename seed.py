@@ -16,22 +16,26 @@ def load_user(username, token):
 
 def load_playlists():
     """Load playlists into database."""
-    
+
     Playlist.query.delete()
-    playlists = api.get_playlists()  #pass in username and sp
+    users = db.session.query(User.user_id, User.token).all()
 
-    for playlist in playlists[1:]:
+    for user_id, token in users:
+        print(user_id, token)
+        playlists = api.get_playlists(user_id, token)  
 
-        # Create new playlist row
-        playlist = Playlist(playlist_id = playlist['id'],
-                            pl_name = playlist['name'],
-                            user_id = playlist['owner']['id'])
+        for playlist in playlists[1:]:
+
+            # Create new playlist row
+            playlist = Playlist(playlist_id = playlist['id'],
+                                pl_name = playlist['name'],
+                                user_id = playlist['owner']['id'])
+            
+            # Add playlist to database
+            db.session.add(playlist)
         
-        # Add playlist to database
-        db.session.add(playlist)
-    
-    # Commit added playlists to database.
-    db.session.commit()
+        # Commit added playlists to database.
+        db.session.commit()
 
 
 def load_playlist_tracks():
@@ -115,6 +119,8 @@ def load_matching_keys():
 
 
 if __name__ == "__main__":
+
+    from server import app
     connect_to_db(app)
 
     # In case tables haven't been created, create them

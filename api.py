@@ -23,9 +23,10 @@ def get_access_token(username):
         return None
 
 
-def get_playlist_tracks(playlist_list=['5vt2cOxZrcn9yVzTTIURJe', '4xP6FbKJ28lbo9JSqJ9MbZ']):
+def get_playlist_tracks(token, playlist_list=['5vt2cOxZrcn9yVzTTIURJe', '4xP6FbKJ28lbo9JSqJ9MbZ']):
     """Print all the tracks in a playlist."""
 
+    sp = spotipy.Spotify(auth=token)
     compiled_playlist_tracks = {}
 
     for playlist_id in playlist_list:
@@ -49,11 +50,13 @@ def get_playlist_tracks(playlist_list=['5vt2cOxZrcn9yVzTTIURJe', '4xP6FbKJ28lbo9
     return compiled_playlist_tracks
 
 
-def get_playlists():
+def get_playlists(user_id, token):
     """Print all user playlists."""
 
+    sp = spotipy.Spotify(auth=token)
+
     # Get user playlists
-    results = sp.user_playlists(username)
+    results = sp.user_playlists(user_id)
     playlists = results['items']
 
     # Number of playlists retrieved in inital call is limited.
@@ -66,8 +69,10 @@ def get_playlists():
     return playlists
 
 
-def get_track_audio_features(track_list=['0Brf1s65f8eekORKK9gpe4', '3hYdai5p5sQ3vAmHQ6uaK6']):
+def get_track_audio_features(token, track_list=['0Brf1s65f8eekORKK9gpe4', '3hYdai5p5sQ3vAmHQ6uaK6']):
     """Print audio features of a track."""
+
+    sp = spotipy.Spotify(auth=token)
 
     # Audio_features function returns a list of dictionaries.
     track_fts = sp.audio_features(track_list)
