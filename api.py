@@ -26,7 +26,7 @@ def authorize(username):
     """Get Spotify oAuth authroization."""
 
     token = get_access_token(username)
-    sp = spotify.Spotify(auth=token)
+    sp = spotipy.Spotify(auth=token)
 
 
 def get_playlist_tracks(username, sp, playlist_list=['5vt2cOxZrcn9yVzTTIURJe', '4xP6FbKJ28lbo9JSqJ9MbZ']):
