@@ -22,7 +22,7 @@ def get_access_token(self):
         return None
 
 
-def __init__(self, username):
+def authorize(self, username):
     """Get Spotify oAuth authroization and store attributes."""
 
     self.username = username
