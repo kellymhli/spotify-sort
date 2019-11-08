@@ -42,10 +42,10 @@ class Playlist(db.Model):
     user_id = db.Column(db.Integer)
 
     # Set up relationship between playlists and tracks
-    # Many-to-many relationship, so pass through track_playlist class
-    track_playlists = db.relationship("TrackPlaylist")
+    # Many-to-many relationship, so pass through playlist_track class
+    playlist_tracks = db.relationship("PlaylistTrack")
     tracks = db.relationship("Track",
-                             secondary="track_playlists",
+                             secondary="playlist_tracks",
                              backref="playlists")
 
     def __repr__(self):
@@ -54,10 +54,10 @@ class Playlist(db.Model):
         return f"Playlist id: {self.playlist_id} name: {self.pl_name}"
 
 
-class TrackPlaylist(db.Model):
+class PlaylistTrack(db.Model):
     """Playlists that a track is found in."""
 
-    __tablename__ = "track_playlists"
+    __tablename__ = "playlist_tracks"
 
     playlist_id = db.Column(db.Integer, db.ForeignKey("playlists.playlist_id"), primary_key=True)
     track_id = db.Column(db.String(200), db.ForeignKey("tracks.track_id"))
@@ -69,7 +69,7 @@ class TrackPlaylist(db.Model):
     def __repr__(self):
         """Provide useful informaton about playlist and track relationship."""
 
-        return f"<TrackPlaylist track: {self.track_id} playlist: {self.playlist_id}>"
+        return f"<PlaylistTrack track: {self.track_id} playlist: {self.playlist_id}>"
 
 
 class Track(db.Model):
@@ -96,8 +96,8 @@ class Track(db.Model):
     href = db.Column(db.String(300))
     duration = db.Column(db.Integer)
 
-    # Set up relationship between tracks, track_playlists, and playlists
-    track_playlists = db.relationship("TrackPlaylist")
+    # Set up relationship between tracks, playlist_tracks, and playlists
+    playlist_tracks = db.relationship("PlaylistTrack")
 
     def __repr__(self):
         """Provide useful information about track."""

@@ -52,7 +52,7 @@ def get_playlist_tracks(username, sp, playlist_list=['5vt2cOxZrcn9yVzTTIURJe', '
     file.close()
 
 
-def get_playlists(username, sp):
+def get_playlists():
     """Print all user playlists."""
 
     # Get user playlists
