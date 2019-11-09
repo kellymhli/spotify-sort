@@ -43,14 +43,18 @@ def load_playlists(user_id, token):
 def load_playlist_tracks(user_id, token):
     """Load tracks from a list of playlists into database."""
 
-    TrackPlaylist.query.delete()
+    PlaylistTrack.query.delete()
 
     # Get a list of a user's playlists
-    playlists = Playlist.query.filter(Playlist.user_id == user_id)
-    # Get tracks from user's playlists
-    playlist_tracks = api.get_playlist_tracks(playlist_list = playlists)  #pass in username, sp, and list of playlists
+    playlists = db.session.query(Playlist.playlist_id)
+    user_playlists = playlists.filter(Playlist.user_id == user_id).all()
+    playlist_list = [playlist[0] for playlist in user_playlists]
 
-    for playlist_id, tracks in playlist_tracks:
+    # Get tracks from user's playlists
+    playlist_tracks = api.get_playlist_tracks(user_id, token, playlist_list = playlist_list)
+
+    for playlist_id, tracks in playlist_tracks.items():
+        print(playlist_id, tracks)
         for track in tracks:
             playlist_track = PlaylistTrack(playlist_id = playlist_id,
                                            track_id = track['id'])

@@ -23,16 +23,15 @@ def get_access_token(username):
         return None
 
 
-def get_playlist_tracks(token, playlist_list=['5vt2cOxZrcn9yVzTTIURJe', '4xP6FbKJ28lbo9JSqJ9MbZ']):
+def get_playlist_tracks(user_id, token, playlist_list=['5vt2cOxZrcn9yVzTTIURJe', '4xP6FbKJ28lbo9JSqJ9MbZ']):
     """Print all the tracks in a playlist."""
 
     sp = spotipy.Spotify(auth=token)
     compiled_playlist_tracks = {}
 
     for playlist_id in playlist_list:
-
         # Get all tracks of a playlist.
-        results = sp.user_playlist_tracks(username, playlist_id)
+        results = sp.user_playlist_tracks(user_id, playlist_id)
         playlist_tracks = results['items']
 
         # If number of tracks exceeds the limit,
@@ -45,6 +44,7 @@ def get_playlist_tracks(token, playlist_list=['5vt2cOxZrcn9yVzTTIURJe', '4xP6FbK
         for item in playlist_tracks:
             track = item['track']
             playlist = compiled_playlist_tracks.get(playlist_id, [])
+            print(playlist)
             playlist.append(track['id'])
     print(compiled_playlist_tracks)
     return compiled_playlist_tracks
@@ -65,7 +65,6 @@ def get_playlists(user_id, token):
         results = sp.next(results)
         playlists.extend(results['items'])
     
-    print(playlists)
     return playlists
 
 
