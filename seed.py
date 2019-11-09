@@ -7,42 +7,48 @@ from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connec
 def load_user(username, token):
     """Load user information into database."""
 
-    user = User(user_id = username, 
-                token = token)
+    # Update user token in db if user already in the db
+    # Otherwise create new user and add to db
+    user_info = User.query.get(username)
+    if user_info != None:
+        user_info.token = token
+    else:
+        user = User(user_id = username, 
+                    token = token)
+        db.session.add(user)
 
-    db.session.add(user)
     db.session.commit()
 
 
-def load_playlists():
+def load_playlists(user_id, token):
     """Load playlists into database."""
 
     Playlist.query.delete()
-    users = db.session.query(User.user_id, User.token).all()
 
-    for user_id, token in users:
-        print(user_id, token)
-        playlists = api.get_playlists(user_id, token)  
+    playlists = api.get_playlists(user_id, token)  # Get a list of all 
 
-        for playlist in playlists[1:]:
-
-            # Create new playlist row
-            playlist = Playlist(playlist_id = playlist['id'],
-                                pl_name = playlist['name'],
-                                user_id = playlist['owner']['id'])
-            
-            # Add playlist to database
-            db.session.add(playlist)
+    for playlist in playlists:
+        # Create new playlist row
+        playlist = Playlist(playlist_id = playlist['id'],
+                            pl_name = playlist['name'],
+                            user_id = playlist['owner']['id'])
         
-        # Commit added playlists to database.
-        db.session.commit()
+        # Add playlist to database
+        db.session.add(playlist)
+    
+    # Commit added playlists to database.
+    db.session.commit()
 
 
-def load_playlist_tracks():
+def load_playlist_tracks(user_id, token):
     """Load tracks from a list of playlists into database."""
 
     TrackPlaylist.query.delete()
-    playlist_tracks = api.get_playlist_tracks()  #pass in username, sp, and list of playlists
+
+    # Get a list of a user's playlists
+    playlists = Playlist.query.filter(Playlist.user_id == user_id)
+    # Get tracks from user's playlists
+    playlist_tracks = api.get_playlist_tracks(playlist_list = playlists)  #pass in username, sp, and list of playlists
 
     for playlist_id, tracks in playlist_tracks:
         for track in tracks:
@@ -54,7 +60,7 @@ def load_playlist_tracks():
     db.session.commit()
 
 
-def load_tracks():
+def load_tracks(user_id, token):
      
     Track.query.delete()
     tracks = api.get_track_audio_features()  # pass in username, sp, and list of tracks
@@ -126,9 +132,13 @@ if __name__ == "__main__":
     # In case tables haven't been created, create them
     db.create_all()
 
-    # Import data into db
-    load_playlists()
-    load_playlist_tracks()
-    load_tracks()
+    users = db.session.query(User.user_id, User.token).all()  # Get users from db
+
+    # Import info into db
+    for user_id, token in users:
+        load_playlists(user_id, token)
+        load_playlist_tracks(user_id, token)
+        load_tracks(user_id, token)
+
     load_keys()
     load_matching_keys()
