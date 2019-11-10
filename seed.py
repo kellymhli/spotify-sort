@@ -56,9 +56,13 @@ def load_playlist_tracks(user_id, token):
     for playlist_id, tracks in playlist_tracks.items():
         print('\n\n\n\n', playlist_id, '\n', tracks)
         for track in tracks:
+            if Track.query.filter(Track.track_id == track).one_or_none() == None:
+                add_track = Track(track_id = track)
+                db.session.add(add_track)
+
             playlist_track = PlaylistTrack(playlist_id = playlist_id,
                                            track_id = track)
-        
+            
             db.session.add(playlist_track)
     
     db.session.commit()
@@ -93,6 +97,8 @@ def load_tracks(user_id, token):
 def load_keys():
     """Load music keys into database."""
     
+    Key.query.delete()
+
     for row in open("seed_data/u.keys"):
         row = row.rstrip()
         row_list = row.split("|")
@@ -113,6 +119,8 @@ def load_keys():
 
 def load_matching_keys():
     """Load keys' matching keys into database."""
+
+    MatchingKey.query.delete()
 
     for row in open("seed_data/u.keymatch"):
         row = row.rstrip()
@@ -141,8 +149,8 @@ if __name__ == "__main__":
     # Import info into db
     for user_id, token in users:
         load_playlists(user_id, token)
-        load_playlist_tracks(user_id, token)
         load_tracks(user_id, token)
+        load_playlist_tracks(user_id, token)
 
-    load_keys()
-    load_matching_keys()
+    # load_keys()
+    # load_matching_keys()

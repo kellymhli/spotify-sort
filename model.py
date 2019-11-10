@@ -59,6 +59,7 @@ class PlaylistTrack(db.Model):
 
     __tablename__ = "playlist_tracks"
 
+    playList_track_pair = db.Column(db.Integer, autoincrement=True, primary_key=True)
     playlist_id = db.Column(db.String(200), db.ForeignKey("playlists.playlist_id"), primary_key=True)
     track_id = db.Column(db.String(200), db.ForeignKey("tracks.track_id"))
 
