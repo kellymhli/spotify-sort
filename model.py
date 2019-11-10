@@ -80,7 +80,7 @@ class Track(db.Model):
     __tablename__ = "tracks"
 
     track_id = db.Column(db.String(200), primary_key=True)
-    name = db.Column(db.String(300))
+    track_name = db.Column(db.String(300))
     artist = db.Column(db.String(100))
     user_id = db.Column(db.String(100), db.ForeignKey("users.user_id"))
     playlist_id = db.Column(db.String(200), db.ForeignKey("playlists.playlist_id"))

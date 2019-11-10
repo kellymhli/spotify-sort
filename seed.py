@@ -40,6 +40,33 @@ def load_playlists(user_id, token):
     db.session.commit()
 
 
+def load_tracks(user_id, token):
+     
+    Track.query.delete()
+    tracks = api.get_track_audio_features(token)  # pass in username, sp, and list of tracks
+
+    for track in tracks:
+        add_track = Track(track_id = track['id'],
+                           key = track['key'],
+                           mode = track['mode'],
+                           danceability = track['danceability'],
+                           energy = track['energy'],
+                           instrumentalness = track['instrumentalness'],
+                           loudness = track['loudness'],
+                           speechiness = track['speechiness'],
+                           valence = track['valence'],
+                           tempo = track['tempo'],
+                           uri = track['uri'],
+                           href = track['track_href'],
+                           duration = track['duration_ms'],
+                           user_id = user_id)
+                           # track_name, playlist_id
+
+        db.session.add(add_track)
+    
+    db.session.commit()
+
+
 def load_playlist_tracks(user_id, token):
     """Load tracks from a list of playlists into database."""
 
@@ -68,35 +95,10 @@ def load_playlist_tracks(user_id, token):
     db.session.commit()
 
 
-def load_tracks(user_id, token):
-     
-    Track.query.delete()
-    tracks = api.get_track_audio_features()  # pass in username, sp, and list of tracks
-
-    for track in tracks:
-        add_track = Track(track_is = track['id'],
-                           key = track['key'],
-                           mode = track['mode'],
-                           danceability = track['danceability'],
-                           energy = track['energy'],
-                           instrumentalness = track['instrumentalness'],
-                           loudness = track['loudness'],
-                           speechiness = track['speechiness'],
-                           valence = track['valence'],
-                           tempo = track['tempo'],
-                           uri = track['uri'],
-                           href = track['track_href'],
-                           duration = track['duration_ms'])
-                           # name, user_id, playlist_id
-
-        db.session.add(add_track)
-    
-    db.session.commit()
-
-
 def load_keys():
     """Load music keys into database."""
     
+    MatchingKey.query.delete()
     Key.query.delete()
 
     for row in open("seed_data/u.keys"):
@@ -119,8 +121,6 @@ def load_keys():
 
 def load_matching_keys():
     """Load keys' matching keys into database."""
-
-    MatchingKey.query.delete()
 
     for row in open("seed_data/u.keymatch"):
         row = row.rstrip()
@@ -146,11 +146,11 @@ if __name__ == "__main__":
 
     users = db.session.query(User.user_id, User.token).all()  # Get users from db
 
+    load_keys()
+    load_matching_keys()
+
     # Import info into db
     for user_id, token in users:
         load_playlists(user_id, token)
         load_tracks(user_id, token)
         load_playlist_tracks(user_id, token)
-
-    # load_keys()
-    # load_matching_keys()
