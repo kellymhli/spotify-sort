@@ -54,12 +54,12 @@ def load_playlist_tracks(user_id, token):
     playlist_tracks = api.get_playlist_tracks(user_id, token, playlist_list = playlist_list)
 
     for playlist_id, tracks in playlist_tracks.items():
-        print(playlist_id, tracks)
+        print('\n\n\n\n', playlist_id, '\n', tracks)
         for track in tracks:
             playlist_track = PlaylistTrack(playlist_id = playlist_id,
-                                           track_id = track['id'])
+                                           track_id = track)
         
-        db.session.add(playlist_track)
+            db.session.add(playlist_track)
     
     db.session.commit()
 

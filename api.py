@@ -32,6 +32,7 @@ def get_playlist_tracks(user_id, token, playlist_list=['5vt2cOxZrcn9yVzTTIURJe',
     for playlist_id in playlist_list:
         # Get all tracks of a playlist.
         results = sp.user_playlist_tracks(user_id, playlist_id)
+        compiled_playlist_tracks[playlist_id] = []
         playlist_tracks = results['items']
 
         # If number of tracks exceeds the limit,
@@ -43,10 +44,8 @@ def get_playlist_tracks(user_id, token, playlist_list=['5vt2cOxZrcn9yVzTTIURJe',
         # Add to dictionary where key = playlist_id and value = list of tracks
         for item in playlist_tracks:
             track = item['track']
-            playlist = compiled_playlist_tracks.get(playlist_id, [])
-            print(playlist)
-            playlist.append(track['id'])
-    print(compiled_playlist_tracks)
+            compiled_playlist_tracks[playlist_id].append(track['id'])
+
     return compiled_playlist_tracks
 
 
