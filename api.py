@@ -100,3 +100,11 @@ def get_track_audio_features(token, track_list=['0Brf1s65f8eekORKK9gpe4', '3hYda
     #     href = track['track_href']   
     #     duration = track['duration_ms'] 
     #     print(f"key: {key}, mode: {mode}, energy: {energy}, tempo: {tempo}, uri: {uri}")   
+
+def get_track_general_info(token, track_id):
+    """Return the general info of a track."""
+
+    sp = spotipy.Spotify(auth=token)
+    track_general_info = sp.track(track_id)
+
+    return track_general_info

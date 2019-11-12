@@ -82,21 +82,34 @@ def load_playlist_tracks(user_id, token):
     print(playlist_tracks)
 
     for playlist_id, tracks in playlist_tracks.items():
-        print(playlist_id)
-        for track_id in tracks:
-            track_feats = api.get_track_audio_features(token, [track_id])
-            print(track_feats['key'])
-            if Track.query.filter(Track.track_id == track_id).one_or_none() == None:
-                add_track = Track(track_id = track_id,
-                                  user_id = user_id, 
-                                  playlist_id = playlist_id, 
-                                  key = track_feats['key'])
-                db.session.add(add_track)
+        # Call load_track function to load tracks from playlist into tracks table
+        load_tracks(user_id, token, tracks, playlist_id)
 
+        # Add track and playlist ids to playlist_tracks table
+        for track in tracks:
             playlist_track = PlaylistTrack(playlist_id = playlist_id,
                                            track_id = track)
-            
             db.session.add(playlist_track)
+    
+    db.session.commit()
+
+
+def load_tracks(user_id, token, tracks, playlist_id):
+    """Load track into database."""
+
+    # Get detailed audio features of each track in a list of tracks
+    tracks_feats = api.get_track_audio_features(token, tracks)
+
+    for track in tracks_feats:
+        # Different call to general info of a track given the id
+        track_general_info = api.get_track_general_info(token, track['id'])
+
+        if Track.query.filter(Track.track_id == track['id']).one_or_none() == None:
+            add_track = Track(track_id = track['id'],
+                              user_id = user_id, 
+                              playlist_id = playlist_id, 
+                              key = track['key'])
+            db.session.add(add_track)
     
     db.session.commit()
 
@@ -159,5 +172,4 @@ if __name__ == "__main__":
     # Import info into db
     for user_id, token in users:
         load_playlists(user_id, token)
-        load_tracks(user_id, token)
         load_playlist_tracks(user_id, token)
