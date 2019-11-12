@@ -81,7 +81,7 @@ def load_playlist_tracks(user_id, token):
     playlist_tracks = api.get_playlist_tracks(user_id, token, playlist_list = playlist_list)
 
     for playlist_id, tracks in playlist_tracks.items():
-        print('\n\n\n\n', playlist_id, '\n', tracks)
+        print(playlist_id)
         for track in tracks:
             if Track.query.filter(Track.track_id == track).one_or_none() == None:
                 add_track = Track(track_id = track)
