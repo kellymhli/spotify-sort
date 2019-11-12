@@ -79,12 +79,18 @@ def load_playlist_tracks(user_id, token):
 
     # Get tracks from user's playlists
     playlist_tracks = api.get_playlist_tracks(user_id, token, playlist_list = playlist_list)
+    print(playlist_tracks)
 
     for playlist_id, tracks in playlist_tracks.items():
         print(playlist_id)
-        for track in tracks:
-            if Track.query.filter(Track.track_id == track).one_or_none() == None:
-                add_track = Track(track_id = track)
+        for track_id in tracks:
+            track_feats = api.get_track_audio_features(token, [track_id])
+            print(track_feats['key'])
+            if Track.query.filter(Track.track_id == track_id).one_or_none() == None:
+                add_track = Track(track_id = track_id,
+                                  user_id = user_id, 
+                                  playlist_id = playlist_id, 
+                                  key = track_feats['key'])
                 db.session.add(add_track)
 
             playlist_track = PlaylistTrack(playlist_id = playlist_id,
@@ -98,6 +104,7 @@ def load_playlist_tracks(user_id, token):
 def load_keys():
     """Load music keys into database."""
     
+    # Delete and tables everytime seed.py is called to prevent multiple entries
     MatchingKey.query.delete()
     Key.query.delete()
 
