@@ -155,9 +155,12 @@ def load_user(user_id, token):
         user = User(user_id = user_id, 
                     token = token)
         db.session.add(user)
-        # Load user's playlists, and tracks into db
-        load_playlists(user_id, token)
-        load_playlist_tracks(user_id, token)
+
+    # Load user's playlists, and tracks into db
+    load_playlists(user_id, token)
+    print("load playlists")
+    load_playlist_tracks(user_id, token)
+    print("load playlist tracks")
 
     db.session.commit()
 
