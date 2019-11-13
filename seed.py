@@ -4,22 +4,6 @@
 import api
 from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connect_to_db, db
 
-def load_user(username, token):
-    """Load user information into database."""
-
-    # Update user token in db if user already in the db
-    # Otherwise create new user and add to db
-    user_info = User.query.get(username)
-    if user_info != None:
-        user_info.token = token
-    else:
-        user = User(user_id = username, 
-                    token = token)
-        db.session.add(user)
-
-    db.session.commit()
-
-
 def load_playlists(user_id, token):
     """Load playlists into database."""
 
@@ -159,20 +143,38 @@ def load_matching_keys():
     print("Loaded matching keys to db.")
 
 
+def load_user(user_id, token):
+    """Load user information into database."""
+
+    # Update user token in db if user already in the db
+    # Otherwise create new user and add to db
+    user_info = User.query.get(user_id)
+    if user_info != None:
+        user_info.token = token
+    else:
+        user = User(user_id = user_id, 
+                    token = token)
+        db.session.add(user)
+        # Load user's playlists, and tracks into db
+        load_playlists(user_id, token)
+        load_playlist_tracks(user_id, token)
+
+    db.session.commit()
+
+
 if __name__ == "__main__":
 
     from server import app
     connect_to_db(app)
 
-    # In case tables haven't been created, create them
+    # Incase tables haven't been created, create them
     db.create_all()
-
-    users = db.session.query(User.user_id, User.token).all()  # Get users from db
-
     load_keys()
     load_matching_keys()
 
-    # Import info into db
-    for user_id, token in users:
-        load_playlists(user_id, token)
-        load_playlist_tracks(user_id, token)
+    # users = db.session.query(User.user_id, User.token).all()  # Get users from db
+
+    # # Import info into db
+    # for user_id, token in users:
+    #     load_playlists(user_id, token)
+    #     load_playlist_tracks(user_id, token)
