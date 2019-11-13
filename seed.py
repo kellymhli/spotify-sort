@@ -7,9 +7,7 @@ from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connec
 def load_playlists(user_id, token):
     """Load playlists into database."""
 
-    Playlist.query.delete()
-
-    playlists = api.get_playlists(user_id, token)  # Get a list of all 
+    playlists = api.get_playlists(user_id, token)
 
     for playlist in playlists:
         # Create new playlist row
@@ -39,7 +37,7 @@ def load_tracks(user_id, token, tracks, playlist_id):
         if Track.query.filter(Track.track_id == track['id']).one_or_none() == None:
             add_track = Track(track_id = track['id'],
                               track_name = track_general_info['name'],
-                              #artist = track_general_info[0]['artists']['name'],
+                              artist = track_general_info['album']['artists'][0]['name'],
                               user_id = user_id, 
                               playlist_id = playlist_id, 
                               key = track['key'],
@@ -81,7 +79,8 @@ def load_playlist_tracks(user_id, token):
 
         # Spotipy API call is limited to 50 tracks per call 
         # Make multiple calls to load tracks of playlists with >50 tracks
-        while num_tracks > 50:
+        while num_tracks >= 50:
+            print(start_list, end_list, num_tracks)
             tracks_list = tracks[start_list : end_list]
             # Load tracks from playlist into tracks table in db
             load_tracks(user_id, token, tracks_list, playlist_id)
