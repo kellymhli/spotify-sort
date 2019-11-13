@@ -173,8 +173,3 @@ if __name__ == "__main__":
     load_matching_keys()
 
     # users = db.session.query(User.user_id, User.token).all()  # Get users from db
-
-    # # Import info into db
-    # for user_id, token in users:
-    #     load_playlists(user_id, token)
-    #     load_playlist_tracks(user_id, token)
