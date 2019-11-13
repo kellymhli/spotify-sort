@@ -93,7 +93,7 @@ class Track(db.Model):
     speechiness = db.Column(db.Float)
     valence = db.Column(db.Float)  # Positiveness of track
     tempo = db.Column(db.Float)  # BPM
-    uri = db.Column(db.String(200))
+    uri = db.Column(db.String(1000))
     href = db.Column(db.String(300))
     duration = db.Column(db.Integer)
 

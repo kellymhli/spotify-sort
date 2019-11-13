@@ -40,29 +40,36 @@ def load_playlists(user_id, token):
     db.session.commit()
 
 
-def load_tracks(user_id, token):
-     
-    Track.query.delete()
-    tracks = api.get_track_audio_features(token)  # pass in username, sp, and list of tracks
+def load_tracks(user_id, token, tracks, playlist_id):
+    """Load track into database."""
 
-    for track in tracks:
-        add_track = Track(track_id = track['id'],
-                           key = track['key'],
-                           mode = track['mode'],
-                           danceability = track['danceability'],
-                           energy = track['energy'],
-                           instrumentalness = track['instrumentalness'],
-                           loudness = track['loudness'],
-                           speechiness = track['speechiness'],
-                           valence = track['valence'],
-                           tempo = track['tempo'],
-                           uri = track['uri'],
-                           href = track['track_href'],
-                           duration = track['duration_ms'],
-                           user_id = user_id)
-                           # track_name, playlist_id
+    print(f'Loading tracks from playlist: {playlist_id}')
+    
+    # Get detailed audio features of each track in a list of tracks
+    tracks_feats = api.get_track_audio_features(token, tracks)
 
-        db.session.add(add_track)
+    for track in tracks_feats:
+        # Different call to general info of a track given the id
+        track_general_info = api.get_track_general_info(token, track['id'])
+
+        if Track.query.filter(Track.track_id == track['id']).one_or_none() == None:
+            add_track = Track(track_id = track['id'],
+                              user_id = user_id, 
+                              playlist_id = playlist_id, 
+                              key = track['key'],
+                              mode = track['mode'],
+                              danceability = track['danceability'],
+                              energy = track['energy'],
+                              instrumentalness = track['instrumentalness'],
+                              loudness = track['loudness'],
+                              speechiness = track['speechiness'],
+                              valence = track['valence'],
+                              tempo = track['tempo'],
+                              uri = track['uri'],
+                              href = track['track_href'],
+                              duration = track['duration_ms']
+                              )
+            db.session.add(add_track)
     
     db.session.commit()
 
@@ -79,10 +86,9 @@ def load_playlist_tracks(user_id, token):
 
     # Get tracks from user's playlists
     playlist_tracks = api.get_playlist_tracks(user_id, token, playlist_list = playlist_list)
-    print(playlist_tracks)
 
     for playlist_id, tracks in playlist_tracks.items():
-        # Call load_track function to load tracks from playlist into tracks table
+        # Load tracks from playlist into tracks table in db
         load_tracks(user_id, token, tracks, playlist_id)
 
         # Add track and playlist ids to playlist_tracks table
@@ -90,26 +96,6 @@ def load_playlist_tracks(user_id, token):
             playlist_track = PlaylistTrack(playlist_id = playlist_id,
                                            track_id = track)
             db.session.add(playlist_track)
-    
-    db.session.commit()
-
-
-def load_tracks(user_id, token, tracks, playlist_id):
-    """Load track into database."""
-
-    # Get detailed audio features of each track in a list of tracks
-    tracks_feats = api.get_track_audio_features(token, tracks)
-
-    for track in tracks_feats:
-        # Different call to general info of a track given the id
-        track_general_info = api.get_track_general_info(token, track['id'])
-
-        if Track.query.filter(Track.track_id == track['id']).one_or_none() == None:
-            add_track = Track(track_id = track['id'],
-                              user_id = user_id, 
-                              playlist_id = playlist_id, 
-                              key = track['key'])
-            db.session.add(add_track)
     
     db.session.commit()
 

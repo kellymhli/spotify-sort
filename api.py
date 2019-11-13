@@ -24,7 +24,7 @@ def get_access_token(username):
 
 
 def get_playlist_tracks(user_id, token, playlist_list=['5vt2cOxZrcn9yVzTTIURJe', '4xP6FbKJ28lbo9JSqJ9MbZ']):
-    """Print all the tracks in a playlist."""
+    """Return all the tracks in a playlist."""
 
     sp = spotipy.Spotify(auth=token)
     compiled_playlist_tracks = {}
@@ -50,7 +50,7 @@ def get_playlist_tracks(user_id, token, playlist_list=['5vt2cOxZrcn9yVzTTIURJe',
 
 
 def get_playlists(user_id, token):
-    """Print all user playlists."""
+    """Return all user playlists."""
 
     sp = spotipy.Spotify(auth=token)
 
@@ -68,13 +68,12 @@ def get_playlists(user_id, token):
 
 
 def get_track_audio_features(token, track_list=['0Brf1s65f8eekORKK9gpe4', '3hYdai5p5sQ3vAmHQ6uaK6']):
-    """Print audio features of a track."""
+    """Return audio features of a track."""
 
     sp = spotipy.Spotify(auth=token)
 
     # Audio_features function returns a list of dictionaries.
     track_fts = sp.audio_features(track_list)
-    print(track_fts)
     return track_fts
 
     # for track in track_fts:
@@ -83,8 +82,6 @@ def get_track_audio_features(token, track_list=['0Brf1s65f8eekORKK9gpe4', '3hYda
     #     track_general_info = self.sp.track(track_id)
     #     name = track_general_info['name']
     #     # artist = 
-    #     user_id = self.username
-    #     # playlist_id = 
 
     #     # Track features
     #     key = track['key']
