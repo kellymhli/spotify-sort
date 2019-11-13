@@ -33,8 +33,10 @@ def authorization():
 def display_playlists():
     """Display list of playlists to select and view."""
 
-    playlists = db.session.query(Playlist.pl_name).all()
-    return render_template("playlists.html")
+    # Get list of playlist names
+    playlists = [playlist[0] for playlist in db.session.query(Playlist.pl_name).all()]
+    return render_template("playlists.html", playlists=playlists)
+
 
 @app.route("/callback")
 def callback():
