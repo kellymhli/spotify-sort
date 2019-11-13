@@ -29,6 +29,13 @@ def authorization():
     return redirect("/callback")
 
 
+@app.route("/playlists")
+def display_playlists():
+    """Display list of playlists to select and view."""
+
+    playlists = db.session.query(Playlist.pl_name).all()
+    return render_template("playlists.html")
+
 @app.route("/callback")
 def callback():
     """Callback page after authorization through spotify."""
