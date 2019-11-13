@@ -83,21 +83,6 @@ def get_track_audio_features(token, track_list=['0Brf1s65f8eekORKK9gpe4', '3hYda
     #     name = track_general_info['name']
     #     # artist = 
 
-    #     # Track features
-    #     key = track['key']
-    #     mode = track['mode']
-    #     danceability = track['danceability']
-    #     energy = track['energy']
-    #     instrumentalness = track['instrumentalness']
-    #     loudness = track['loudness']
-    #     speechiness = track['speechiness']
-    #     valence = track['valence']   
-    #     tempo = track['tempo']   
-    #     uri = track['uri']   
-    #     href = track['track_href']   
-    #     duration = track['duration_ms'] 
-    #     print(f"key: {key}, mode: {mode}, energy: {energy}, tempo: {tempo}, uri: {uri}")   
-
 def get_track_general_info(token, track_id):
     """Return the general info of a track."""
 

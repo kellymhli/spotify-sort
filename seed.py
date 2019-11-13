@@ -54,6 +54,8 @@ def load_tracks(user_id, token, tracks, playlist_id):
 
         if Track.query.filter(Track.track_id == track['id']).one_or_none() == None:
             add_track = Track(track_id = track['id'],
+                              track_name = track_general_info['name'],
+                              #artist = track_general_info[0]['artists']['name'],
                               user_id = user_id, 
                               playlist_id = playlist_id, 
                               key = track['key'],
@@ -67,7 +69,7 @@ def load_tracks(user_id, token, tracks, playlist_id):
                               tempo = track['tempo'],
                               uri = track['uri'],
                               href = track['track_href'],
-                              duration = track['duration_ms']
+                              duration = track['duration_ms'], 
                               )
             db.session.add(add_track)
     
@@ -88,8 +90,23 @@ def load_playlist_tracks(user_id, token):
     playlist_tracks = api.get_playlist_tracks(user_id, token, playlist_list = playlist_list)
 
     for playlist_id, tracks in playlist_tracks.items():
-        # Load tracks from playlist into tracks table in db
-        load_tracks(user_id, token, tracks, playlist_id)
+
+        num_tracks = len(tracks)
+        start_list = 0
+        end_list = 50
+
+        # Spotipy API call is limited to 50 tracks per call 
+        # Make multiple calls to load tracks of playlists with >50 tracks
+        while num_tracks > 50:
+            tracks_list = tracks[start_list : end_list]
+            # Load tracks from playlist into tracks table in db
+            load_tracks(user_id, token, tracks_list, playlist_id)
+            start_list += 50
+            end_list += 50
+            num_tracks -= 50
+        
+        tracks_list = tracks[start_list : start_list + num_tracks]
+        load_tracks(user_id, token, tracks_list, playlist_id)
 
         # Add track and playlist ids to playlist_tracks table
         for track in tracks:
