@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}Playlists{% endblock %}
 {% block content %}
+    <h1>Playlists</h1>
     {% for playlist in playlists %}
-        <div> {{ playlist }} </div>
+        <div id={{ playlist[0] }}> 
+            <a href="{{ playlist[0] }}">{{ playlist[1] }}</a>
+            {% comment %} <div id="pl_snapshot">List of tracks to display for "{{ playlist[1] }}" on click</div> {% endcomment %}
+        </div>
     {% endfor %}
 {% endblock %}
