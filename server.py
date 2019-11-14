@@ -33,9 +33,17 @@ def authorization():
 def display_playlists():
     """Display list of playlists to select and view."""
 
-    # Get list of playlist names
+    # Get list of tuples of (playlist_id, pl_name)
     playlists = [playlist for playlist in db.session.query(Playlist.playlist_id, Playlist.pl_name).all()]
-    return render_template("playlists.html", playlists=playlists)
+    all_playlist_tracks = PlaylistTrack.query
+    tracks_by_playlists = {}
+    for playlist in playlists:
+        playlist_tracks = all_playlist_tracks.filter(PlaylistTrack.playlist_id == playlist[0]).all()
+        tracks_by_playlists[playlist[0]] = playlist_tracks
+
+    return render_template("playlists.html", 
+                           playlists=playlists,
+                           tracks_by_playlists=tracks_by_playlists)
 
 
 @app.route("/callback")

@@ -7,9 +7,12 @@
 
     {% for playlist in playlists %}
         <div class={{ playlist[0] }}> 
-            <input type="checkbox" id={{ playlist[0] }}>
-            {{ playlist[1] }}
-            <div class="modal" id="{{ playlist[0] }}-modal"></div>
+            <input type="checkbox" id="{{ playlist[0] }}">
+                {{ playlist[1] }}
+                <br>
+                {% for tracks in tracks_by_playlists[playlist[0]] %}
+                    {{ tracks.track_id }}
+                {% endfor %}
             </input>
         </div>
     {% endfor %}
