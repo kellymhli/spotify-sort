@@ -30,7 +30,11 @@
         </select>
 
         Valence:
-        <input type="checkbox" id="valence"></input>
+        <select>
+            {% for valence in valence_range %}
+                <option value="{{ valence }}">{{ valence }}</option>
+            {% endfor %}
+        </select>
 
         BPM:
         <select>
