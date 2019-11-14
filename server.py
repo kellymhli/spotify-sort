@@ -55,9 +55,7 @@ def display_playlists():
     bpm_range = [bpm for bpm in range(50, 201, 5)]
 
     # List of valence from 0-1 at 0.2 increments
-    valence_range = [0.2, 0.4, 0.6, 0.8, 1]
-    moods = ["depressed", "sad", "neutral", "happy", "euphoric"]
-    valence_dict = {}
+    valence_dict = {"Depressed": 0.2, "Dad": 0.4, "Neutral": 0.6, "Happy": 0.8, "Euphoric": 1}
 
     return render_template("playlists.html", 
                            playlists=playlists,
@@ -65,7 +63,7 @@ def display_playlists():
                            keys=keys,
                            tracks=tracks,
                            bpm_range=bpm_range,
-                           valence_range=valence_range)
+                           valence_dict=valence_dict)
 
 
 @app.route("/callback")

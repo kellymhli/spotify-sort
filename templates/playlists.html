@@ -31,8 +31,8 @@
 
         Valence:
         <select>
-            {% for valence in valence_range %}
-                <option value="{{ valence }}">{{ valence }}</option>
+            {% for mood, valence in valence_dict.items() %}
+                <option value="{{ valence }}">{{ mood }}</option>
             {% endfor %}
         </select>
 
