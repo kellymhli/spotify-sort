@@ -12,11 +12,14 @@
                     {{ playlist[1] }}
                 </input>
             </p>
-            <br>
+            <button id="modalBtn" class="button">Tracks</button>
             <div class="modal" id="{{playlist[0]}}-modal">
-                {% for tracks in tracks_by_playlists[playlist[0]] %}
-                    {{ tracks.track_id }}<br>
-                {% endfor %}
+                <div class="modal-content">
+                    <span class="closeBtn">&times;</span>
+                    {% for tracks in tracks_by_playlists[playlist[0]] %}
+                        {{ tracks.track_id }}<br>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     {% endfor %}
