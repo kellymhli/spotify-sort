@@ -4,7 +4,7 @@
     <h1>Playlists</h1>
 
     <form action="/new-playlist" method="post">
-        {% for playlist in playlists %}
+        {% for playlist in playlists_alt %}
             <div class={{ playlist[0] }}> 
                 <input type="checkbox" id="{{ playlist[0] }}">
                     {{ playlist[1] }}

@@ -23,6 +23,22 @@ def index():
 
     return render_template("homepage.html")
 
+@app.route('/login', methods=["GET"])
+def login_page():
+    return render_template('login.html')
+
+@app.route('/login', methods=["POST"])
+def login():
+    username = request.form.get('username')
+    print(username, "\n\n\n\n\n")
+    user = User.query.filter(User.user_id==username).one()
+    session['user_id'] = user.user_id
+
+    return redirect("/playlists")
+# code snippets for login route
+## get user id from a login form
+# session["user_id"] = username
+# print(session)
 
 @app.route("/auth")
 def authorization():
@@ -37,49 +53,63 @@ def authorization():
 
 @app.route("/playlists")
 def display_playlists():
-    """Display list of playlists to select and view."""
 
-    # username = session.get("user_id")
-    # print(username)
+    playlists = Playlist.query.filter(Playlist.user_id==session['user_id'])
 
-    # Get list of tuples of (playlist_id, pl_name)
-    playlists = [playlist for playlist in db.session.query(Playlist.playlist_id, 
-                 Playlist.pl_name).all()]
+    return render_template("playlists2.html", playlists=playlists)
 
-    #a list of all Playlist objects in db that belong to logged in user
-    playlists_alt = Playlist.query.filter(Playlist.user_id==username)
-    print(playlists_alt)
-    # Get playlist + track_ids
-    all_playlist_tracks = PlaylistTrack.query
 
-    # key= playlist_id, value = [list of track_ids in playlist]
-    tracks_by_playlists = {}
+@app.route("/playlist/<string:playlist_id>")
+def get_pl_tracks(playlist_id):
+    pl = Playlist.query.get(playlist_id)
+    tracks = pl.tracks
+    return render_template("tracks.html", tracks=tracks )
 
-    for playlist in playlists:
-        # Query all tracks in a given playlist and add to dictionary
-        playlist_tracks = all_playlist_tracks.filter(PlaylistTrack.playlist_id == playlist[0]).all()
-        tracks_by_playlists[playlist[0]] = playlist_tracks
+# @app.route("/playlists")
+# def display_playlists():
+#     """Display list of playlists to select and view."""
 
-    # Get musical keys
-    keys = Key.query.all()
+#     # username = session.get("user_id")
+#     # print(username)
 
-    # Get all tracks in db
-    tracks = Track.query.all()
+#     # # Get list of tuples of (playlist_id, pl_name)
+#     # playlists = [playlist for playlist in db.session.query(Playlist.playlist_id, 
+#     #              Playlist.pl_name).all()]
 
-    # List of bpms from 50-200 at 5bpm increments
-    bpm_range = [bpm for bpm in range(50, 201, 5)]
+#     #a list of all Playlist objects in db that belong to logged in user
+#     playlists_alt = Playlist.query.filter(Playlist.user_id==username)
+#     print(playlists_alt)
+#     # Get playlist + track_ids
+#     all_playlist_tracks = PlaylistTrack.query
 
-    # List of valence from 0-1 at 0.2 increments
-    valence_dict = {"Depressed": 0.2, "Sad": 0.4, "Neutral": 0.6, "Happy": 0.8, "Euphoric": 1}
+#     # key= playlist_id, value = [list of track_ids in playlist]
+#     tracks_by_playlists = {}
 
-    return render_template("playlists.html", 
-                           playlists=playlists,
-                           tracks_by_playlists=tracks_by_playlists,
-                           keys=keys,
-                           tracks=tracks,
-                           bpm_range=bpm_range,
-                           valence_dict=valence_dict,
-                           playlists_alt=playlists_alt)
+#     for playlist in playlists:
+#         # Query all tracks in a given playlist and addse to dictionary
+#         playlist_tracks = all_playlist_tracks.filter(PlaylistTrack.playlist_id == playlist[0]).all()
+#         tracks_by_playlists[playlist[0]] = playlist_tracks
+
+#     # Get musical keys
+#     keys = Key.query.all()
+
+#     # Get all tracks in db
+#     tracks = Track.query.all()
+
+#     # List of bpms from 50-200 at 5bpm increments
+#     bpm_range = [bpm for bpm in range(50, 201, 5)]
+
+#     # List of valence from 0-1 at 0.2 increments
+#     valence_dict = {"Depressed": 0.2, "Sad": 0.4, "Neutral": 0.6, "Happy": 0.8, "Euphoric": 1}
+
+#     return render_template("playlists.html", 
+#                            playlists=playlists,
+#                            tracks_by_playlists=tracks_by_playlists,
+#                            keys=keys,
+#                            tracks=tracks,
+#                            bpm_range=bpm_range,
+#                            valence_dict=valence_dict,
+#                            playlists_alt=playlists_alt)
 
 
 @app.route("/new-playlist")
