@@ -10,9 +10,12 @@
                     {{ playlist[1] }}
                 </input>
                 <br>
+                {% for track in tracks_by_playlists[playlist[0]] %}
+                    {{ track.track_id }}<br>
+                {% endfor %}
                 <div class="modal" id="{{ playlist[0] }}-modal">
-                    {% for tracks in tracks_by_playlists[playlist[0]] %}
-                        {{ tracks.track_id }}<br>
+                    {% for track in tracks_by_playlists[playlist[0]] %}
+                        {{ track.track_id }}<br>
                     {% endfor %}
                 </div>
             </div>
@@ -30,7 +33,11 @@
         <input type="checkbox" id="valence"></input>
 
         BPM:
-        <input type="checkbox" id="BPM"></input>
+        <select>
+            {% for bpm in bpm_range %}
+                <option value="{{ bpm }}">{{ bpm }}</option>
+            {% endfor %}
+        </select>
 
         <input type="submit"></input>
     </form>

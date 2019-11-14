@@ -51,11 +51,15 @@ def display_playlists():
     # Get all tracks in db
     tracks = Track.query.all()
 
+    # List of bpms from 50-200 at 5bpm increments
+    bpm_range = [bpm for bpm in range(50, 201, 5)]
+
     return render_template("playlists.html", 
                            playlists=playlists,
                            tracks_by_playlists=tracks_by_playlists,
                            keys=keys,
-                           tracks=tracks)
+                           tracks=tracks,
+                           bpm_range=bpm_range)
 
 
 @app.route("/callback")
