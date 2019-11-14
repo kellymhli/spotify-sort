@@ -41,9 +41,12 @@ def display_playlists():
         playlist_tracks = all_playlist_tracks.filter(PlaylistTrack.playlist_id == playlist[0]).all()
         tracks_by_playlists[playlist[0]] = playlist_tracks
 
+    keys = Key.query.all()
+
     return render_template("playlists.html", 
                            playlists=playlists,
-                           tracks_by_playlists=tracks_by_playlists)
+                           tracks_by_playlists=tracks_by_playlists,
+                           keys=keys)
 
 
 @app.route("/callback")
