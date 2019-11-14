@@ -76,12 +76,6 @@ def get_track_audio_features(token, track_list=['0Brf1s65f8eekORKK9gpe4', '3hYda
     track_fts = sp.audio_features(track_list)
     return track_fts
 
-    # for track in track_fts:
-    #     #General info of track
-    #     track_id = track['id']
-    #     track_general_info = self.sp.track(track_id)
-    #     name = track_general_info['name']
-    #     # artist = 
 
 def get_track_general_info(token, track_id):
     """Return the general info of a track."""

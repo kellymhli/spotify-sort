@@ -79,7 +79,7 @@ def load_playlist_tracks(user_id, token):
 
         # Spotipy API call is limited to 50 tracks per call 
         # Make multiple calls to load tracks of playlists with >50 tracks
-        while num_tracks >= 50:
+        while num_tracks > 50:
             print(start_list, end_list, num_tracks)
             tracks_list = tracks[start_list : end_list]
             # Load tracks from playlist into tracks table in db

@@ -4,40 +4,32 @@
     <h1>Playlists</h1>
 
     <form action="/new-playlist" method="post">
-
-    {% for playlist in playlists %}
-        <div class={{ playlist[0] }}> 
-            <p onclick="toggleModal()">
+        {% for playlist in playlists %}
+            <div class={{ playlist[0] }}> 
                 <input type="checkbox" id="{{ playlist[0] }}">
                     {{ playlist[1] }}
                 </input>
-            </p>
-            <button id="modalBtn" class="button">Tracks</button>
-            <div class="modal" id="{{playlist[0]}}-modal">
-                <div class="modal-content">
-                    <span class="closeBtn">&times;</span>
-                    {% for tracks in tracks_by_playlists[playlist[0]] %}
-                        {{ tracks.track_id }}<br>
-                    {% endfor %}
-                </div>
+                <br>
+                {% for tracks in tracks_by_playlists[playlist[0]] %}
+                    {{ tracks.track_id }}<br>
+                {% endfor %}
             </div>
-        </div>
-    {% endfor %}
-
-    <br>
-
-    Key:
-    <select>
-        {% for key in keys %}
-            <option value="{{ key.key_id }}">{{ key.key_name }}</option>
         {% endfor %}
-    </select>
-    Valence:
-    <input type="checkbox" id=valence></input>
+        <br>
 
-    BPM:
-    <input type="checkbox" id=BPM></input>
+        Key:
+        <select>
+            {% for key in keys %}
+                <option value="{{ key.key_id }}">{{ key.key_name }}</option>
+            {% endfor %}
+        </select>
 
-    <input type="submit"></input>
+        Valence:
+        <input type="checkbox" id="valence"></input>
+
+        BPM:
+        <input type="checkbox" id="BPM"></input>
+
+        <input type="submit"></input>
     </form>
 {% endblock %}

@@ -34,19 +34,28 @@ def display_playlists():
     """Display list of playlists to select and view."""
 
     # Get list of tuples of (playlist_id, pl_name)
-    playlists = [playlist for playlist in db.session.query(Playlist.playlist_id, Playlist.pl_name).all()]
+    playlists = [playlist for playlist in db.session.query(Playlist.playlist_id, 
+                 Playlist.pl_name).all()]
+    # Get playlist + track_ids
     all_playlist_tracks = PlaylistTrack.query
+
     tracks_by_playlists = {}
     for playlist in playlists:
+        # Query all tracks in a given playlist and add to dictionary
         playlist_tracks = all_playlist_tracks.filter(PlaylistTrack.playlist_id == playlist[0]).all()
         tracks_by_playlists[playlist[0]] = playlist_tracks
 
+    # Get musical keys
     keys = Key.query.all()
+
+    # Get all tracks in db
+    tracks = Track.query.all()
 
     return render_template("playlists.html", 
                            playlists=playlists,
                            tracks_by_playlists=tracks_by_playlists,
-                           keys=keys)
+                           keys=keys,
+                           tracks=tracks)
 
 
 @app.route("/callback")
