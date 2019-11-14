@@ -12,6 +12,11 @@ app.secret_key = "ILIKEWIGGLINGTOMUSIC"
 app.jinja_env.undefined = StrictUndefined
 
 
+# code snippets for login route
+## get user id from a login form
+# session["user_id"] = username
+# print(session)
+
 @app.route("/")
 def index():
     """Homepage."""
@@ -26,6 +31,7 @@ def authorization():
     username = request.args.get("username")
     access_token =  api.get_access_token(username) # Get access token for Spotify oAuth
     seed.load_user(username, access_token)
+ 
     return redirect("/callback")
 
 
@@ -33,13 +39,22 @@ def authorization():
 def display_playlists():
     """Display list of playlists to select and view."""
 
+    # username = session.get("user_id")
+    # print(username)
+
     # Get list of tuples of (playlist_id, pl_name)
     playlists = [playlist for playlist in db.session.query(Playlist.playlist_id, 
                  Playlist.pl_name).all()]
+
+    #a list of all Playlist objects in db that belong to logged in user
+    playlists_alt = Playlist.query.filter(Playlist.user_id==username)
+    print(playlists_alt)
     # Get playlist + track_ids
     all_playlist_tracks = PlaylistTrack.query
 
+    # key= playlist_id, value = [list of track_ids in playlist]
     tracks_by_playlists = {}
+
     for playlist in playlists:
         # Query all tracks in a given playlist and add to dictionary
         playlist_tracks = all_playlist_tracks.filter(PlaylistTrack.playlist_id == playlist[0]).all()
@@ -55,7 +70,7 @@ def display_playlists():
     bpm_range = [bpm for bpm in range(50, 201, 5)]
 
     # List of valence from 0-1 at 0.2 increments
-    valence_dict = {"Depressed": 0.2, "Dad": 0.4, "Neutral": 0.6, "Happy": 0.8, "Euphoric": 1}
+    valence_dict = {"Depressed": 0.2, "Sad": 0.4, "Neutral": 0.6, "Happy": 0.8, "Euphoric": 1}
 
     return render_template("playlists.html", 
                            playlists=playlists,
@@ -63,7 +78,15 @@ def display_playlists():
                            keys=keys,
                            tracks=tracks,
                            bpm_range=bpm_range,
-                           valence_dict=valence_dict)
+                           valence_dict=valence_dict,
+                           playlists_alt=playlists_alt)
+
+
+@app.route("/new-playlist")
+def display_new_playlist():
+    """Display list of selected songs that meet user selected requirements."""
+
+    return render_template("new-playlist.html")
 
 
 @app.route("/callback")
