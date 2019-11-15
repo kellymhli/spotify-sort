@@ -11,12 +11,6 @@ app.secret_key = "ILIKEWIGGLINGTOMUSIC"
 # rather than failing silently
 app.jinja_env.undefined = StrictUndefined
 
-
-# code snippets for login route
-## get user id from a login form
-# session["user_id"] = username
-# print(session)
-
 @app.route("/")
 def index():
     """Homepage."""
@@ -43,6 +37,21 @@ def login():
         return redirect("/playlists")
     else:
         print("No such user \n\n\n\n")
+        return redirect("register")
+
+
+@app.route("/register", methods=["GET"])
+def register_page():
+    """Render register page."""
+
+    return render_template("register.html")
+
+
+@app.route("/register", methods=["POST"])
+def register():
+    """Register new user and store into db."""
+
+    return redirect("/playlists")
 
 
 @app.route("/auth")
@@ -53,7 +62,6 @@ def authorization():
     access_token =  api.get_access_token(user_id)  # Get access token for Spotify oAuth
     
     user = User.query.get(user_id)
-    print(user)
     if user == None:
         seed.load_user(user_id, access_token)
  
@@ -74,6 +82,7 @@ def get_pl_tracks(playlist_id):
     """Display all the tracks of a given playlist_id."""
 
     playlist = Playlist.query.get(playlist_id)
+    print(playlist)
     tracks = playlist.tracks
     return render_template("tracks.html", playlist=playlist, tracks=tracks)
 
