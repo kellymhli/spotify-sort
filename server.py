@@ -92,6 +92,7 @@ def register_page():
 def register():
     """Register new user and store into db."""
 
+    # Get all user information to be logged into db
     user_id = request.form.get("user_id")
     spotify_id = request.form.get("spotify_id")
     password = request.form.get("password")
@@ -101,21 +102,11 @@ def register():
     access_token =  api.get_access_token(spotify_id) 
 
     user = User.query.get(user_id)
-    print(user)
+
+    # Add user to db if new user
     if user == None:
         seed.load_user(user_id, spotify_id, password, access_token)
 
-    return redirect("/playlists")
-
-
-@app.route("/auth")
-def authorization():
-    """Process username to authorize access to user Spotify data."""
-    
-    user = User.query.get(spotify_id)
-    if user == None:
-        seed.load_user(spotify_id, user.token)
- 
     return redirect("/playlists")
 
 

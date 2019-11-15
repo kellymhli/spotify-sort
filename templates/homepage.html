@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}Homepage{% endblock %}
 {% block content %}
-    <p>This is a test of the homepage</p>
-
     <form action="/" method="POST">
-    TURN THESE INTO HREF LINKS
+    TURN THESE INTO HREF LINKS<br>
         <div>
             {% if logged_in %}
                 <button type="button" name="action" value="logout">Logout</button>
@@ -14,9 +12,5 @@
             {% endif %}
         </div>
     </form> 
-
-    <form action="/auth">
-        Spotify Username: <input type="text" name="spotify_id">
-    </form>
 
 {% endblock %}
