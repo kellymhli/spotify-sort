@@ -36,8 +36,7 @@ def login():
         session['user_id'] = user.user_id
         return redirect("/playlists")
     else:
-        print("No such user \n\n\n\n")
-        return redirect("register")
+        return redirect("/register")
 
 
 @app.route("/register", methods=["GET"])
@@ -82,7 +81,6 @@ def get_pl_tracks(playlist_id):
     """Display all the tracks of a given playlist_id."""
 
     playlist = Playlist.query.get(playlist_id)
-    print(playlist)
     tracks = playlist.tracks
     return render_template("tracks.html", playlist=playlist, tracks=tracks)
 
