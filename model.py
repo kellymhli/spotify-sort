@@ -13,6 +13,8 @@ class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.String(100), primary_key=True)
+    password = db.Column(db.String(50))
+    spotify_id = db.Column(db.String(100))
     token = db.Column(db.String(500))
     # img_url = db.Column(db.String(200))
     # url = db.Column(db.String(200))
@@ -29,7 +31,7 @@ class User(db.Model):
     def __repr__(self):
         """Provide helpful representation of user."""
 
-        return f"<User id: {self.user_id}>"
+        return f"<User id: {self.user_id} spotify: {self.spotify_id}>"
 
 
 class Playlist(db.Model):
@@ -39,7 +41,7 @@ class Playlist(db.Model):
 
     playlist_id = db.Column(db.String(200), primary_key=True)
     pl_name = db.Column(db.String(50))
-    user_id = db.Column(db.String, db.ForeignKey("users.user_id"))
+    spotify_id = db.Column(db.String, db.ForeignKey("users.spotify_id"))
 
     # Set up relationship between playlists and tracks
     # Many-to-many relationship, so pass through playlist_track class
@@ -82,7 +84,7 @@ class Track(db.Model):
     track_id = db.Column(db.String(200), primary_key=True)
     track_name = db.Column(db.String(300))
     artist = db.Column(db.String(100))
-    user_id = db.Column(db.String(100), db.ForeignKey("users.user_id"))
+    spotify_id = db.Column(db.String(100), db.ForeignKey("users.spotify_id"))
     playlist_id = db.Column(db.String(200), db.ForeignKey("playlists.playlist_id"))
     key = db.Column(db.Integer, db.ForeignKey("keys.key_id"))
     mode = db.Column(db.Integer)  # Major/minor mode
