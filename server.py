@@ -68,12 +68,12 @@ def register():
 def authorization():
     """Process username to authorize access to user Spotify data."""
 
-    user_id = request.args.get("user_id")
-    access_token =  api.get_access_token(user_id)  # Get access token for Spotify oAuth
+    spotify_id = request.args.get("spotify_id")
+    access_token =  api.get_access_token(spotify_id)  # Get access token for Spotify oAuth
     
-    user = User.query.get(user_id)
+    user = User.query.get(spotify_id)
     if user == None:
-        seed.load_user(user_id, access_token)
+        seed.load_user(spotify_id, access_token)
  
     return redirect("/playlists")
 
