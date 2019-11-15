@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Track Features{% endblock %}
+{% block content %}
+
+    <h1>{{track_fts.track_name}}</h1>
+    Artist: {{ track_fts.artist }}<br>
+    Duration: {{ track_fts.duration }}<br>
+    BPM: {{ track_fts.tempo }}<br>
+    Key: {{ track_fts.key }}<br>
+    Mode: {{ track_fts.mode }}<br>
+    Danceability: {{ track_fts.danceability }}<br>
+    Energy: {{ track_fts.energy }}<br>
+    Instrumentalness: {{ track_fts.instrumentalness }}<br>
+    Loudness: {{ track_fts.loudness }}<br>
+    Speechiness: {{ track_fts.speechiness }}<br>
+    Valence: {{ track_fts.valence }}<br>
+    
+{% endblock %}
