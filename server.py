@@ -23,22 +23,21 @@ def index():
 
     return render_template("homepage.html")
 
-@app.route('/login', methods=["GET"])
+
+@app.route("/login", methods=["GET"])
 def login_page():
+
     return render_template('login.html')
 
-@app.route('/login', methods=["POST"])
+@app.route("/login", methods=["POST"])
 def login():
+
     username = request.form.get('username')
-    print(username, "\n\n\n\n\n")
     user = User.query.filter(User.user_id==username).one()
     session['user_id'] = user.user_id
 
     return redirect("/playlists")
-# code snippets for login route
-## get user id from a login form
-# session["user_id"] = username
-# print(session)
+
 
 @app.route("/auth")
 def authorization():
@@ -61,9 +60,19 @@ def display_playlists():
 
 @app.route("/playlist/<string:playlist_id>")
 def get_pl_tracks(playlist_id):
+
     pl = Playlist.query.get(playlist_id)
     tracks = pl.tracks
-    return render_template("tracks.html", tracks=tracks )
+    return render_template("tracks.html", tracks=tracks)
+
+
+@app.route("/tracks/<string:track_id>")
+def display_pl_tracks(track_id):
+
+
+    track_fts = Track.query.get(track_id)
+    
+    return render_template("track_features.html", track_fts=track_fts)
 
 # @app.route("/playlists")
 # def display_playlists():
