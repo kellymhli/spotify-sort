@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}Homepage{% endblock %}
 {% block content %}
-    This is a test of the homepage
+    <p>This is a test of the homepage</p>
+    <button type="button" id="login">Login</button>
+    <button type="button" id="logout">Logout</button>
+    <button type="button" id="register">Register</button></p>
     <form action="/auth">
-        Username: <input type="text" name="user_id">
+        Spotify Username: <input type="text" name="user_id">
     </form>
 {% endblock %}
