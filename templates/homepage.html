@@ -2,9 +2,14 @@
 {% block title %}Homepage{% endblock %}
 {% block content %}
     <p>This is a test of the homepage</p>
-    <button type="button" id="login">Login</button>
-    <button type="button" id="logout">Logout</button>
-    <button type="button" id="register">Register</button></p>
+    <div>
+        {% if logged_in %}
+            <button type="button" id="logout">Logout</button>
+        {% else %}
+            <button type="button" id="login">Login</button>
+            <button type="button" id="register">Register</button></p>
+        {% endif %}
+    </div>
     <form action="/auth">
         Spotify Username: <input type="text" name="user_id">
     </form>

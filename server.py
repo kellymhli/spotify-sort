@@ -15,7 +15,13 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """Homepage."""
 
-    return render_template("homepage.html")
+    if session.get('user_id') != None:
+        session['logged_in'] = True
+    else:
+        session['logged_in'] = False
+
+    return render_template("homepage.html", 
+                           logged_in=session['logged_in'])
 
 
 @app.route("/login", methods=["GET"])
