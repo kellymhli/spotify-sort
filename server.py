@@ -36,21 +36,28 @@ def login():
     """Log user into app."""
 
     user_id = request.form.get('user_id')
-    user = User.query.filter(User.user_id==user_id).one()
-    session['user_id'] = user.user_id
 
-    return redirect("/playlists")
+    user = User.query.get(user_id)
+    if user:
+        session['user_id'] = user.user_id
+        return redirect("/playlists")
+    else:
+        print("No such user \n\n\n\n")
 
 
 @app.route("/auth")
 def authorization():
     """Process username to authorize access to user Spotify data."""
 
-    username = request.args.get("username")
-    access_token =  api.get_access_token(username) # Get access token for Spotify oAuth
-    seed.load_user(username, access_token)
+    user_id = request.args.get("user_id")
+    access_token =  api.get_access_token(user_id)  # Get access token for Spotify oAuth
+    
+    user = User.query.get(user_id)
+    print(user)
+    if user == None:
+        seed.load_user(user_id, access_token)
  
-    return redirect("/callback")
+    return redirect("/playlists")
 
 
 @app.route("/playlists")
@@ -68,7 +75,7 @@ def get_pl_tracks(playlist_id):
 
     playlist = Playlist.query.get(playlist_id)
     tracks = playlist.tracks
-    return render_template("tracks.html", tracks=tracks)
+    return render_template("tracks.html", playlist=playlist, tracks=tracks)
 
 
 @app.route("/tracks/<string:track_id>")
