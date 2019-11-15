@@ -15,34 +15,39 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """Homepage."""
 
-    if session.get('user_id') != None:
-        session['logged_in'] = True
+    # Determine if user is logged in or not
+    if session.get("user_id") != None:
+        session["logged_in"] = True
     else:
-        session['logged_in'] = False
+        session["logged_in"] = False
 
     return render_template("homepage.html", 
-                           logged_in=session['logged_in'])
+                           logged_in=session["logged_in"])
 
 
 @app.route("/login", methods=["GET"])
 def login_page():
     """Render login page."""
 
-    return render_template('login.html')
+    return render_template("login.html")
 
 
 @app.route("/login", methods=["POST"])
 def login():
     """Log user into app."""
 
-    user_id = request.form.get('user_id')
+    # Get username and password from login page
+    user_id = request.form.get("user_id")
+    password = request.form.get("password")
 
     user = User.query.get(user_id)
+    # correct_pass = User.query.get(password)
+
     if user:
-        session['user_id'] = user.user_id
-        return redirect("/playlists")
-    else:
-        return redirect("/register")
+        session["user_id"] = user.user_id
+        # spotify_user_id = user.spotify_id
+
+    return redirect("/")
 
 
 @app.route("/register", methods=["GET"])
@@ -77,7 +82,7 @@ def authorization():
 def display_playlists():
     """Display a list of the user's playlist."""
 
-    playlists = Playlist.query.filter(Playlist.user_id==session['user_id'])
+    playlists = Playlist.query.filter(Playlist.user_id==session["user_id"])
 
     return render_template("playlists2.html", playlists=playlists)
 
