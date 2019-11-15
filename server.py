@@ -65,15 +65,20 @@ def login():
     user_id = request.form.get("user_id")
     password = request.form.get("password")
 
+    # Get user info from database
     user = User.query.get(user_id)
-    correct_pass = User.query.get(password)
 
     if user:
-        session["user_id"] = user.user_id
-        session["logged_in"] = True
-        spotify_user_id = user.spotify_id
+        # Check that entered password matches user password in db
+        # Log user into session and redirect to homepage
+        correct_pass = user.password
+        if password == correct_pass:
+            session["user_id"] = user.user_id
+            session["logged_in"] = True
+            return redirect("/")
 
-    return redirect("/")
+    # If login failed, refresh login page
+    return redirect("/login")
 
 
 @app.route("/register", methods=["GET"])
