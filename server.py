@@ -66,12 +66,12 @@ def login():
     password = request.form.get("password")
 
     user = User.query.get(user_id)
-    # correct_pass = User.query.get(password)
+    correct_pass = User.query.get(password)
 
     if user:
         session["user_id"] = user.user_id
         session["logged_in"] = True
-        # spotify_user_id = user.spotify_id
+        spotify_user_id = user.spotify_id
 
     return redirect("/")
 
@@ -87,19 +87,29 @@ def register_page():
 def register():
     """Register new user and store into db."""
 
+    user_id = request.form.get("user_id")
+    spotify_id = request.form.get("spotify_id")
+    password = request.form.get("password")
+    confirm_pass = request.form.get("confirm_pass")
+
+    # Get access token for Spotify oAuth
+    access_token =  api.get_access_token(spotify_id) 
+
+    user = User.query.get(user_id)
+    print(user)
+    if user == None:
+        seed.load_user(user_id, spotify_id, password, access_token)
+
     return redirect("/playlists")
 
 
 @app.route("/auth")
 def authorization():
     """Process username to authorize access to user Spotify data."""
-
-    spotify_id = request.args.get("spotify_id")
-    access_token =  api.get_access_token(spotify_id)  # Get access token for Spotify oAuth
     
     user = User.query.get(spotify_id)
     if user == None:
-        seed.load_user(spotify_id, access_token)
+        seed.load_user(spotify_id, user.token)
  
     return redirect("/playlists")
 
@@ -129,6 +139,19 @@ def display_pl_tracks(track_id):
     track_fts = Track.query.get(track_id)
     
     return render_template("track_features.html", track_fts=track_fts)
+
+
+# @app.route("/bpm/<int:tempo>")
+# def find_match():
+
+#     # Query for all tracks of a given tempo (bpm)
+#     return render_template("bpm_match.html", tracks=tracks)
+
+#AJAX
+    # bpm = request.args.get('bpm')
+    # track = query for the tracks => get one
+    # track_dict = {"track_name":track.track_name,
+    #                 ""}
 
 # @app.route("/playlists")
 # def display_playlists():

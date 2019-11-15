@@ -12,12 +12,10 @@ class User(db.Model):
 
     __tablename__ = "users"
 
-    user_id = db.Column(db.String(100), primary_key=True)
+    user_id = db.Column(db.String(100), primary_key=True, unique=True)
+    spotify_id = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(50))
-    spotify_id = db.Column(db.String(100))
     token = db.Column(db.String(500))
-    # img_url = db.Column(db.String(200))
-    # url = db.Column(db.String(200))
 
     # Set up relationships between tables
     # User can have many playlists

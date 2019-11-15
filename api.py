@@ -5,13 +5,13 @@ SPOTIPY_CLIENT_ID = os.environ.get('SPOTIPY_CLIENT_ID')
 SPOTIPY_CLIENT_SECRET = os.environ.get('SPOTIPY_CLIENT_SECRET')
 SPOTIPY_REDIRECT_URI='http://localhost:8888/callback'
 
-def get_access_token(username):
+def get_access_token(spotify_id):
     """Return access token from Spotify for defined scopes."""
 
     scope = 'user-library-read'
 
     # Get access token from Spotify authorization server.
-    token = util.prompt_for_user_token(username, scope, 
+    token = util.prompt_for_user_token(spotify_id, scope, 
                                     client_id = SPOTIPY_CLIENT_ID, 
                                     client_secret = SPOTIPY_CLIENT_SECRET, 
                                     redirect_uri = SPOTIPY_REDIRECT_URI)

@@ -3,19 +3,20 @@
 {% block content %}
     <p>This is a test of the homepage</p>
 
-    <form action="/" method="POST">
+    {% comment %} <form action="/" method="POST">
+    TURN THESE INTO HREF LINKS
         <div>
             {% if logged_in %}
                 <button type="button" name="action" value="logout">Logout</button>
             {% else %}
                 <button type="button" name="action" value="login">Login</button>
-                <button type="button" name="action" value="register">Register</button></p>
+                <button type="button" name="action" value="register">Register</button>
             {% endif %}
         </div>
-    </form>
+    </form> {% endcomment %}
 
     <form action="/auth">
-        Spotify Username: <input type="text" name="user_id">
+        Spotify Username: <input type="text" name="spotify_id">
     </form>
 
 {% endblock %}

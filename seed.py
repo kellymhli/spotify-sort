@@ -4,16 +4,16 @@
 import api
 from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connect_to_db, db
 
-def load_playlists(user_id, token):
+def load_playlists(spotify_id, token):
     """Load playlists into database."""
 
-    playlists = api.get_playlists(user_id, token)
+    playlists = api.get_playlists(spotify_id, token)
 
     for playlist in playlists:
         # Create new playlist row
         playlist = Playlist(playlist_id = playlist['id'],
                             pl_name = playlist['name'],
-                            user_id = playlist['owner']['id'])
+                            spotify_id = playlist['owner']['id'])
         
         # Add playlist to database
         db.session.add(playlist)
@@ -22,7 +22,7 @@ def load_playlists(user_id, token):
     db.session.commit()
 
 
-def load_tracks(user_id, token, tracks, playlist_id):
+def load_tracks(spotify_id, token, tracks, playlist_id):
     """Load track into database."""
 
     print(f'Loading tracks from playlist: {playlist_id}')
@@ -38,7 +38,7 @@ def load_tracks(user_id, token, tracks, playlist_id):
             add_track = Track(track_id = track['id'],
                               track_name = track_general_info['name'],
                               artist = track_general_info['album']['artists'][0]['name'],
-                              user_id = user_id, 
+                              spotify_id = spotify_id, 
                               playlist_id = playlist_id, 
                               key = track['key'],
                               mode = track['mode'],
@@ -58,22 +58,23 @@ def load_tracks(user_id, token, tracks, playlist_id):
     db.session.commit()
 
 
-def load_playlist_tracks(user_id, token):
+def load_playlist_tracks(spotify_id, token):
     """Load tracks from a list of playlists into database."""
 
     PlaylistTrack.query.delete()
 
     # Get a list of a user's playlists
     playlists = db.session.query(Playlist.playlist_id)
-    user_playlists = playlists.filter(Playlist.user_id == user_id).all()
+    user_playlists = playlists.filter(Playlist.spotify_id == spotify_id).all()
     playlist_list = [playlist[0] for playlist in user_playlists]
 
     # Get tracks from user's playlists
-    playlist_tracks = api.get_playlist_tracks(user_id, token, playlist_list = playlist_list)
+    playlist_tracks = api.get_playlist_tracks(spotify_id, token, playlist_list = playlist_list)
 
     for playlist_id, tracks in playlist_tracks.items():
 
         num_tracks = len(tracks)
+        print(num_tracks)
         start_list = 0
         end_list = 50
 
@@ -83,13 +84,14 @@ def load_playlist_tracks(user_id, token):
             print(start_list, end_list, num_tracks)
             tracks_list = tracks[start_list : end_list]
             # Load tracks from playlist into tracks table in db
-            load_tracks(user_id, token, tracks_list, playlist_id)
+            load_tracks(spotify_id, token, tracks_list, playlist_id)
             start_list += 50
             end_list += 50
             num_tracks -= 50
+            print(num_tracks)
         
         tracks_list = tracks[start_list : start_list + num_tracks]
-        load_tracks(user_id, token, tracks_list, playlist_id)
+        load_tracks(spotify_id, token, tracks_list, playlist_id)
 
         # Add track and playlist ids to playlist_tracks table
         for track in tracks:
@@ -142,7 +144,7 @@ def load_matching_keys():
     print("Loaded matching keys to db.")
 
 
-def load_user(user_id, token):
+def load_user(user_id, spotify_id, password, token):
     """Load user information into database."""
 
     # Update user token in db if user already in the db
@@ -152,14 +154,16 @@ def load_user(user_id, token):
         user_info.token = token
     else:
         user = User(user_id = user_id, 
+                    spotify_id = spotify_id,
+                    password = password,
                     token = token)
         db.session.add(user)
 
-    # Load user's playlists, and tracks into db
-    load_playlists(user_id, token)
-    print("load playlists")
-    load_playlist_tracks(user_id, token)
-    print("load playlist tracks")
+        # Load user's playlists, and tracks into db upon creating new user
+        load_playlists(spotify_id, token)
+        print("load playlists")
+        load_playlist_tracks(spotify_id, token)
+        print("load playlist tracks")
 
     db.session.commit()
 
@@ -173,5 +177,3 @@ if __name__ == "__main__":
     db.create_all()
     load_keys()
     load_matching_keys()
-
-    # users = db.session.query(User.user_id, User.token).all()  # Get users from db
