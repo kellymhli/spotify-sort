@@ -11,8 +11,8 @@ app.secret_key = "ILIKEWIGGLINGTOMUSIC"
 # rather than failing silently
 app.jinja_env.undefined = StrictUndefined
 
-@app.route("/")
-def index():
+@app.route("/", methods=["GET"])
+def homepage():
     """Homepage."""
 
     # Determine if user is logged in or not
@@ -20,6 +20,31 @@ def index():
         session["logged_in"] = True
     else:
         session["logged_in"] = False
+
+    return render_template("homepage.html", 
+                           logged_in=session["logged_in"])
+
+
+@app.route("/", methods=["POST"])
+def redirect_homepage():
+
+    if session.get("user_id") != None:
+        session["logged_in"] = True
+    else:
+        session["logged_in"] = False
+
+    action = request.form.get("action")
+    print(action)
+
+    if action == "logout":
+        session["logged_in"] = False
+        session["user_id"] = None
+    elif action == "login":
+        return redirect("/login")
+    elif action == "register":
+        return redirect("/register")
+
+    print(session["logged_in"], session["user_id"])
 
     return render_template("homepage.html", 
                            logged_in=session["logged_in"])
@@ -45,6 +70,7 @@ def login():
 
     if user:
         session["user_id"] = user.user_id
+        session["logged_in"] = True
         # spotify_user_id = user.spotify_id
 
     return redirect("/")
