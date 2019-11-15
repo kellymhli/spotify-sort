@@ -26,14 +26,17 @@ def index():
 
 @app.route("/login", methods=["GET"])
 def login_page():
+    """Render login page."""
 
     return render_template('login.html')
 
+
 @app.route("/login", methods=["POST"])
 def login():
+    """Log user into app."""
 
-    username = request.form.get('username')
-    user = User.query.filter(User.user_id==username).one()
+    user_id = request.form.get('user_id')
+    user = User.query.filter(User.user_id==user_id).one()
     session['user_id'] = user.user_id
 
     return redirect("/playlists")
@@ -52,6 +55,7 @@ def authorization():
 
 @app.route("/playlists")
 def display_playlists():
+    """Display a list of the user's playlist."""
 
     playlists = Playlist.query.filter(Playlist.user_id==session['user_id'])
 
@@ -60,15 +64,16 @@ def display_playlists():
 
 @app.route("/playlist/<string:playlist_id>")
 def get_pl_tracks(playlist_id):
+    """Display all the tracks of a given playlist_id."""
 
-    pl = Playlist.query.get(playlist_id)
-    tracks = pl.tracks
+    playlist = Playlist.query.get(playlist_id)
+    tracks = playlist.tracks
     return render_template("tracks.html", tracks=tracks)
 
 
 @app.route("/tracks/<string:track_id>")
 def display_pl_tracks(track_id):
-
+    """Display deatils of a track given the track_id."""
 
     track_fts = Track.query.get(track_id)
     
