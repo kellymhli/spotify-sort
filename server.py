@@ -25,29 +25,29 @@ def homepage():
                            logged_in=session["logged_in"])
 
 
-@app.route("/", methods=["POST"])
-def redirect_homepage():
+# @app.route("/", methods=["POST"])
+# def redirect_homepage():
 
-    if session.get("user_id") != None:
-        session["logged_in"] = True
-    else:
-        session["logged_in"] = False
+#     if session.get("user_id") != None:
+#         session["logged_in"] = True
+#     else:
+#         session["logged_in"] = False
 
-    action = request.form.get("action")
-    print(action)
+#     action = request.form.get("action")
+#     print(action)
 
-    if action == "logout":
-        session["logged_in"] = False
-        session["user_id"] = None
-    elif action == "login":
-        return redirect("/login")
-    elif action == "register":
-        return redirect("/register")
+#     if action == "logout":
+#         session["logged_in"] = False
+#         session["user_id"] = None
+#     elif action == "login":
+#         return redirect("/login")
+#     elif action == "register":
+#         return redirect("/register")
 
-    print(session["logged_in"], session["user_id"])
+#     print(session["logged_in"], session["user_id"])
 
-    return render_template("homepage.html", 
-                           logged_in=session["logged_in"])
+#     return render_template("homepage.html", 
+#                            logged_in=session["logged_in"])
 
 
 @app.route("/login", methods=["GET"])
@@ -88,6 +88,16 @@ def register_page():
     return render_template("register.html")
 
 
+@app.route("/logout")
+def logout():
+    """Log user out of app."""
+
+    session["user_id"] = None
+    session["logged_in"] = False
+
+    return redirect("/")
+
+
 @app.route("/register", methods=["POST"])
 def register():
     """Register new user and store into db."""
@@ -98,6 +108,10 @@ def register():
     password = request.form.get("password")
     confirm_pass = request.form.get("confirm_pass")
 
+    while password != confirm_pass:
+        password = request.form.get("password")
+        confirm_pass = request.form.get("confirm_pass")
+
     # Get access token for Spotify oAuth
     access_token =  api.get_access_token(spotify_id) 
 
@@ -107,6 +121,10 @@ def register():
     if user == None:
         seed.load_user(user_id, spotify_id, password, access_token)
 
+    # Track user in session
+    session['user_id'] = user_id
+    session['logged_in'] = True
+
     return redirect("/playlists")
 
 
@@ -114,7 +132,8 @@ def register():
 def display_playlists():
     """Display a list of the user's playlist."""
 
-    playlists = Playlist.query.filter(Playlist.user_id==session["user_id"])
+    user = User.query.filter(User.user_id == session["user_id"]).one()
+    playlists = Playlist.query.filter(Playlist.spotify_id==user.spotify_id)
 
     return render_template("playlists2.html", playlists=playlists)
 
