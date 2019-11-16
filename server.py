@@ -11,7 +11,7 @@ app.secret_key = "ILIKEWIGGLINGTOMUSIC"
 # rather than failing silently
 app.jinja_env.undefined = StrictUndefined
 
-@app.route("/", methods=["GET"])
+@app.route("/")
 def homepage():
     """Homepage."""
 
@@ -23,31 +23,6 @@ def homepage():
 
     return render_template("homepage.html", 
                            logged_in=session["logged_in"])
-
-
-# @app.route("/", methods=["POST"])
-# def redirect_homepage():
-
-#     if session.get("user_id") != None:
-#         session["logged_in"] = True
-#     else:
-#         session["logged_in"] = False
-
-#     action = request.form.get("action")
-#     print(action)
-
-#     if action == "logout":
-#         session["logged_in"] = False
-#         session["user_id"] = None
-#     elif action == "login":
-#         return redirect("/login")
-#     elif action == "register":
-#         return redirect("/register")
-
-#     print(session["logged_in"], session["user_id"])
-
-#     return render_template("homepage.html", 
-#                            logged_in=session["logged_in"])
 
 
 @app.route("/login", methods=["GET"])
@@ -90,17 +65,6 @@ def register_page():
     return render_template("register.html")
 
 
-@app.route("/logout")
-def logout():
-    """Log user out of app."""
-
-    # Drop user from session
-    session["user_id"] = None
-    session["logged_in"] = False
-
-    return redirect("/")
-
-
 @app.route("/register", methods=["POST"])
 def register():
     """Register new user and store into db."""
@@ -130,6 +94,17 @@ def register():
     return redirect("/playlists")
 
 
+@app.route("/logout")
+def logout():
+    """Log user out of app."""
+
+    # Drop user from session
+    session["user_id"] = None
+    session["logged_in"] = False
+
+    return redirect("/")
+
+
 @app.route("/playlists")
 def display_playlists():
     """Display a list of the user's playlist."""
@@ -137,7 +112,7 @@ def display_playlists():
     user = User.query.filter(User.user_id == session["user_id"]).one()
 
     # User user's spotify_id to get playlists
-    playlists = Playlist.query.filter(Playlist.spotify_id==user.spotify_id)
+    playlists = Playlist.query.filter(Playlist.spotify_id == user.spotify_id)
 
     return render_template("playlists2.html", playlists=playlists)
 
@@ -148,7 +123,18 @@ def get_pl_tracks(playlist_id):
 
     playlist = Playlist.query.get(playlist_id)
     tracks = playlist.tracks
-    return render_template("tracks.html", playlist=playlist, tracks=tracks)
+    return render_template("playlist-tracks.html", playlist=playlist, tracks=tracks)
+
+
+@app.route("/tracks")
+def display_tracks():
+    """Display all user tracks."""
+
+    user = User.query.filter(User.user_id == session["user_id"]).one()
+
+    tracks = Track.query.filter(Track.spotify_id == user.spotify_id)
+
+    return render_template("tracks.html", tracks=tracks)
 
 
 @app.route("/tracks/<string:track_id>")
