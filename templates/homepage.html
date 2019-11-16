@@ -5,7 +5,9 @@
     <form action="/" method="POST">
         <div>
             {% if logged_in %}
-                <a href="/logout">Logout</a>
+                <a href="/logout">Logout</a><br>
+                <a href="/playlists">Playlists</a><br>
+                <a href="/tracks">Tracks</a>
             {% else %}
                 <a href="/login">Login</a><br>
                 <a href="/register">Register</a>
