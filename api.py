@@ -3,7 +3,7 @@ import spotipy.util as util
 
 SPOTIPY_CLIENT_ID = os.environ.get('SPOTIPY_CLIENT_ID')
 SPOTIPY_CLIENT_SECRET = os.environ.get('SPOTIPY_CLIENT_SECRET')
-SPOTIPY_REDIRECT_URI='http://localhost:8888/callback'
+SPOTIPY_REDIRECT_URI='http://localhost:8888/'
 
 def get_access_token(spotify_id):
     """Return access token from Spotify for defined scopes."""
