@@ -78,7 +78,7 @@ def login():
 
         session["user_id"] = user.user_id
         session["logged_in"] = True
-        return redirect("/")
+        return redirect("/playlists")
     else:
         return redirec("/register")
 
@@ -217,21 +217,6 @@ def display_pl_tracks(track_id):
 #                            bpm_range=bpm_range,
 #                            valence_dict=valence_dict,
 #                            playlists_alt=playlists_alt)
-
-
-@app.route("/new-playlist")
-def display_new_playlist():
-    """Display list of selected songs that meet user selected requirements."""
-
-    return render_template("new-playlist.html")
-
-
-@app.route("/callback")
-def callback():
-    """Callback page after authorization through spotify."""
-
-    return render_template("callback.html")
-
 
 if __name__ == "__main__":
 
