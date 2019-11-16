@@ -3,12 +3,11 @@
 {% block content %}
     <h1>Spotify Sort</h1>
     <form action="/" method="POST">
-    TURN THESE INTO HREF LINKS<br>
         <div>
             {% if logged_in %}
                 <a href="/logout">Logout</a>
             {% else %}
-                <a href="/login">Login</a>
+                <a href="/login">Login</a><br>
                 <a href="/register">Register</a>
             {% endif %}
         </div>

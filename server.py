@@ -68,17 +68,19 @@ def login():
     # Get user info from database
     user = User.query.get(user_id)
 
-    if user:
+    if user != None:
         # Check that entered password matches user password in db
-        # Log user into session and redirect to homepage
+        # Log user into session
         correct_pass = user.password
-        if password == correct_pass:
-            session["user_id"] = user.user_id
-            session["logged_in"] = True
-            return redirect("/")
+        while password != correct_pass:
+            password = request.form.get("password")
+            # FLASH MESSAGE IF WRONG PASSWORD
 
-    # If login failed, refresh login page
-    return redirect("/login")
+        session["user_id"] = user.user_id
+        session["logged_in"] = True
+        return redirect("/")
+    else:
+        return redirec("/register")
 
 
 @app.route("/register", methods=["GET"])
@@ -92,6 +94,7 @@ def register_page():
 def logout():
     """Log user out of app."""
 
+    # Drop user from session
     session["user_id"] = None
     session["logged_in"] = False
 
@@ -108,6 +111,7 @@ def register():
     password = request.form.get("password")
     confirm_pass = request.form.get("confirm_pass")
 
+    # Stay on page until password and confirmation passwords match
     while password != confirm_pass:
         password = request.form.get("password")
         confirm_pass = request.form.get("confirm_pass")
@@ -115,10 +119,8 @@ def register():
     # Get access token for Spotify oAuth
     access_token =  api.get_access_token(spotify_id) 
 
-    user = User.query.get(user_id)
-
-    # Add user to db if new user
-    if user == None:
+    # Add user and their playlists + tracks into db if new user
+    if User.query.get(user_id) == None:
         seed.load_user(user_id, spotify_id, password, access_token)
 
     # Track user in session
@@ -133,6 +135,8 @@ def display_playlists():
     """Display a list of the user's playlist."""
 
     user = User.query.filter(User.user_id == session["user_id"]).one()
+
+    # User user's spotify_id to get playlists
     playlists = Playlist.query.filter(Playlist.spotify_id==user.spotify_id)
 
     return render_template("playlists2.html", playlists=playlists)
