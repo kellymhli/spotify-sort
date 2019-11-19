@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}BPM{% endblock %}
 {% block content %}
-    {{ playlists }}
+    <h1>{{ playlists }}</h1>
     <br>
-    BPM: {{ bpm }}
+    <h1>BPM: {{ bpm }}</h1>
+    <br>
+    {% for track in bpm_tracks %}
+        {{ track.track_name }} - {{ track.tempo }}<br>
+    {% endfor %}
 {% endblock%}

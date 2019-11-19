@@ -103,7 +103,7 @@ class Track(db.Model):
     def __repr__(self):
         """Provide useful information about track."""
 
-        return f"<Track id: {self.track_id} name: {self.name} key: {self.key}>"
+        return f"<Track id: {self.track_id} name: {self.track_name} key: {self.key}>"
 
 
 class Key(db.Model):
