@@ -2,8 +2,22 @@
 {% block title %}Playlists{% endblock %}
 {% block content %}
     <h1>Playlists</h1>
+    <form action="/sort-bpm" method="POST">
     {% for playlist in playlists %}
-        <a href="/playlist/{{ playlist.playlist_id }}">{{ playlist.pl_name }}</a>
+        <input type="checkbox" value="{{ playlist.playlist_id }}" name="playlist">
+            <a href="/playlist/{{ playlist.playlist_id }}">{{ playlist.pl_name }}</a>
+        </input>
         <br>
     {% endfor %}
+
+    BPM:
+    <select name="bpm">
+        {% for bpm in bpm_range %}
+            <option value="{{ bpm }}">{{ bpm }}</option>
+        {% endfor %}
+    </select>
+
+    <br>
+    <input type="submit">
+    </form>
 {% endblock %}

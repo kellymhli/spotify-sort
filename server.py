@@ -114,7 +114,12 @@ def display_playlists():
     # User user's spotify_id to get playlists
     playlists = Playlist.query.filter(Playlist.spotify_id == user.spotify_id)
 
-    return render_template("playlists3.html", playlists=playlists)
+    # List of bpms from 50-200 at 5bpm increments
+    bpm_range = [bpm for bpm in range(50, 201, 5)]
+
+    return render_template("playlists2.html", 
+                           playlists=playlists, 
+                           bpm_range=bpm_range)
 
 
 @app.route("/playlist/<string:playlist_id>")
@@ -144,6 +149,17 @@ def display_pl_tracks(track_id):
     track_fts = Track.query.get(track_id)
     
     return render_template("track_features.html", track_fts=track_fts)
+
+
+@app.route("/sort-bpm", methods=["POST"])
+def get_similar_bpm():
+    """Return a list of tracks with similar bpms."""
+
+    # Get list of all selected playlists
+    playlists = request.form.getlist("playlist")
+    bpm = request.form.get("bpm")
+
+    return render_template("bpm.html", playlists=playlists, bpm=bpm)
 
 
 # @app.route("/bpm/<int:tempo>")
