@@ -12,6 +12,7 @@
 
     BPM:
     <select name="bpm">
+        <option value="None">None</option>
         {% for bpm in bpm_range %}
             <option value="{{ bpm }}">{{ bpm }}</option>
         {% endfor %}
