@@ -117,9 +117,18 @@ def display_playlists():
     # List of bpms from 50-200 at 5bpm increments
     bpm_range = [bpm for bpm in range(50, 201, 5)]
 
+    # List of valence from 0-1 at 0.2 increments
+    valence_dict = {"None": None,
+                    "Depressed": 0.2, 
+                    "Sad": 0.4, 
+                    "Neutral": 0.6, 
+                    "Happy": 0.8, 
+                    "Euphoric": 1}
+
     return render_template("playlists2.html", 
                            playlists=playlists, 
-                           bpm_range=bpm_range)
+                           bpm_range=bpm_range,
+                           valence_dict=valence_dict)
 
 
 @app.route("/playlist/<string:playlist_id>")
