@@ -16,4 +16,13 @@
         - {{ track.tempo }}<br>
     {% endfor %}
 
+    <br>
+
+    {% for track in sorted_tracks %}
+    <a href="/tracks/{{ track.track_id }}">
+        {{ track.track_name }}
+    </a> 
+    - {{ track.tempo }} - {{ track.valence }}<br>
+    {% endfor %}
+
 {% endblock%}

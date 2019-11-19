@@ -164,29 +164,45 @@ def display_pl_tracks(track_id):
 def get_similar_bpm():
     """Return a list of tracks with similar bpms."""
 
-    bpm_tracks = []
     playlists = []
+    all_tracks = []
+    bpm_tracks = []
+    valence_tracks = []
 
     # Get list of all selected playlists
     playlist_ids = request.form.getlist("playlist")
-    bpm = int(request.form.get("bpm"))  # Cast string to int
+    bpm = request.form.get("bpm")
+    valence = request.form.get("valence")
+    print(valence)
 
-    # Get tracks of a playlist 
-    # And append track to list if it falls within desired bpm range
+    # Get tracks of a playlist and append track to list
     for playlist_id in playlist_ids:
         playlist = Playlist.query.get(playlist_id)
         playlists.append(playlist)
         tracks = playlist.tracks
         for track in tracks:
-            # Round track's bpm to nearest int 
-            # And check if it's +/1 2bmp from selected bpm
+            all_tracks.append(track)
+
+    for track in all_tracks:
+        # Round track's bpm to nearest int 
+        # And check if it's +/1 2bmp from selected bpm
+        if bpm != None:
+            bpm = int(bpm)
             if (bpm - 2) <= int(track.tempo) <= (bpm + 2):
                 bpm_tracks.append(track)
+        # Add tracks of desired valence to a list
+        if valence != None:
+            valence = float(valence)
+            if (valence - 0.1) <= track.valence <= (valence + 0.1):
+                valence_tracks.append(track)
+
+    sorted_tracks = set(bpm_tracks) & set(valence_tracks)
 
     return render_template("bpm.html", 
                            bpm=bpm,
                            playlists=playlists,  
-                           bpm_tracks=bpm_tracks)
+                           bpm_tracks=bpm_tracks,
+                           sorted_tracks=list(sorted_tracks))
 
 
 # @app.route("/bpm/<int:tempo>")
