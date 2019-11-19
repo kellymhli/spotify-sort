@@ -156,15 +156,17 @@ def get_similar_bpm():
     """Return a list of tracks with similar bpms."""
 
     bpm_tracks = []
+    playlists = []
 
     # Get list of all selected playlists
-    playlists = request.form.getlist("playlist")
+    playlist_ids = request.form.getlist("playlist")
     bpm = int(request.form.get("bpm"))  # Cast string to int
 
     # Get tracks of a playlist 
     # And append track to list if it falls within desired bpm range
-    for playlist_id in playlists:
+    for playlist_id in playlist_ids:
         playlist = Playlist.query.get(playlist_id)
+        playlists.append(playlist)
         tracks = playlist.tracks
         for track in tracks:
             # Round track's bpm to nearest int 
@@ -173,8 +175,8 @@ def get_similar_bpm():
                 bpm_tracks.append(track)
 
     return render_template("bpm.html", 
-                           playlists=playlists, 
-                           bpm=bpm, 
+                           bpm=bpm,
+                           playlists=playlists,  
                            bpm_tracks=bpm_tracks)
 
 
