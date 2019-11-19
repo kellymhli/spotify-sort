@@ -190,18 +190,21 @@ def get_similar_bpm():
             bpm = int(bpm)
             if (bpm - 2) <= int(track.tempo) <= (bpm + 2):
                 bpm_tracks.append(track)
+
         # Add tracks of desired valence to a list
         if valence != None:
             valence = float(valence)
             if (valence - 0.1) <= track.valence <= (valence + 0.1):
                 valence_tracks.append(track)
 
+    # Get all tracks that match requirements
     sorted_tracks = set(bpm_tracks) & set(valence_tracks)
 
     return render_template("bpm.html", 
                            bpm=bpm,
                            playlists=playlists,  
                            bpm_tracks=bpm_tracks,
+                           valence_tracks=valence_tracks,
                            sorted_tracks=list(sorted_tracks))
 
 
@@ -217,22 +220,6 @@ def get_similar_bpm():
     # track_dict = {"track_name":track.track_name,
     #                 ""}
 
-# @app.route("/playlists")
-# def display_playlists():
-#     """Display list of playlists to select and view."""
-
-#     # username = session.get("user_id")
-#     # print(username)
-
-#     # # Get list of tuples of (playlist_id, pl_name)
-#     # playlists = [playlist for playlist in db.session.query(Playlist.playlist_id, 
-#     #              Playlist.pl_name).all()]
-
-#     #a list of all Playlist objects in db that belong to logged in user
-#     playlists_alt = Playlist.query.filter(Playlist.user_id==username)
-#     print(playlists_alt)
-#     # Get playlist + track_ids
-#     all_playlist_tracks = PlaylistTrack.query
 
 #     # key= playlist_id, value = [list of track_ids in playlist]
 #     tracks_by_playlists = {}
@@ -244,16 +231,6 @@ def get_similar_bpm():
 
 #     # Get musical keys
 #     keys = Key.query.all()
-
-#     # Get all tracks in db
-#     tracks = Track.query.all()
-
-#     # List of bpms from 50-200 at 5bpm increments
-#     bpm_range = [bpm for bpm in range(50, 201, 5)]
-
-#     # List of valence from 0-1 at 0.2 increments
-#     valence_dict = {"Depressed": 0.2, "Sad": 0.4, "Neutral": 0.6, "Happy": 0.8, "Euphoric": 1}
-
 
 if __name__ == "__main__":
 
