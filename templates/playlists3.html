@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Playlists{% endblock %}
+{% block content %}
+    <h1>Playlists</h1>
+    {% for playlist in playlists %}
+        <button id="{{ playlist.playlist_id }}-btn">{{ playlist.pl_name }}</button>
+        <div class="modal" id="{{ playlist.playlist_id}}-modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p></p>
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+{% endblock %}

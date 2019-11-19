@@ -114,7 +114,7 @@ def display_playlists():
     # User user's spotify_id to get playlists
     playlists = Playlist.query.filter(Playlist.spotify_id == user.spotify_id)
 
-    return render_template("playlists2.html", playlists=playlists)
+    return render_template("playlists3.html", playlists=playlists)
 
 
 @app.route("/playlist/<string:playlist_id>")
@@ -195,14 +195,6 @@ def display_pl_tracks(track_id):
 #     # List of valence from 0-1 at 0.2 increments
 #     valence_dict = {"Depressed": 0.2, "Sad": 0.4, "Neutral": 0.6, "Happy": 0.8, "Euphoric": 1}
 
-#     return render_template("playlists.html", 
-#                            playlists=playlists,
-#                            tracks_by_playlists=tracks_by_playlists,
-#                            keys=keys,
-#                            tracks=tracks,
-#                            bpm_range=bpm_range,
-#                            valence_dict=valence_dict,
-#                            playlists_alt=playlists_alt)
 
 if __name__ == "__main__":
 
