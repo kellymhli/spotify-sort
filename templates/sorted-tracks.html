@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% block title %}Qualifying Tracks{% endblock %}
 {% block content %}
-    <h1>Qualifying Tracks{{ bpm }}</h1>
+    <h1>Selected Playlists</h1>
 
     {% for playlist in playlists %}
         <h3>{{ playlist.pl_name }}</h3>
     {% endfor %}
 
     <br>
+
+    <h1>Qualifying Tracks</h1>
 
     <h3>Tracks By BPM: {{ bpm }}</h3>
     {% for track in bpm_tracks %}

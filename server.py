@@ -238,12 +238,6 @@ def get_similar_bpm():
                            sorted_tracks=list(sorted_tracks))
 
 
-# @app.route("/bpm/<int:tempo>")
-# def find_match():
-
-#     # Query for all tracks of a given tempo (bpm)
-#     return render_template("bpm_match.html", tracks=tracks)
-
 #AJAX
     # bpm = request.args.get('bpm')
     # track = query for the tracks => get one
