@@ -172,11 +172,13 @@ def get_similar_bpm():
     all_tracks = []
     bpm_tracks = []
     valence_tracks = []
+    key_tracks = []
 
     # Get list of all selected playlists
     playlist_ids = request.form.getlist("playlist")
     bpm = request.form.get("bpm")
     valence = request.form.get("valence")
+    key = request.form.get("key")
 
     # Get tracks of a playlist and append track to list
     for playlist_id in playlist_ids:
@@ -201,6 +203,9 @@ def get_similar_bpm():
             if (valence - 0.1) <= track.valence <= (valence + 0.1):
                 valence_tracks.append(track)
 
+        if track.key == key:
+            key_tracks.append(track)
+
     # Get all tracks that match requirements
     sorted_tracks = set(bpm_tracks) & set(valence_tracks)
 
@@ -209,6 +214,7 @@ def get_similar_bpm():
                            playlists=playlists,  
                            bpm_tracks=bpm_tracks,
                            valence_tracks=valence_tracks,
+                           key_tracks=key_tracks,
                            sorted_tracks=list(sorted_tracks))
 
 
