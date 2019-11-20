@@ -2,7 +2,7 @@
 {% block title %}Playlists{% endblock %}
 {% block content %}
     <h1>Playlists</h1>
-    <form action="/sort-bpm" method="POST">
+    <form action="/sort-playlists" method="POST">
         {% for playlist in playlists %}
             <input type="checkbox" value="{{ playlist.playlist_id }}" name="playlist">
                 <a href="/playlist/{{ playlist.playlist_id }}">{{ playlist.pl_name }}</a>

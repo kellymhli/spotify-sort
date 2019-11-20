@@ -164,7 +164,7 @@ def display_pl_tracks(track_id):
     return render_template("track_features.html", track_fts=track_fts)
 
 
-@app.route("/sort-bpm", methods=["POST"])
+@app.route("/sort-playlists", methods=["POST"])
 def get_similar_bpm():
     """Return a list of tracks with similar bpms."""
 
@@ -221,7 +221,7 @@ def get_similar_bpm():
     # Get all tracks that match requirements
     sorted_tracks = set(bpm_tracks) & set(valence_tracks)
 
-    return render_template("bpm.html", 
+    return render_template("sorted-tracks.html", 
                            bpm=bpm,
                            playlists=playlists,  
                            bpm_tracks=bpm_tracks,
