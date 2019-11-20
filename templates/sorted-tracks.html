@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% block title %}BPM{% endblock %}
+{% block title %}Qualifying Tracks{% endblock %}
 {% block content %}
-    <h1>BPM: {{ bpm }}</h1>
+    <h1>Qualifying Tracks{{ bpm }}</h1>
 
     {% for playlist in playlists %}
         <h3>{{ playlist.pl_name }}</h3>
@@ -9,7 +9,7 @@
 
     <br>
 
-    <h3>Tracks By BPM</h3>
+    <h3>Tracks By BPM: {{ bpm }}</h3>
     {% for track in bpm_tracks %}
         <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a> 
         - {{ track.tempo }}<br>
