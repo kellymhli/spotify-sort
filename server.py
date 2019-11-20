@@ -144,6 +144,15 @@ def get_pl_tracks(playlist_id):
     return render_template("playlist_tracks.html", playlist=playlist, tracks=tracks)
 
 
+@app.route("/playlist-tracks")
+def return_pl_tracks(playlist_id):
+    """Return playlist track object."""
+
+    playlist = Playlist.query.get(playlist_id)
+    tracks = playlist.tracks
+    return jsonify({"tracks": tracks})
+
+
 @app.route("/tracks")
 def display_tracks():
     """Display all user tracks."""
