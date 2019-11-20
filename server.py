@@ -182,8 +182,12 @@ def get_similar_bpm():
     bpm = request.form.get("bpm")
     valence = request.form.get("valence")
     key = request.form.get("key")
-    keyname = Key.query.filter(Key.key_id == key).one()
-    match_keys = MatchingKey.query.filter(MatchingKey.key_id == key).all()
+
+    if key != "None":
+        keyname = Key.query.filter(Key.key_id == key).one()
+        match_keys = MatchingKey.query.filter(MatchingKey.key_id == key).all()
+    else: 
+        keyname = "None"
 
     # Get tracks of a playlist and append track to list
     for playlist_id in playlist_ids:
@@ -209,13 +213,15 @@ def get_similar_bpm():
             if (valence - 0.1) <= track.valence <= (valence + 0.1):
                 valence_tracks.append(track)
 
-        # Create list of tracks of user selected key
-        if int(track.key) == int(key):
-            key_tracks.append(track)
+        if key != "None":
+            # Create list of tracks of user selected key
+            if int(track.key) == int(key):
+                key_tracks.append(track)
 
-        # Create a list of tracks with keys that pair well with user selected key
-        if int(track.key) == int(match_keys[0].matching_key) or int(track.key) == int(match_keys[1].matching_key):
-            matching_key_tracks.append(track)
+            # Create a list of tracks with keys that pair well with user selected key
+            if (int(track.key) == int(match_keys[0].matching_key) 
+                or int(track.key) == int(match_keys[1].matching_key)):
+                    matching_key_tracks.append(track)
 
 
     # Get all tracks that match requirements

@@ -25,20 +25,22 @@
 
     <br>
 
-    <h3>Tracks By Key: {{ keyname.key_name }}</h3>
-    {% for track in key_tracks %}
-        <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a><br>
-    {% endfor %}
+    {% if keyname != "None" %}
+        <h3>Tracks of Key {{ keyname.key_name }}</h3>
+        {% for track in key_tracks %}
+            <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a><br>
+        {% endfor %}
 
-    <br>
+        <br>
 
-    <h3>Tracks By Matching Keys</h3>
-    {% for track in matching_key_tracks %}
-        <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a>
-        - {{ track.key }}<br>
-    {% endfor %}
+        <h3>Tracks By Matching Keys</h3>
+        {% for track in matching_key_tracks %}
+            <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a>
+            - {{ track.key }}<br>
+        {% endfor %}
 
-    <br>
+         <br>
+    {% endif %}
 
     <h3>Tracks By BPM and Valence</h3>
     {% for track in sorted_tracks %}
