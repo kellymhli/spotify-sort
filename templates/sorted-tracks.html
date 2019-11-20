@@ -38,7 +38,7 @@
         <h3>Tracks By Matching Keys</h3>
         {% for track in matching_key_tracks %}
             <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a>
-            - {{ track.key }}<br>
+            - {{ track.keys.key_name }}<br>
         {% endfor %}
 
          <br>

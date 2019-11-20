@@ -7,7 +7,7 @@
             <input type="checkbox" class="playlist" value="{{ playlist.playlist_id }}" name="playlist">
                 <a href="/playlist/{{ playlist.playlist_id }}">{{ playlist.pl_name }}</a>
             </input>
-            <button class="tracks-btn" value="{{ playlist.playlist_id }}">tracks</button>
+            <button class="tracks-btn" value="{{ playlist.playlist_id }}">x</button>
             <div class="modal {{ playlist.playlist_id }}"></div>
             <br>
         {% endfor %}

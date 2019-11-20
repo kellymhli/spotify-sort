@@ -145,12 +145,35 @@ def get_pl_tracks(playlist_id):
 
 
 @app.route("/playlist-tracks")
-def return_pl_tracks(playlist_id):
+def return_pl_tracks():
     """Return playlist track object."""
 
+    playlist_id = request.args.get('pl')
     playlist = Playlist.query.get(playlist_id)
-    tracks = playlist.tracks
-    return jsonify({"tracks": tracks})
+    playlist_tracks = playlist.tracks
+    tracks = []
+
+    for track in playlist_tracks:
+        tracks.append({
+            "track_id" : track.track_id,
+            "track_name" : track.track_name,
+            "artist" : track.artist,
+            "spotify_id" : track.spotify_id,
+            "playlist_id" : track.playlist_id,
+            "key" : track.key,
+            "mode" : track.mode,
+            "danceability" : track.danceability,
+            "energy" : track.energy,
+            "instrumentalness" : track.instrumentalness,
+            "loudness" : track.loudness,
+            "speechiness" : track.speechiness,
+            "valence" : track.valence,
+            "tempo" : track.tempo,
+            "uri" : track.uri,
+            "href" : track.href,
+            "duration" : track.duration})
+  
+    return jsonify(tracks)
 
 
 @app.route("/tracks")
