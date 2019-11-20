@@ -10,6 +10,8 @@
             <br>
         {% endfor %}
 
+        <br>
+
         BPM:
         <select name="bpm">
             <option value="None">None</option>
@@ -28,6 +30,15 @@
         </select>
 
         <br>
+
+        Key:
+        <select name="key">
+            {% for key in keys %}
+                <option value="{{ key.key_id }}">{{ key.key_name }}</option>
+            {% endfor %}
+        </select>
+
+        <br><br>
         <input type="submit">
     </form>
 {% endblock %}

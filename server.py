@@ -125,10 +125,14 @@ def display_playlists():
                     "Happy": 0.8, 
                     "Euphoric": 1}
 
+    # Get music keys
+    keys = Key.query.all()
+
     return render_template("playlists2.html", 
                            playlists=playlists, 
                            bpm_range=bpm_range,
-                           valence_dict=valence_dict)
+                           valence_dict=valence_dict,
+                           keys=keys)
 
 
 @app.route("/playlist/<string:playlist_id>")
