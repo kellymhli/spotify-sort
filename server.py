@@ -141,7 +141,7 @@ def get_pl_tracks(playlist_id):
 
     playlist = Playlist.query.get(playlist_id)
     tracks = playlist.tracks
-    return render_template("playlist-tracks.html", playlist=playlist, tracks=tracks)
+    return render_template("playlist_tracks.html", playlist=playlist, tracks=tracks)
 
 
 @app.route("/tracks")
@@ -177,7 +177,6 @@ def get_similar_bpm():
     playlist_ids = request.form.getlist("playlist")
     bpm = request.form.get("bpm")
     valence = request.form.get("valence")
-    print(valence)
 
     # Get tracks of a playlist and append track to list
     for playlist_id in playlist_ids:
@@ -189,14 +188,15 @@ def get_similar_bpm():
 
     for track in all_tracks:
         # Round track's bpm to nearest int 
-        # And check if it's +/1 2bmp from selected bpm
-        if bpm != None:
+        # And check if it's +/- 2bmp from selected bpm
+        
+        if bpm != "None":
             bpm = int(bpm)
-            if (bpm - 2) <= int(track.tempo) <= (bpm + 2):
+            if (bpm - 3) <= int(track.tempo) <= (bpm + 3):
                 bpm_tracks.append(track)
 
         # Add tracks of desired valence to a list
-        if valence != None:
+        if valence != "None":
             valence = float(valence)
             if (valence - 0.1) <= track.valence <= (valence + 0.1):
                 valence_tracks.append(track)
@@ -224,17 +224,6 @@ def get_similar_bpm():
     # track_dict = {"track_name":track.track_name,
     #                 ""}
 
-
-#     # key= playlist_id, value = [list of track_ids in playlist]
-#     tracks_by_playlists = {}
-
-#     for playlist in playlists:
-#         # Query all tracks in a given playlist and addse to dictionary
-#         playlist_tracks = all_playlist_tracks.filter(PlaylistTrack.playlist_id == playlist[0]).all()
-#         tracks_by_playlists[playlist[0]] = playlist_tracks
-
-#     # Get musical keys
-#     keys = Key.query.all()
 
 if __name__ == "__main__":
 

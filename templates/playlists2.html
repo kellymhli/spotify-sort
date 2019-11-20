@@ -24,6 +24,7 @@
 
         Mood:
         <select name="valence">
+            <option value="None">None</option>
             {% for mood, valence in valence_dict.items() %}
                 <option value="{{ valence }}">{{ mood }}</option>
             {% endfor %}
@@ -33,6 +34,7 @@
 
         Key:
         <select name="key">
+            <option value="None">None</option>
             {% for key in keys %}
                 <option value="{{ key.key_id }}">{{ key.key_name }}</option>
             {% endfor %}

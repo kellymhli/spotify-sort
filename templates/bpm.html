@@ -11,20 +11,24 @@
 
     <h3>Tracks By BPM</h3>
     {% for track in bpm_tracks %}
-        <a href="/tracks/{{ track.track_id }}">
-            {{ track.track_name }}
-        </a> 
+        <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a> 
         - {{ track.tempo }}<br>
+    {% endfor %}
+
+    <br>
+
+    <h3>Tracks By Valence</h3>
+    {% for track in valence_tracks %}
+        <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a> 
+        - {{ track.valence }}<br>
     {% endfor %}
 
     <br>
 
     <h3>Tracks By BPM and Valence</h3>
     {% for track in sorted_tracks %}
-    <a href="/tracks/{{ track.track_id }}">
-        {{ track.track_name }}
-    </a> 
-    - {{ track.tempo }} - {{ track.valence }}<br>
+        <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a> 
+        - {{ track.tempo }} - {{ track.valence }}<br>
     {% endfor %}
 
 {% endblock%}
