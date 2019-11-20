@@ -119,8 +119,8 @@ def display_playlists():
 
     # List of valence from 0-1 at 0.2 increments
     valence_dict = {"None": None,
-                    "Depressed": 0.2, 
-                    "Sad": 0.4, 
+                    "Bleh": 0.2, 
+                    "Low": 0.4, 
                     "Neutral": 0.6, 
                     "Happy": 0.8, 
                     "Euphoric": 1}
