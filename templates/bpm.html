@@ -32,6 +32,14 @@
 
     <br>
 
+    <h3>Tracks By Matching Keys</h3>
+    {% for track in matching_key_tracks %}
+        <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a>
+        - {{ track.key }}<br>
+    {% endfor %}
+
+    <br>
+
     <h3>Tracks By BPM and Valence</h3>
     {% for track in sorted_tracks %}
         <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a> 
