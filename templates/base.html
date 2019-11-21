@@ -5,14 +5,17 @@
         href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.css"/>
     <link rel="stylesheet"
         href="/static/css/playlists.css"/>
-    <script
+        <script
         src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
         crossorigin="anonymous"></script>
-    <script type="text/javascript" src="/static/app.js"></script>
     <title>{% block title %}TITLE CONTENT GOES HERE{% endblock %}</title>
 </head>
 <body>
+    
+    <script type="text/javascript" src="/static/app.js"></script>
+
     {% block content %}BODY CONTENT GOES HERE{% endblock %}
+
 </body>
 </html>
