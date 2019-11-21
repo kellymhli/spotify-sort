@@ -280,9 +280,9 @@ def get_similar_bpm():
 if __name__ == "__main__":
 
     # Needs to be true upon invoking DebugToolbarExtension
-    app.debug = True 
+    app.debug = True
     # Make sure templates, etc. are not cached in debug mode
-    app.jinja_env.auto_reload = app.debug 
+    app.jinja_env.auto_reload = app.debug
 
     connect_to_db(app)
     DebugToolbarExtension(app)

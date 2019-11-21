@@ -4,7 +4,6 @@ $(document).ready(function(){  // Load page before adding event handlers
     $('.tracks-btn').on('click', (evt) => {
         evt.preventDefault();
         const playlist_id = evt.target.value;
-    
         $.get('/playlist-tracks', {'pl':playlist_id}, (tracks) => {
             // console.log(tracks);
             for (track of tracks) {
