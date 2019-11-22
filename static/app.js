@@ -1,7 +1,7 @@
-$(document).ready(function(){  // Load page before adding event handlers
+$(document).ready(function() {
+    const tracksBtn = $('.tracks-btn')
 
-    // Create event listener on tracks bottons
-    $('.tracks-btn').on('click', (evt) => {
+    tracksBtn.on('click', (evt) => {
         evt.preventDefault();
         const playlist_id = evt.target.value;
 
@@ -10,13 +10,13 @@ $(document).ready(function(){  // Load page before adding event handlers
                 $(`.${playlist_id} ul`).append(`<li><a href="/tracks/${track.track_id}">${track.track_name}</a></li>`);
             }
         });
-        
+
         const modal = $(`#modal-${playlist_id}`)
-        const modalOverlay = $(`#modal-overlay-${playlist_id}`)
-        const closeBtn = $(`close-btn-${playlist_id}`)
+        modal.toggle('show-modal');
 
-        modal.classList.toggle('closed');
-        modalOverlay.classList.toggle('closed');
-    })
-
+        const closeBtn = $(`#close-btn-${playlist_id}`)
+        closeBtn.on('click', (evt) => {
+            modal.toggle('show-modal');
+        });
+    });
 })

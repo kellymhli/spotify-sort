@@ -9,15 +9,13 @@
             </input>
             <button type="button" class="tracks-btn" value="{{ playlist.playlist_id }}">x</button>
 
-            <div class="modal-overlay" id="modal-overlay-{{ playlist.playlist_id }}">
-            <div class="modal {{ playlist.playlist_id }}" id="modal-{{ playlist.playlist_id}}">
-                <button class="close-btn" id="close-btn-{{ playlist.playlist_id }}">Close</button>
+            <div class="modal {{ playlist.playlist_id }} show-modal" id="modal-{{ playlist.playlist_id}}">
+                <button type="button" class="close-btn" id="close-btn-{{ playlist.playlist_id }}">Close</button>
                 <div class="modal-guts">
                     <ul>Tracks</ul>
                 </div>
             </div>
 
-            </div>
             <br>
         {% endfor %}
         <br>
@@ -50,6 +48,7 @@
         </select>
 
         <br><br>
+
         <input type="submit">
     </form>
 {% endblock %}
