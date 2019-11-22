@@ -1,5 +1,5 @@
 $(document).ready(function() {  // Load all html elems before adding evt handlers
-    const tracksBtn = $('.tracks-btn')
+    const tracksBtn = $('.tracks-btn');
 
     // Get tracks from a playlist and display in a modal
     tracksBtn.on('click', (evt) => {
@@ -14,13 +14,15 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
         });
 
         // Close modal upon click
-        const closeBtn = $(`#close-btn-${playlist_id}`)
-        closeBtn.on('click', () => {
+        const closeBtn = $(`#close-btn-${playlist_id}`);
+        closeBtn.on('click', (e) => {
+            e.preventDefault();
+            console.log('hi')
             modal.toggle('show-modal');
         });
 
         // Display the modal
-        const modal = $(`#modal-${playlist_id}`)
+        const modal = $(`#modal-${playlist_id}`);
         modal.toggle('show-modal');
     });
 })
