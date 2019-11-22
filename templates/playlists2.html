@@ -7,10 +7,10 @@
             <input type="checkbox" class="playlist" value="{{ playlist.playlist_id }}" name="playlist">
                 <a href="/playlist/{{ playlist.playlist_id }}">{{ playlist.pl_name }}</a>
             </input>
-            <button type="button" class="tracks-btn" value="{{ playlist.playlist_id }}">x</button>
+            <button type="button" class="tracks-btn" value="{{ playlist.playlist_id }}">T</button>
 
             <div class="modal {{ playlist.playlist_id }} show-modal" id="modal-{{ playlist.playlist_id}}">
-                <button type="button" class="close-btn" id="close-btn-{{ playlist.playlist_id }}">Close</button>
+                <button type="button" class="close-btn" id="close-btn-{{ playlist.playlist_id }}">X</button>
                 <div class="modal-guts">
                     <ul>Tracks</ul>
                 </div>
