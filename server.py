@@ -55,7 +55,7 @@ def login():
         session["logged_in"] = True
         return redirect("/playlists")
     else:
-        return redirec("/register")
+        return redirect("/register")
 
 
 @app.route("/register", methods=["GET"])
@@ -81,7 +81,7 @@ def register():
         confirm_pass = request.form.get("confirm_pass")
 
     # Get access token for Spotify oAuth
-    access_token =  api.get_access_token(spotify_id) 
+    access_token =  api.get_access_token(spotify_id)
 
     # Add user and their playlists + tracks into db if new user
     if User.query.get(user_id) == None:
@@ -280,7 +280,7 @@ def get_similar_bpm():
 if __name__ == "__main__":
 
     # Needs to be true upon invoking DebugToolbarExtension
-    app.debug = True
+    app.debug = True 
     # Make sure templates, etc. are not cached in debug mode
     app.jinja_env.auto_reload = app.debug
 

@@ -3,7 +3,7 @@
 {% block content %}
 
     <h1>{{track_fts.track_name}}</h1>
-    Artist: {{ track_fts.artist }}<br>
+    <p name="artist" id="{{ track_fts.artist }}">Artist: {{ track_fts.artist }}</p><br>
     Duration: {{ track_fts.duration }}<br>
     BPM: {{ track_fts.tempo }}<br>
     Key: {{ track_fts.keys.key_name }}<br>

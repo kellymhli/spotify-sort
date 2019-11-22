@@ -13,16 +13,20 @@
 
     <h3>Tracks By BPM: {{ bpm }}</h3>
     {% for track in bpm_tracks %}
-        <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a> 
-        - {{ track.tempo }}<br>
+        <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
+            <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a> 
+            - {{ track.tempo }}<br>
+        </input>
     {% endfor %}
 
     <br>
 
     <h3>Tracks By Valence</h3>
     {% for track in valence_tracks %}
-        <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a> 
-        - {{ track.valence }}<br>
+        <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
+            <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a> 
+            - {{ track.valence }}<br>
+        </input>
     {% endfor %}
 
     <br>
@@ -30,15 +34,19 @@
     {% if keyname != "None" %}
         <h3>Tracks of Key {{ keyname.key_name }}</h3>
         {% for track in key_tracks %}
-            <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a><br>
+            <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
+                <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a><br>
+            </input>
         {% endfor %}
 
         <br>
 
         <h3>Tracks By Matching Keys</h3>
         {% for track in matching_key_tracks %}
-            <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a>
-            - {{ track.keys.key_name }}<br>
+            <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
+                <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a>
+                - {{ track.keys.key_name }}<br>
+            </input>
         {% endfor %}
 
          <br>
@@ -46,8 +54,10 @@
 
     <h3>Tracks By BPM and Valence</h3>
     {% for track in sorted_tracks %}
-        <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a> 
-        - {{ track.tempo }} - {{ track.valence }}<br>
+        <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
+            <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a> 
+            - {{ track.tempo }} - {{ track.valence }}<br>
+        </input>
     {% endfor %}
 
 {% endblock%}
