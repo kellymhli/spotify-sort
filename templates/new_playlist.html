@@ -4,8 +4,11 @@
     <form action="add-playlist" method="POST">
         <h1 name="playlist_name" value="New Playlist">New Playlist</h1>
         {% for track in tracks %}
-            <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a><br>
+            <input class="deselect-track" type="checkbox" name="track" value={{ track.track_id }}>
+                <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a>
+            </input><br>
         {% endfor %}
+
         <input type="submit" value="Confirm Playlist">
     </form>
 {% endblock %}

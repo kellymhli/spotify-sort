@@ -25,4 +25,5 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
         const modal = $(`#modal-${playlist_id}`);
         modal.toggle('show-modal');
     });
+
 })

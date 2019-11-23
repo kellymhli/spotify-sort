@@ -286,6 +286,8 @@ def display_new_playlist():
 
 @app.route("/add-playlist", methods=["POST"])
 def add_playlist_to_db():
+    """Add new playlist to database."""
+    
     pass
 
 

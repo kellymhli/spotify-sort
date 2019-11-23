@@ -11,7 +11,7 @@
 
     <h1>Qualifying Tracks</h1>
 
-    <form action="/new-playlist" method="POST">
+    <form action="/new-playlist" method="GET">
         <h3>Tracks By BPM: {{ bpm }}</h3>
         {% for track in bpm_tracks %}
             <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
