@@ -196,8 +196,8 @@ def display_pl_tracks(track_id):
     return render_template("track_features.html", track_fts=track_fts)
 
 
-@app.route("/sort-playlists", methods=["POST"])
-def get_similar_bpm():
+@app.route("/sort-playlists", methods=["GET"])
+def sort_tracks():
     """Return a list of tracks with similar bpms."""
 
     playlists = []
@@ -208,17 +208,17 @@ def get_similar_bpm():
     matching_key_tracks = []
 
     # Get list of all selected playlists
-    playlist_ids = request.form.getlist("playlist")
+    playlist_ids = request.args.getlist("playlist")
 
     # Get selected features
-    bpm = request.form.get("bpm")
-    valence = request.form.get("valence")
-    key = request.form.get("key")
+    bpm = request.args.get("bpm")
+    valence = request.args.get("valence")
+    key = request.args.get("key")
 
     if key != "None":
         keyname = Key.query.filter(Key.key_id == key).one()
         match_keys = MatchingKey.query.filter(MatchingKey.key_id == key).all()
-    else: 
+    else:
         keyname = "None"
 
     # Get tracks of a playlist and append track to list
@@ -231,7 +231,7 @@ def get_similar_bpm():
         #     all_tracks.append(track)
 
     for track in all_tracks:
-        # Round track's bpm to nearest int 
+        # Round track's bpm to nearest int
         # And check if it's +/- 2bmp from selected bpm
         
         if bpm != "None":
@@ -251,7 +251,7 @@ def get_similar_bpm():
                 key_tracks.append(track)
 
             # Create a list of tracks with keys that pair well with user selected key
-            if (int(track.key) == int(match_keys[0].matching_key) 
+            if (int(track.key) == int(match_keys[0].matching_key)
                 or int(track.key) == int(match_keys[1].matching_key)):
                     matching_key_tracks.append(track)
 
@@ -259,9 +259,9 @@ def get_similar_bpm():
     # Get all tracks that match requirements
     sorted_tracks = set(bpm_tracks) & set(valence_tracks)
 
-    return render_template("sorted-tracks.html", 
+    return render_template("sorted-tracks.html",
                            bpm=bpm,
-                           playlists=playlists,  
+                           playlists=playlists,
                            bpm_tracks=bpm_tracks,
                            valence_tracks=valence_tracks,
                            keyname=keyname,
@@ -270,11 +270,16 @@ def get_similar_bpm():
                            sorted_tracks=list(sorted_tracks))
 
 
-#AJAX
-    # bpm = request.args.get('bpm')
-    # track = query for the tracks => get one
-    # track_dict = {"track_name":track.track_name,
-    #                 ""}
+@app.route("/new-playlist", methods=["GET"])
+def display_new_playlist():
+
+    # Make sure track only shows up once in the list
+    track_ids = list(set(request.args.getlist("track")))
+    tracks = []
+    for track_id in track_ids:
+        tracks.append(Track.query.get(track_id))
+
+    return render_template("new_playlist.html", tracks=tracks)
 
 
 if __name__ == "__main__":

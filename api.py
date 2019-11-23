@@ -9,7 +9,6 @@ def get_access_token(spotify_id):
     """Return access token from Spotify for defined scopes."""
 
     scope = 'user-library-read'
-    cache_path = ".cache-" + spotify_id
 
     # Get access token from Spotify authorization server.
     token = util.prompt_for_user_token(username=spotify_id,
