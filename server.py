@@ -232,8 +232,7 @@ def sort_tracks():
 
     for track in all_tracks:
         # Round track's bpm to nearest int
-        # And check if it's +/- 2bmp from selected bpm
-        
+        # And check if it's +/- 3bmp from selected bpm
         if bpm != "None":
             bpm = int(bpm)
             if (bpm - 3) <= int(track.tempo) <= (bpm + 3):
@@ -272,14 +271,22 @@ def sort_tracks():
 
 @app.route("/new-playlist", methods=["GET"])
 def display_new_playlist():
+    """Display selected songs to that user would like to make a new playlist with."""
 
     # Make sure track only shows up once in the list
     track_ids = list(set(request.args.getlist("track")))
     tracks = []
+
+    # Get all track object by track_id
     for track_id in track_ids:
         tracks.append(Track.query.get(track_id))
 
     return render_template("new_playlist.html", tracks=tracks)
+
+
+@app.route("/add-playlist", methods=["POST"])
+def add_playlist_to_db():
+    pass
 
 
 if __name__ == "__main__":

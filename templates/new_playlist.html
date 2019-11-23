@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}New Playlist{% endblock %}
 {% block content %}
-    <h1 name="playlist_name" value="New Playlist">New Playlist</h1>
-    {% for track in tracks %}
-        <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a><br>
-    {% endfor %}
+    <form action="add-playlist" method="POST">
+        <h1 name="playlist_name" value="New Playlist">New Playlist</h1>
+        {% for track in tracks %}
+            <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a><br>
+        {% endfor %}
+        <input type="submit" value="Confirm Playlist">
+    </form>
 {% endblock %}
