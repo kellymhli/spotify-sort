@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 import api
 
-# Create connection to PostgreSQL database through Flask-SQLAlchemy library. 
+# Create connection to PostgreSQL database through Flask-SQLAlchemy library.
 # Contains the session object.
 db = SQLAlchemy()
 
@@ -88,7 +88,7 @@ class Track(db.Model):
     mode = db.Column(db.Integer)  # Major/minor mode
     danceability = db.Column(db.Float)  # How suitable track if for dancing
     energy = db.Column(db.Float)  # Intensity and activity
-    instrumentalness = db.Column(db.Float) 
+    instrumentalness = db.Column(db.Float)
     loudness = db.Column(db.Float)
     speechiness = db.Column(db.Float)
     valence = db.Column(db.Float)  # Positiveness of track
@@ -130,7 +130,7 @@ class MatchingKey(db.Model):
 
     # Set up relationship between keys and matching keys
     #key = db.relationship("Key", db.foreign_keys=[matching_key], backref="matching_keys", db.foreign_keys=[key_id])
-    key = db.relationship("Key", 
+    key = db.relationship("Key",
                           backref="matching_keys")
 
     def __repr__(self):
@@ -150,7 +150,7 @@ def connect_to_db(app):
 
 
 if __name__ == "__main__":
-    # Running this module interactively will leave you in a 
+    # Running this module interactively will leave you in a
     # state of being able to work with the db directly
 
     from server import app

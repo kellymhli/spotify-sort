@@ -21,7 +21,7 @@ def homepage():
     else:
         session["logged_in"] = False
 
-    return render_template("homepage.html", 
+    return render_template("homepage.html",
                            logged_in=session["logged_in"])
 
 
@@ -49,9 +49,9 @@ def login():
         correct_pass = user.password
         while password != correct_pass:
             password = request.form.get("password")
-            # FLASH MESSAGE IF WRONG PASSWORD
 
         session["user_id"] = user.user_id
+        session["spotify_id"] = user.spotify_id
         session["logged_in"] = True
         return redirect("/playlists")
     else:
@@ -88,8 +88,9 @@ def register():
         seed.load_user(user_id, spotify_id, password, access_token)
 
     # Track user in session
-    session['user_id'] = user_id
-    session['logged_in'] = True
+    session["user_id"] = user_id
+    session["spotify_id"] = spotify_id
+    session["logger_in"] = True
 
     return redirect("/playlists")
 
@@ -100,6 +101,7 @@ def logout():
 
     # Drop user from session
     session["user_id"] = None
+    session["spotify_id"] = None
     session["logged_in"] = False
 
     return redirect("/")
@@ -119,17 +121,17 @@ def display_playlists():
 
     # List of valence from 0-1 at 0.2 increments
     valence_dict = {"None": None,
-                    "Bleh": 0.2, 
-                    "Low": 0.4, 
-                    "Neutral": 0.6, 
-                    "Happy": 0.8, 
+                    "Bleh": 0.2,
+                    "Low": 0.4,
+                    "Neutral": 0.6,
+                    "Happy": 0.8,
                     "Euphoric": 1}
 
     # Get music keys
     keys = Key.query.all()
 
-    return render_template("playlists2.html", 
-                           playlists=playlists, 
+    return render_template("playlists2.html",
+                           playlists=playlists,
                            bpm_range=bpm_range,
                            valence_dict=valence_dict,
                            keys=keys)
@@ -192,7 +194,7 @@ def display_pl_tracks(track_id):
     """Display deatils of a track given the track_id."""
 
     track_fts = Track.query.get(track_id)
-    
+
     return render_template("track_features.html", track_fts=track_fts)
 
 
@@ -287,14 +289,14 @@ def display_new_playlist():
 @app.route("/add-playlist", methods=["POST"])
 def add_playlist_to_db():
     """Add new playlist to database."""
-    
+
     pass
 
 
 if __name__ == "__main__":
 
     # Needs to be true upon invoking DebugToolbarExtension
-    app.debug = True 
+    app.debug = True
     # Make sure templates, etc. are not cached in debug mode
     app.jinja_env.auto_reload = app.debug
 
