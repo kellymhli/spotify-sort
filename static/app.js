@@ -26,4 +26,12 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
         modal.toggle('show-modal');
     });
 
+    const deselectBtn = $('.deselect');
+
+    deselectBtn.on('click', (evt) => {
+        evt.preventDefault();
+        const track_id = evt.target.value;
+        $(`#deselect-${track_id}`).remove();
+        $(`#track-href-${track_id}`).remove();
+    });
 })
