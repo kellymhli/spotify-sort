@@ -290,6 +290,8 @@ def display_new_playlist():
 def add_playlist_to_db():
     """Add new playlist to database."""
 
+    pl_name = request.form.get("pl_name")
+    tracks = request.form.getlist("track")
     pass
 
 
