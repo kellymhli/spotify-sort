@@ -45,12 +45,12 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
         const plName = $('#new-pl-name').html();  // Get playlist name
         const trackDivs = $('.add-track-div');
 
+        // Store track ids in array
         for (track of trackDivs) {
             trackIds.push(track.getAttribute('value'));
         };
 
-        newPl = {pl_name: plName,
-                 tracks: trackIds};
+        newPl = {pl_name: plName, tracks: trackIds};
         console.log(newPl);
 
         $.post('/add-playlist', newPl, (res) => {
