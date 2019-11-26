@@ -174,7 +174,7 @@ def return_pl_tracks():
             "uri" : track.uri,
             "href" : track.href,
             "duration" : track.duration})
-  
+
     return jsonify(tracks)
 
 
