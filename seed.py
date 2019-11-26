@@ -31,7 +31,7 @@ def add_playlist(spotify_id, pl_name, track_ids):
 
     # Spotify playlist_id's are 22 char long, make custom id's 30 long
     playlist_id = ''.join([random.choice(string.ascii_letters + string.digits)
-                      for n in xrange(30)])
+                      for n in range(30)])
 
     # Create new playlist and add to db
     if Playlist.query.filter(Playlist.playlist_id == playlist_id).one_or_none() == None:
