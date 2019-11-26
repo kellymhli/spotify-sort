@@ -292,7 +292,6 @@ def add_playlist_to_db():
 
     pl_name = request.form.get("pl_name")
     tracks = request.form.getlist("tracks[]")
-    print(pl_name, tracks)
     seed.add_playlist(session["spotify_id"], pl_name, tracks)
 
     return redirect("/playlists")
