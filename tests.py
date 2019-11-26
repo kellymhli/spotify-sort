@@ -1,4 +1,4 @@
-import unittest, time, server
+import unittest, server
 from selenium import webdriver
 
 # browser = webdriver.Chrome("./chromedriver")
@@ -34,7 +34,7 @@ class TestFlaskRoutes(unittest.TestCase):
         result = self.client.get("/")
         self.assertIn(b"<h1>Spotify Sort</h1>", result.data)
 
-    def test_login(self):
+    def test_login_page(self):
         """Assure login route returns login.html."""
 
         result = self.client.get("/login")
@@ -46,3 +46,12 @@ class TestFlaskRoutes(unittest.TestCase):
         result = self.client.get("/register")
         self.assertIn(b"Spotify Username: <input type=", result.data)
         self.assertIn(b"Confirm Password:", result.data)
+
+
+if __name__ == "__main__":
+    """Run tests when tests.py is called."""
+
+    t = TestFlaskRoutes()
+    t.test_homepage()
+    t.test_login_page()
+    t.test_register_page()
