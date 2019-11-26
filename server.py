@@ -292,6 +292,9 @@ def add_playlist_to_db():
 
     pl_name = request.form.get("pl_name")
     tracks = request.form.getlist("track")
+    # Add playlists
+    # Flash message
+    # return to playlists page
     pass
 
 
