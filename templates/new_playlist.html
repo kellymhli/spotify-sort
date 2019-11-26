@@ -2,13 +2,26 @@
 {% block title %}New Playlist{% endblock %}
 {% block content %}
     <form action="add-playlist" method="POST">
-        <h1 name="pl_name" value="New Playlist">New Playlist</h1>
+        <h1 id="new-pl-name"
+            name="pl_name">New Playlist</h1>
+
         {% for track in tracks %}
-            <button type="button" class="deselect" id="deselect-{{ track.track_id }}"value="{{ track.track_id }}">X</button>
-            <a href="/tracks/{{ track.track_id }}" id="track-href-{{ track.track_id }}">{{ track.track_name }}</a>
-            <br>
+            <div class="add-track-div"
+                 id="deselect-{{ track.track_id }}-div"
+                 value="{{ track.track_id }}">
+                <button type="button"
+                        class="deselect"
+                        id="deselect-{{ track.track_id }}"
+                        value="{{ track.track_id }}">
+                        X</button>
+                <a href="/tracks/{{ track.track_id }}"
+                class="add-track" id="track-href-{{ track.track_id }}"
+                name="track"
+                value="{{ track.track_id }}">
+                {{ track.track_name }}</a>
+            </div>
         {% endfor %}
 
-        <input type="submit" value="Confirm Playlist">
+        <input type="submit" id="create-pl" value="Create Playlist">
     </form>
 {% endblock %}

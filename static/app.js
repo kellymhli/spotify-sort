@@ -26,12 +26,26 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
         modal.toggle('show-modal');
     });
 
+    // Remove track from page when user clicks X
     const deselectBtn = $('.deselect');
-
     deselectBtn.on('click', (evt) => {
         evt.preventDefault();
         const track_id = evt.target.value;
-        $(`#deselect-${track_id}`).remove();
-        $(`#track-href-${track_id}`).remove();
+        $(`#deselect-${track_id}-div`).remove();  // Remove X button
+        // $(`#track-href-${track_id}`).remove();  // Remove track info
+    });
+
+
+
+    // Submit new playlist
+    const createPlaylistBtn = $('#create-pl');
+    createPlaylistBtn.on('click', (evt) => {
+        evt.preventDefault();
+        const pl_name = $('#new-pl-name').html();  // Get playlist name
+        const tracks = $('.add-track');
+        console.log(tracks);
+        for (track of tracks) {
+            console.log(track.val());
+        }
     });
 })
