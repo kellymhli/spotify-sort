@@ -63,7 +63,7 @@ def get_playlists(user_id, token):
     while results['next']:
         results = sp.next(results)
         playlists.extend(results['items'])
-    
+
     return playlists
 
 

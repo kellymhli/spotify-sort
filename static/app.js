@@ -50,13 +50,16 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
             trackIds.push(track.getAttribute('value'));
         };
 
-        // Create dict object to pass to add-playlist route
-        let newPl = {'pl_name': plName,
-                     'tracks': trackIds};
+        console.log(trackIds);
+        if (trackIds != [] && plName != '') {
+            // Create dict object to pass to add-playlist route
+            let newPl = {'pl_name': plName,
+                        'tracks': trackIds};
 
-        // Add playlist to db
-        $.post('/add-playlist', newPl, (res) => {
-            alert(`${plName} has been created.`);
-        });
+            // Add playlist to db
+            $.post('/add-playlist', newPl, (res) => {
+                alert(`${plName} has been created.`);
+            });
+        }
     });
 })
