@@ -3,7 +3,8 @@
 {% block content %}
     <form action="add-playlist" method="POST">
         <h1 id="new-pl-name"
-            name="pl_name">New Playlist</h1>
+            name="pl_name"
+            contenteditable="true">New Playlist</h1>
 
         {% for track in tracks %}
             <div class="add-track-div"

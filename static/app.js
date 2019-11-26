@@ -43,17 +43,18 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
 
         trackIds = [];
         const plName = $('#new-pl-name').html();  // Get playlist name
-        const trackDivs = $('.add-track-div');
+        const trackDivs = $('.add-track-div');  // Get tracks
 
         // Store track ids in array
         for (const track of trackDivs) {
             trackIds.push(track.getAttribute('value'));
         };
 
+        // Create dict object to pass to add-playlist route
         let newPl = {'pl_name': plName,
                      'tracks': trackIds};
-        console.log(newPl);
 
+        // Add playlist to db
         $.post('/add-playlist', newPl, (res) => {
             alert(`${plName} has been created.`);
         });
