@@ -4,17 +4,17 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
     // Get tracks from a playlist and display in a modal
     tracksBtn.on('click', (evt) => {
         evt.preventDefault();
-        const playlist_id = evt.target.value;
+        const playlistId = evt.target.value;
 
         // Get playlist tracks and add to modal
-        $.get('/playlist-tracks', {'pl':playlist_id}, (tracks) => {
+        $.get('/playlist-tracks', {'pl':playlistId}, (tracks) => {
             for (track of tracks) {
-                $(`.${playlist_id} ul`).append(`<li><a href="/tracks/${track.track_id}">${track.track_name}</a></li>`);
+                $(`.${playlistId} ul`).append(`<li><a href="/tracks/${track.track_id}">${track.track_name}</a></li>`);
             }
         });
 
         // Close modal upon click
-        const closeBtn = $(`#close-btn-${playlist_id}`);
+        const closeBtn = $(`#close-btn-${playlistId}`);
         closeBtn.on('click', (e) => {
             e.preventDefault();
             console.log('hi')
@@ -22,7 +22,7 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
         });
 
         // Display the modal
-        const modal = $(`#modal-${playlist_id}`);
+        const modal = $(`#modal-${playlistId}`);
         modal.toggle('show-modal');
     });
 
@@ -30,18 +30,19 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
     const deselectBtn = $('.deselect');
     deselectBtn.on('click', (evt) => {
         evt.preventDefault();
-        const track_id = evt.target.value;
-        $(`#deselect-${track_id}-div`).remove();  // Remove X button
+        const trackId = evt.target.value;
+        $(`#deselect-${trackId}-div`).remove();
     });
 
     // Submit new playlist
     const createPlaylistBtn = $('#create-pl');
     createPlaylistBtn.on('click', (evt) => {
         evt.preventDefault();
-        const pl_name = $('#new-pl-name').html();  // Get playlist name
-        const tracks = $('.add-track-div');
-        console.log(tracks);
-        for (track of tracks) {
+        trackIds = [];
+        const plName = $('#new-pl-name').html();  // Get playlist name
+        const trackDivs = $('.add-track-div');
+
+        for (track of trackDivs) {
             console.log(track);
             console.log(track.attr('value'));
         };
