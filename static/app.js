@@ -6,7 +6,7 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
         evt.preventDefault();
         const playlistId = evt.target.value;
 
-        // Get playlist tracks and add to modal
+        // Get playlist tracks and add to modal div
         $.get('/playlist-tracks', {'pl':playlistId}, (tracks) => {
             for (track of tracks) {
                 $(`.${playlistId} ul`).append(`<li><a href="/tracks/${track.track_id}">${track.track_name}</a></li>`);
@@ -46,12 +46,12 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
         const trackDivs = $('.add-track-div');
 
         // Store track ids in array
-        for (track of trackDivs) {
+        for (const track of trackDivs) {
             trackIds.push(track.getAttribute('value'));
         };
 
-        newPl = {pl_name: plName,
-                 tracks: trackIds};
+        let newPl = {'pl_name': plName,
+                     'tracks': trackIds};
         console.log(newPl);
 
         $.post('/add-playlist', newPl, (res) => {

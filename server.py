@@ -290,16 +290,13 @@ def display_new_playlist():
 def add_playlist_to_db():
     """Add new playlist to database."""
 
-    data = request.form
-    print(data)
-    pl_name = request.form.get["pl_name"]
-    tracks = request.form.get["tracks"]
-    print(request.form)
+    pl_name = request.form.get("pl_name")
+    tracks = request.form.getlist("tracks[]")
     print(pl_name, tracks)
     # Add playlists
     # Flash message
     # return to playlists page
-    return "Hello"
+    return ("Hello")
 
 
 if __name__ == "__main__":
