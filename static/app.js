@@ -50,7 +50,8 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
             trackIds.push(track.getAttribute('value'));
         };
 
-        newPl = {pl_name: plName, tracks: trackIds};
+        newPl = {pl_name: plName,
+                 tracks: trackIds};
         console.log(newPl);
 
         $.post('/add-playlist', newPl, (res) => {
