@@ -50,8 +50,11 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
         };
 
         newPl = {pl_name: plName,
-                 track_ids: trackIds};
+                 tracks: trackIds};
+        console.log(newPl);
 
-        
+        $.post('/add-playlist', newPl, (res) => {
+            alert(`${plName} has been created.`);
+        });
     });
 })
