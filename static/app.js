@@ -32,20 +32,18 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
         evt.preventDefault();
         const track_id = evt.target.value;
         $(`#deselect-${track_id}-div`).remove();  // Remove X button
-        // $(`#track-href-${track_id}`).remove();  // Remove track info
     });
-
-
 
     // Submit new playlist
     const createPlaylistBtn = $('#create-pl');
     createPlaylistBtn.on('click', (evt) => {
         evt.preventDefault();
         const pl_name = $('#new-pl-name').html();  // Get playlist name
-        const tracks = $('.add-track');
+        const tracks = $('.add-track-div');
         console.log(tracks);
         for (track of tracks) {
-            console.log(track.val());
-        }
+            console.log(track);
+            console.log(track.attr('value'));
+        };
     });
 })
