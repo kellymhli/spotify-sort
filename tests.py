@@ -116,7 +116,32 @@ class FlaskTestLoggedIn(unittest.TestCase):
         result = self.client.get("/playlists")
         self.assertEqual(result.status_code, 200)
         self.assertIn(b"BPM", result.data)
+        self.assertIn(b"Mood", result.data)
 
+    def test_get_pl_tracks(self):
+        """Assure tracks associated with pl1 and pl2 are displayed."""
+
+        # Playlist 1
+        result1 = self.client.get("playlist/pl1")
+        self.assertEqual(result1.status_code, 200)
+        self.assertIn(b"Track 1", result1.data)
+        self.assertIn(b"Track 3", result1.data)
+        self.assertNotIn(b"Track 5", result1.data)
+
+        # Playlist 2
+        result2 = self.client.get("playlist/pl2")
+        self.assertEqual(result2.status_code, 200)
+        self.assertIn(b"Track 4", result2.data)
+        self.assertIn(b"Track 5", result2.data)
+        self.assertNotIn(b"Track 1", result2.data)
+
+    def test_display_tracks(self):
+        """Test all tracks shown."""
+
+        result = self.client.get("/tracks")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn(b"Track 1", result.data)
+        self.assertIn(b"Track 5", result.data)
 
 if __name__ == "__main__":
     """Run tests when tests.py is called."""
