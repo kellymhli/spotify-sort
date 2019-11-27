@@ -22,6 +22,10 @@ def homepage():
 def login_page():
     """Render login page."""
 
+    # Incase loggedin user manually goes to login page
+    if session["user_id"] != None and session["spotify_id"] != None:
+        return redirect("/playlists")
+
     return render_template("login.html")
 
 
@@ -36,6 +40,11 @@ def login():
     # Get user info from database
     user = User.query.get(user_id)
 
+    while user == None:
+        user_id = request.form.get("user_id")
+        password = request.form.get("password")
+        user = User.query.get(user_id)
+
     if user != None:
         # Check that entered password matches user password in db
         # Log user into session
@@ -46,8 +55,6 @@ def login():
         session["user_id"] = user.user_id
         session["spotify_id"] = user.spotify_id
         return redirect("/playlists")
-    else:
-        return redirect("/register")
 
 
 @app.route("/register", methods=["GET"])
