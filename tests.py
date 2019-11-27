@@ -1,5 +1,8 @@
 import unittest, server
+from server import app
 from selenium import webdriver
+from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connect_to_db, db, example_data
+
 
 
 # browser = webdriver.Chrome("chromedriver")
@@ -68,9 +71,9 @@ class FlaskTestLoggedIn(unittest.TestCase):
     def setUp(self):
         """This to do before each test."""
 
-        server.app.config["TESTING"] = True
-        server.app.config["SECRET_KEY"] = 'oh-so-secret-key'
-        self.client = server.app.test_client()
+        app.config["TESTING"] = True
+        app.config["SECRET_KEY"] = 'oh-so-secret-key'
+        self.client = app.test_client()
 
         with self.client as c:
             with c.session_transaction() as sess:
@@ -86,6 +89,24 @@ class FlaskTestLoggedIn(unittest.TestCase):
         print("pl pass")
 
 
+class TestFlaskAndDB(unittest.TestCase):
+    """Test sample data in database."""
+
+    def setUp(self):
+        """Do before every test."""
+
+        # Get Flask test client
+        self.client = app.test_client()
+        app.config["TESTING"] = True
+
+        # Connnect to test db
+        connect_to_db(app, "postgresql:///testdb")
+
+        # Create tables and sample data
+        db.create_all()
+        example_data()
+        print("db")
+
 if __name__ == "__main__":
     """Run tests when tests.py is called."""
 
@@ -93,4 +114,7 @@ if __name__ == "__main__":
     t.test_homepage()
     t.test_login_page()
     # t.test_login()
-    t.test_register_page()t
+    t.test_register_page()
+
+    dbtest = TestFlaskAndDB()
+    dbtest.setUp()

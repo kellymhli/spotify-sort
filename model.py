@@ -152,16 +152,25 @@ def example_data():
 
     user = User(user_id="kels", spotify_id="kelspot",
                 password="wiggle", token="sometokenvalue")
+    
+    db.session.add(user)
 
     pl1 = Playlist(playlist_id="pl1", pl_name="First Playlist", spotify_id="kelspot")
     pl2 = Playlist(playlist_id="pl2", pl_name="Second Playlist", spotify_id="kelspot")
 
-    pt1 = PlaylistTrack(playlist_id='pl1', track_id="t1")
-    pt2 = PlaylistTrack(playlist_id='pl1', track_id="t2")
-    pt3 = PlaylistTrack(playlist_id='pl1', track_id="t3")
+    db.session.add_all([ pl1, pl2])
 
-    pt4 = PlaylistTrack(playlist_id='pl2', track_id="t4")
-    pt5 = PlaylistTrack(playlist_id='pl2', track_id="t5")
+    k1 = Key(key_id=1, key_name="C")
+    k2 = Key(key_id=2, key_name="D")
+    k3 = Key(key_id=3, key_name="E")
+
+    db.session.add_all([k1, k2, k3])
+
+    mk1 = MatchingKey(key_id=1, matching_key=2)
+    mk2 = MatchingKey(key_id=2, matching_key=3)
+    mk3 = MatchingKey(key_id=1, matching_key=1)
+
+    db.session.add_all([mk1, mk2, mk3])
 
     t1 = Track(track_id="t1", track_name="Track 1", spotify_id="kelspot",
                playlist_id="pl1", key=1, tempo=121, valence=0.7)
@@ -174,23 +183,24 @@ def example_data():
     t5 = Track(track_id="t5", track_name="Track 5", spotify_id="kelspot",
                playlist_id="pl2", key=3, tempo=119, valence=0.4)
 
-    k1 = Key(key_id=1, name="C")
-    k2 = Key(key_id=2, name="D")
-    k2 = Key(key_id=3, name="E")
+    db.session.add_all([t1, t2, t3, t4, t5])
 
-    mk1 = MatchingKey(key_id=1, matching_key=2)
-    mk2 = MatchingKey(key_id=2, matching_key=3)
-    mk3 = MatchingKey(key_id=1, matching_key=1)
+    pt1 = PlaylistTrack(playlist_id='pl1', track_id="t1")
+    pt2 = PlaylistTrack(playlist_id='pl1', track_id="t2")
+    pt3 = PlaylistTrack(playlist_id='pl1', track_id="t3")
 
-    db.session.add_all([user, pl1, pl2, pt1, pt2, pt3, pt4, pt5, t1, t2, t3, t4, t5, k1, k2, k3, mk1, mk2, mk3])
+    pt4 = PlaylistTrack(playlist_id='pl2', track_id="t4")
+    pt5 = PlaylistTrack(playlist_id='pl2', track_id="t5")
+
+    db.session.add_all([pt1, pt2, pt3, pt4, pt5])
     db.session.commit()
 
 
-def connect_to_db(app):
+def connect_to_db(app, database="postgresql:///spotify"):
     """Connect the database to Flask app."""
 
     # Configure to use PostgreSQL database
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///spotify"
+    app.config["SQLALCHEMY_DATABASE_URI"] = database
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
