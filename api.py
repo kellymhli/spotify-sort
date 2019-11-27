@@ -40,7 +40,7 @@ def get_playlist_tracks(user_id, token, playlist_list=['5vt2cOxZrcn9yVzTTIURJe',
         while results['next']:
             results = sp.next(results)
             playlist_tracks.extend(results['items'])
-        
+
         # Add to dictionary where key = playlist_id and value = list of tracks
         for item in playlist_tracks:
             track = item['track']

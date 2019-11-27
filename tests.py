@@ -16,6 +16,8 @@ from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connec
 #         self.assertEqual(self.browser.title, "Homepage")
 
 ###############################################################################
+# Unittests
+
 class TestFlaskRoutes(unittest.TestCase):
     """Test Flask routes."""
 
@@ -142,6 +144,21 @@ class FlaskTestLoggedIn(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
         self.assertIn(b"Track 1", result.data)
         self.assertIn(b"Track 5", result.data)
+
+    def test_sort_tracks(self):
+        """Test tracks of selected playlist display in sort-playlists route."""
+
+        result1 = self.client.get("/sort-playlists",
+                                  data={("playlist", "pl1")})
+        self.assertEqual(result1.status_code, 200)
+        self.assertIn(b"Track 2", result1.data)
+        self.assertNotIn(b"Track 4", result1.data)
+
+        result2 = self.client.get("/sort-playlists",
+                                  data={("playlist", "pl1"), ("playlist", "pl2")})
+        self.assertEqual(result2.status_code, 200)
+        self.assertIn(b"Track 2", result2.data)
+        self.assertIn(b"Track 4", result2.data)
 
 if __name__ == "__main__":
     """Run tests when tests.py is called."""

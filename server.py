@@ -40,6 +40,7 @@ def login():
     # Get user info from database
     user = User.query.get(user_id)
 
+    # Stay on page if wrong username entered
     while user == None:
         user_id = request.form.get("user_id")
         password = request.form.get("password")

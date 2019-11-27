@@ -156,7 +156,6 @@ def example_data():
     db.session.add(user)
     db.session.commit()
 
-
     pl1 = Playlist(playlist_id="pl1", pl_name="First Playlist", spotify_id="kelspot")
     pl2 = Playlist(playlist_id="pl2", pl_name="Second Playlist", spotify_id="kelspot")
 
