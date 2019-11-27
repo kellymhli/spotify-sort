@@ -58,14 +58,23 @@ class TestFlaskRoutes(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
         self.assertIn(b"<input type='submit' value='Login'>", result.data)
 
-    # def test_login(self):
-    #     """Test login page."""
+    def test_correct_login(self):
+        """Assure correct login behavior when valid info is give."""
 
-    #     result = self.client.post("/login",
-    #                               data={"user_id": "kels", "password": "wiggle"},
-    #                               follow_redirects=True)
-    #     self.assertEqual(result.status_code, 200)
-    #     self.assertIn(b"Playlist", result.data)
+        result = self.client.post("/login",
+                                  data={"user_id": "kels", "password": "wiggle"},
+                                  follow_redirects=True)
+        self.assertEqual(result.status_code, 200)
+        self.assertIn(b"Playlist", result.data)
+
+    def test_incorrect_login(self):
+        """Assure correct behavior when invalid info is given."""
+
+        result = self.client.post("/login",
+                                  data={"user_id": "wrong", "password": "wrong"},
+                                  follow_redirects=True)
+        self.assertEqual(result.status_code, 200)
+        self.assertIn(b"Playlist", result.data)
 
     def test_register_page(self):
         """Assure register route returns register.html"""
@@ -101,7 +110,6 @@ class FlaskTestLoggedIn(unittest.TestCase):
             with c.session_transaction() as sess:
                 sess["user_id"] = "kels"
                 sess["spotify_id"] = "kelspot"
-                sess["logged_in"] = True
 
     def test_display_playlists(self):
         """Test playlists route displays playlists."""
