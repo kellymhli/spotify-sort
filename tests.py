@@ -67,15 +67,6 @@ class TestFlaskRoutes(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
         self.assertIn(b"Playlist", result.data)
 
-    def test_incorrect_login(self):
-        """Assure correct behavior when invalid info is given."""
-
-        result = self.client.post("/login",
-                                  data={"user_id": "wrong", "password": "wrong"},
-                                  follow_redirects=True)
-        self.assertEqual(result.status_code, 200)
-        self.assertIn(b"Playlist", result.data)
-
     def test_register_page(self):
         """Assure register route returns register.html"""
 
@@ -120,11 +111,18 @@ class FlaskTestLoggedIn(unittest.TestCase):
         self.assertIn(b"120</option>", result.data)  # BPM
         self.assertIn(b"Happy</option>", result.data)  # Mood of tracks
 
+    def test_loggedin(self):
+        """Test user gets redirected to playlists if already logged in."""
+
+        result = self.client.get("/login")
+        self.assertEqual(result.status_code, 302)
+        self.assertIn(b"playlist", result.data)
+
     def test_logout(self):
         """Test successful logout."""
 
         result = self.client.get("/logout")
-        self.assertEqual(result.status_code, 200)
+        self.assertEqual(result.status_code, 302)
 
 
 if __name__ == "__main__":

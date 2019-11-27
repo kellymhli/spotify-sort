@@ -23,7 +23,7 @@ def login_page():
     """Render login page."""
 
     # Incase loggedin user manually goes to login page
-    if session["user_id"] != None and session["spotify_id"] != None:
+    if session.get("user_id") != None and session.get("spotify_id") != None:
         return redirect("/playlists")
 
     return render_template("login.html")
