@@ -3,8 +3,6 @@ from server import app
 from selenium import webdriver
 from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connect_to_db, db, example_data
 
-
-
 # browser = webdriver.Chrome("chromedriver")
 # browser.get("http://localhost:8888")
 # assert browser.title == "Homepage"
@@ -39,6 +37,13 @@ class TestFlaskRoutes(unittest.TestCase):
         app.config["SECRET_KEY"] = 'oh-so-secret-key'
         self.client = app.test_client()
 
+        # Connnect to test db
+        connect_to_db(app, "postgresql:///testdb")
+
+        # Create tables and sample data
+        db.create_all()
+        example_data()
+
     def test_homepage(self):
         """Assure index returns hompage html."""
 
@@ -53,13 +58,14 @@ class TestFlaskRoutes(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
         self.assertIn(b"<input type='submit' value='Login'>", result.data)
 
-    def test_login(self):
-        """Test login page."""
+    # def test_login(self):
+    #     """Test login page."""
 
-        result = self.client.post("/login",
-                                  data={"user_id": "kels", "password": "wiggle"},
-                                  follow_redirects=True)
-        self.assertEqual(result.status_code, 200)
+    #     result = self.client.post("/login",
+    #                               data={"user_id": "kels", "password": "wiggle"},
+    #                               follow_redirects=True)
+    #     self.assertEqual(result.status_code, 200)
+    #     self.assertIn(b"Playlist", result.data)
 
     def test_register_page(self):
         """Assure register route returns register.html"""
@@ -68,6 +74,10 @@ class TestFlaskRoutes(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
         self.assertIn(b"Spotify Username: <input type=", result.data)
         self.assertIn(b"Confirm Password:", result.data)
+
+    # def test_register(self):
+    #     """Assure successful registration."""
+    #     pass
 
 
 class FlaskTestLoggedIn(unittest.TestCase):
@@ -79,8 +89,10 @@ class FlaskTestLoggedIn(unittest.TestCase):
         app.config["TESTING"] = True
         app.config["SECRET_KEY"] = 'oh-so-secret-key'
         self.client = app.test_client()
+
         # Connnect to test db
         connect_to_db(app, "postgresql:///testdb")
+
         # Create tables and sample data
         db.create_all()
         example_data()
@@ -92,10 +104,21 @@ class FlaskTestLoggedIn(unittest.TestCase):
                 sess["logged_in"] = True
 
     def test_display_playlists(self):
-        """Test playlists page."""
+        """Test playlists route displays playlists."""
 
         result = self.client.get("/playlists")
         self.assertEqual(result.status_code, 200)
+        self.assertIn(b"<h1>Playlists</h1>", result.data)
+        self.assertIn(b"120</option>", result.data)  # BPM
+        self.assertIn(b"Happy</option>", result.data)  # Mood of tracks
+
+    # def test_logout(self):
+    #     """Test successful logout."""
+
+    #     result = self.client.get("/logout")
+    #     self.assertEqual(result.status_code, 302)
+    #     self.assertIn(b"Login</a>", result.data)
+    #     self.assertIn(b"Register</a>", result.data)
 
 if __name__ == "__main__":
     """Run tests when tests.py is called."""
