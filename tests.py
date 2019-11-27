@@ -3,16 +3,6 @@ from server import app
 from selenium import webdriver
 from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connect_to_db, db, example_data
 
-# browser = webdriver.Chrome("chromedriver")
-# browser.get("http://localhost:8888")
-# assert browser.title == "Homepage"
-
-# logout = browser.find_element_by_id("logout")
-# logout.click()
-
-# result = browser.find_element_by_id("login")
-# assert result.text == "Login"
-
 # class TestApp(unittest.TestCase):
 
 #     def setUp(self):
@@ -75,10 +65,6 @@ class TestFlaskRoutes(unittest.TestCase):
         self.assertIn(b"Spotify Username: <input type=", result.data)
         self.assertIn(b"Confirm Password:", result.data)
 
-    # def test_register(self):
-    #     """Assure successful registration."""
-    #     pass
-
 
 class FlaskTestLoggedIn(unittest.TestCase):
     """Flask tests with user logged in to session."""
@@ -123,6 +109,13 @@ class FlaskTestLoggedIn(unittest.TestCase):
 
         result = self.client.get("/logout")
         self.assertEqual(result.status_code, 302)
+
+    def test_playlists(self):
+        """Assure playlist page loads with correct data."""
+
+        result = self.client.get("/playlists")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn(b"BPM", result.data)
 
 
 if __name__ == "__main__":
