@@ -139,6 +139,53 @@ class MatchingKey(db.Model):
         return f"<Keys key: {self.key_id} matching_key: {self.matching_key}>"
 
 
+def example_data():
+    """Create sample data for testing."""
+
+    # Empty out existing data incase this is run multiple times
+    User.query.delete()
+    Playlist.query.delete()
+    PlaylistTrack.query.delete()
+    Track.query.delete()
+    Key.query.delete()
+    MatchingKey.query.delete()
+
+    user = User(user_id="kels", spotify_id="kelspot",
+                password="wiggle", token="sometokenvalue")
+
+    pl1 = Playlist(playlist_id="pl1", pl_name="First Playlist", spotify_id="kelspot")
+    pl2 = Playlist(playlist_id="pl2", pl_name="Second Playlist", spotify_id="kelspot")
+
+    pt1 = PlaylistTrack(playlist_id='pl1', track_id="t1")
+    pt2 = PlaylistTrack(playlist_id='pl1', track_id="t2")
+    pt3 = PlaylistTrack(playlist_id='pl1', track_id="t3")
+
+    pt4 = PlaylistTrack(playlist_id='pl2', track_id="t4")
+    pt5 = PlaylistTrack(playlist_id='pl2', track_id="t5")
+
+    t1 = Track(track_id="t1", track_name="Track 1", spotify_id="kelspot",
+               playlist_id="pl1", key=1, tempo=121, valence=0.7)
+    t2 = Track(track_id="t2", track_name="Track 2", spotify_id="kelspot",
+               playlist_id="pl1", key=1, tempo=123, valence=0.5)
+    t3 = Track(track_id="t3", track_name="Track 3", spotify_id="kelspot",
+               playlist_id="pl1", key=2, tempo=119, valence=0.6)
+    t4 = Track(track_id="t4", track_name="Track 4", spotify_id="kelspot",
+               playlist_id="pl2", key=2, tempo=120, valence=0.63)
+    t5 = Track(track_id="t5", track_name="Track 5", spotify_id="kelspot",
+               playlist_id="pl2", key=3, tempo=119, valence=0.4)
+
+    k1 = Key(key_id=1, name="C")
+    k2 = Key(key_id=2, name="D")
+    k2 = Key(key_id=3, name="E")
+
+    mk1 = MatchingKey(key_id=1, matching_key=2)
+    mk2 = MatchingKey(key_id=2, matching_key=3)
+    mk3 = MatchingKey(key_id=1, matching_key=1)
+
+    db.session.add_all([user, pl1, pl2, pt1, pt2, pt3, pt4, pt5, t1, t2, t3, t4, t5, k1, k2, k3, mk1, mk2, mk3])
+    db.session.commit()
+
+
 def connect_to_db(app):
     """Connect the database to Flask app."""
 

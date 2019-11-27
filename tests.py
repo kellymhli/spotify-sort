@@ -80,6 +80,7 @@ class FlaskTestLoggedIn(unittest.TestCase):
 
     def test_display_playlists(self):
         """Test playlists page."""
+
         result = self.client.get("/playlists")
         self.assertEqual(result.status_code, 200)
         print("pl pass")
@@ -92,8 +93,4 @@ if __name__ == "__main__":
     t.test_homepage()
     t.test_login_page()
     # t.test_login()
-    t.test_register_page()
-
-    ft = FlaskTestLoggedIn()
-    ft.setUp()
-    ft.test_display_playlists()
+    t.test_register_page()t
