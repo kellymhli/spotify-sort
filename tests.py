@@ -31,7 +31,13 @@ from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connec
 class TestFlaskRoutes(unittest.TestCase):
     """Test Flask routes."""
 
-    client = server.app.test_client()
+    def setUp(self):
+        """Do before every test."""
+
+        # Get Flask test client
+        app.config["TESTING"] = True
+        app.config["SECRET_KEY"] = 'oh-so-secret-key'
+        self.client = app.test_client()
 
     def test_homepage(self):
         """Assure index returns hompage html."""
@@ -47,14 +53,13 @@ class TestFlaskRoutes(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
         self.assertIn(b"<input type='submit' value='Login'>", result.data)
 
-    # def test_login(self):
-    #     """Test login page."""
+    def test_login(self):
+        """Test login page."""
 
-    #     result = self.client.post("/login",
-    #                               data={"user_id": "kelly", "password": "music"},
-    #                               follow_redirects=True)
-    #     self.assertEqual(result.status_code, 200)
-    #     print("pass login")
+        result = self.client.post("/login",
+                                  data={"user_id": "kels", "password": "wiggle"},
+                                  follow_redirects=True)
+        self.assertEqual(result.status_code, 200)
 
     def test_register_page(self):
         """Assure register route returns register.html"""
@@ -74,11 +79,16 @@ class FlaskTestLoggedIn(unittest.TestCase):
         app.config["TESTING"] = True
         app.config["SECRET_KEY"] = 'oh-so-secret-key'
         self.client = app.test_client()
+        # Connnect to test db
+        connect_to_db(app, "postgresql:///testdb")
+        # Create tables and sample data
+        db.create_all()
+        example_data()
 
         with self.client as c:
             with c.session_transaction() as sess:
-                sess["user_id"] = "kelly"
-                sess["spotify_id"] = "kalamoing"
+                sess["user_id"] = "kels"
+                sess["spotify_id"] = "kelspot"
                 sess["logged_in"] = True
 
     def test_display_playlists(self):
@@ -86,35 +96,8 @@ class FlaskTestLoggedIn(unittest.TestCase):
 
         result = self.client.get("/playlists")
         self.assertEqual(result.status_code, 200)
-        print("pl pass")
-
-
-class TestFlaskAndDB(unittest.TestCase):
-    """Test sample data in database."""
-
-    def setUp(self):
-        """Do before every test."""
-
-        # Get Flask test client
-        self.client = app.test_client()
-        app.config["TESTING"] = True
-
-        # Connnect to test db
-        connect_to_db(app, "postgresql:///testdb")
-
-        # Create tables and sample data
-        db.create_all()
-        example_data()
-        print("db")
 
 if __name__ == "__main__":
     """Run tests when tests.py is called."""
 
-    t = TestFlaskRoutes()
-    t.test_homepage()
-    t.test_login_page()
-    # t.test_login()
-    t.test_register_page()
-
-    dbtest = TestFlaskAndDB()
-    dbtest.setUp()
+    unittest.main()

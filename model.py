@@ -143,34 +143,39 @@ def example_data():
     """Create sample data for testing."""
 
     # Empty out existing data incase this is run multiple times
-    User.query.delete()
-    Playlist.query.delete()
+    MatchingKey.query.delete()
     PlaylistTrack.query.delete()
     Track.query.delete()
     Key.query.delete()
-    MatchingKey.query.delete()
+    Playlist.query.delete()
+    User.query.delete()
 
     user = User(user_id="kels", spotify_id="kelspot",
                 password="wiggle", token="sometokenvalue")
-    
+
     db.session.add(user)
+    db.session.commit()
+
 
     pl1 = Playlist(playlist_id="pl1", pl_name="First Playlist", spotify_id="kelspot")
     pl2 = Playlist(playlist_id="pl2", pl_name="Second Playlist", spotify_id="kelspot")
 
-    db.session.add_all([ pl1, pl2])
+    db.session.add_all([pl1, pl2])
+    db.session.commit()
 
     k1 = Key(key_id=1, key_name="C")
     k2 = Key(key_id=2, key_name="D")
     k3 = Key(key_id=3, key_name="E")
 
     db.session.add_all([k1, k2, k3])
+    db.session.commit()
 
     mk1 = MatchingKey(key_id=1, matching_key=2)
     mk2 = MatchingKey(key_id=2, matching_key=3)
     mk3 = MatchingKey(key_id=1, matching_key=1)
 
     db.session.add_all([mk1, mk2, mk3])
+    db.session.commit()
 
     t1 = Track(track_id="t1", track_name="Track 1", spotify_id="kelspot",
                playlist_id="pl1", key=1, tempo=121, valence=0.7)
@@ -184,6 +189,7 @@ def example_data():
                playlist_id="pl2", key=3, tempo=119, valence=0.4)
 
     db.session.add_all([t1, t2, t3, t4, t5])
+    db.session.commit()
 
     pt1 = PlaylistTrack(playlist_id='pl1', track_id="t1")
     pt2 = PlaylistTrack(playlist_id='pl1', track_id="t2")
