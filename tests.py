@@ -112,13 +112,12 @@ class FlaskTestLoggedIn(unittest.TestCase):
         self.assertIn(b"120</option>", result.data)  # BPM
         self.assertIn(b"Happy</option>", result.data)  # Mood of tracks
 
-    # def test_logout(self):
-    #     """Test successful logout."""
+    def test_logout(self):
+        """Test successful logout."""
 
-    #     result = self.client.get("/logout")
-    #     self.assertEqual(result.status_code, 302)
-    #     self.assertIn(b"Login</a>", result.data)
-    #     self.assertIn(b"Register</a>", result.data)
+        result = self.client.get("/logout")
+        self.assertEqual(result.status_code, 200)
+
 
 if __name__ == "__main__":
     """Run tests when tests.py is called."""

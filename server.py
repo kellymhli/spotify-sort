@@ -15,14 +15,7 @@ app.jinja_env.undefined = StrictUndefined
 def homepage():
     """Homepage."""
 
-    # Determine if user is logged in or not
-    if session.get("user_id") != None:
-        session["logged_in"] = True
-    else:
-        session["logged_in"] = False
-
-    return render_template("homepage.html",
-                           logged_in=session["logged_in"])
+    return render_template("homepage.html")
 
 
 @app.route("/login", methods=["GET"])
@@ -52,7 +45,6 @@ def login():
 
         session["user_id"] = user.user_id
         session["spotify_id"] = user.spotify_id
-        session["logged_in"] = True
         return redirect("/playlists")
     else:
         return redirect("/register")
@@ -90,7 +82,6 @@ def register():
     # Track user in session
     session["user_id"] = user_id
     session["spotify_id"] = spotify_id
-    session["logger_in"] = True
 
     return redirect("/playlists")
 
@@ -102,7 +93,6 @@ def logout():
     # Drop user from session
     session["user_id"] = None
     session["spotify_id"] = None
-    session["logged_in"] = False
 
     return redirect("/")
 

@@ -4,7 +4,7 @@
     <h1>Spotify Sort</h1>
     <form action="/" method="POST">
         <div>
-            {% if logged_in %}
+            {% if session.get("user_id") != None %}
                 <a href="/logout" id="logout">Logout</a><br>
                 <a href="/playlists" id="playlists">Playlists</a><br>
                 <a href="/tracks" id="tracks">Tracks</a>
