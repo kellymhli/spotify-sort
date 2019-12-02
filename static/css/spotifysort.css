@@ -54,6 +54,7 @@ body {
 h1, h2, h3, strong {
     font-family: 'Alegreya Sans SC', sans-serif;
     font-weight: 800;
+    color: #403D3D;
 }
 
 strong {
@@ -61,14 +62,20 @@ strong {
 }
 
 a {
-    color: grey;
+    color: #80797A;
 }
 
 a:hover {
-    color: black;
+    color: #B73947;
     text-decoration: none;
 }
 
 #home-img {
     background-image: url('./static/img/adrian-korte-5gn2soeAc40-unsplash.jpg') no-repeat center center;
+}
+
+.navbar {
+	background-color: #403D3D;
+	color: white;
+	border-radius: 0px;
 }

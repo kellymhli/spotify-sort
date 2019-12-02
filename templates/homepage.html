@@ -2,17 +2,14 @@
 {% block title %}Homepage{% endblock %}
 {% block content %}
     <div id="home-img"></div>
-    <h1>Spotify Sort</h1>
-    <form action="/" method="POST">
-        <div>
-            {% if session.get("user_id") != None %}
-                <a href="/logout" id="logout">Logout</a><br>
-                <a href="/playlists" id="playlists">Playlists</a><br>
-                <a href="/tracks" id="tracks">Tracks</a>
-            {% else %}
-                <a href="/login" id="login">Login</a><br>
-                <a href="/register" id="register">Register</a>
-            {% endif %}
-        </div>
-    </form>
+    <div>
+        {% if session.get("user_id") != None %}
+            <a href="/logout" id="logout">Logout</a><br>
+            <a href="/playlists" id="playlists">Playlists</a><br>
+            <a href="/tracks" id="tracks">Tracks</a>
+        {% else %}
+            <a href="/login" id="login">Login</a><br>
+            <a href="/register" id="register">Register</a>
+        {% endif %}
+    </div>
 {% endblock %}
