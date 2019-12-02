@@ -60,6 +60,15 @@ strong {
     font-size: 20px;
 }
 
+a {
+    color: grey;
+}
+
+a:hover {
+    color: black;
+    text-decoration: none;
+}
+
 #home-img {
     background-image: url('./static/img/adrian-korte-5gn2soeAc40-unsplash.jpg') no-repeat center center;
 }
