@@ -44,3 +44,17 @@
     transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
     z-index: -1;
 }
+
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 900;
+}
+
+h1 {
+    font-family: 'Alegreya Sans SC', sans-serif;
+    font-weight: 800;
+}
+
+#home-img {
+    background-image: url('./static/img/adrian-korte-5gn2soeAc40-unsplash.jpg') no-repeat center center;
+}
