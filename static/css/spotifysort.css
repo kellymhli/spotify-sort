@@ -45,6 +45,12 @@
     z-index: -1;
 }
 
+.navbar {
+	background-color: #403D3D;
+	color: white;
+	border-radius: 0px;
+}
+
 body {
     font-family: 'Nunito Sans', sans-serif;
     font-weight: 800;
@@ -72,10 +78,4 @@ a:hover {
 
 #home-img {
     background-image: url('./static/img/adrian-korte-5gn2soeAc40-unsplash.jpg') no-repeat center center;
-}
-
-.navbar {
-	background-color: #403D3D;
-	color: white;
-	border-radius: 0px;
 }

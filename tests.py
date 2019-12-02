@@ -43,12 +43,12 @@ class TestFlaskRoutes(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
         self.assertIn(b"<h1>Spotify Sort</h1>", result.data)
 
-    def test_login_page(self):
-        """Assure login route returns login.html."""
+    # def test_login_page(self):
+    #     """Assure login route returns login.html."""
 
-        result = self.client.get("/login")
-        self.assertEqual(result.status_code, 200)
-        self.assertIn(b"<input type='submit' value='Login'>", result.data)
+    #     result = self.client.get("/login")
+    #     self.assertEqual(result.status_code, 200)
+    #     self.assertIn(b"<input type='submit' value='Login'>", result.data)
 
     def test_correct_login(self):
         """Assure correct login behavior when valid info is give."""

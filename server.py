@@ -18,15 +18,15 @@ def homepage():
     return render_template("homepage.html")
 
 
-@app.route("/login", methods=["GET"])
-def login_page():
-    """Render login page."""
+# @app.route("/login", methods=["GET"])
+# def login_page():
+#     """Render login page."""
 
-    # Incase loggedin user manually goes to login page
-    if session.get("user_id") != None and session.get("spotify_id") != None:
-        return redirect("/playlists")
+#     # Incase loggedin user manually goes to login page
+#     if session.get("user_id") != None and session.get("spotify_id") != None:
+#         return redirect("/playlists")
 
-    return render_template("login.html")
+#     return render_template("login.html")
 
 
 @app.route("/login", methods=["POST"])
