@@ -20,34 +20,36 @@
         {% endfor %}
         <br>
 
-        BPM:
-        <select name="bpm">
-            <option value="None">None</option>
-            {% for bpm in bpm_range %}
-                <option value="{{ bpm }}">{{ bpm }}</option>
-            {% endfor %}
-        </select>
+        <div class="track-features">
+            BPM:
+            <select name="bpm">
+                <option value="None">None</option>
+                {% for bpm in bpm_range %}
+                    <option value="{{ bpm }}">{{ bpm }}</option>
+                {% endfor %}
+            </select>
+
+            <br>
+
+            Mood:
+            <select name="valence">
+                {% for mood, valence in valence_dict.items() %}
+                    <option value="{{ valence }}">{{ mood }}</option>
+                {% endfor %}
+            </select>
+
+            <br>
+
+            Key:
+            <select name="key">
+                <option value="None">None</option>
+                {% for key in keys %}
+                    <option value="{{ key.key_id }}">{{ key.key_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
         <br>
-
-        Mood:
-        <select name="valence">
-            {% for mood, valence in valence_dict.items() %}
-                <option value="{{ valence }}">{{ mood }}</option>
-            {% endfor %}
-        </select>
-
-        <br>
-
-        Key:
-        <select name="key">
-            <option value="None">None</option>
-            {% for key in keys %}
-                <option value="{{ key.key_id }}">{{ key.key_name }}</option>
-            {% endfor %}
-        </select>
-
-        <br><br>
 
         <input type="submit">
     </form>

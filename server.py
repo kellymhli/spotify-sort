@@ -202,10 +202,10 @@ def sort_tracks():
 
     playlists = []
     all_tracks = []
-    bpm_tracks = []
-    valence_tracks = []
-    key_tracks = []
-    matching_key_tracks = []
+    bpm_tracks = set()
+    valence_tracks = set()
+    key_tracks = set()
+    matching_key_tracks = set()
 
     # Get list of all selected playlists
     playlist_ids = request.args.getlist("playlist")
@@ -236,23 +236,23 @@ def sort_tracks():
         if bpm != "None":
             bpm = int(bpm)
             if (bpm - 3) <= int(track.tempo) <= (bpm + 3):
-                bpm_tracks.append(track)
+                bpm_tracks.add(track)
 
         # Add tracks of desired valence to a list
         if valence != "None":
             valence = float(valence)
             if (valence - 0.1) <= track.valence <= (valence + 0.1):
-                valence_tracks.append(track)
+                valence_tracks.add(track)
 
         if key != "None":
             # Create list of tracks of user selected key
             if int(track.key) == int(key):
-                key_tracks.append(track)
+                key_tracks.add(track)
 
             # Create a list of tracks with keys that pair well with user selected key
             if (int(track.key) == int(match_keys[0].matching_key)
                 or int(track.key) == int(match_keys[1].matching_key)):
-                    matching_key_tracks.append(track)
+                    matching_key_tracks.add(track)
 
 
     # Get all tracks that match requirements
@@ -261,11 +261,11 @@ def sort_tracks():
     return render_template("sorted-tracks.html",
                            bpm=bpm,
                            playlists=playlists,
-                           bpm_tracks=bpm_tracks,
-                           valence_tracks=valence_tracks,
+                           bpm_tracks=list(bpm_tracks),
+                           valence_tracks=list(valence_tracks),
                            keyname=keyname,
-                           key_tracks=key_tracks,
-                           matching_key_tracks=matching_key_tracks,
+                           key_tracks=list(key_tracks),
+                           matching_key_tracks=list(matching_key_tracks),
                            sorted_tracks=list(sorted_tracks))
 
 
