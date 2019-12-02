@@ -4,12 +4,17 @@
     <div id="home-img"></div>
     <div>
         {% if session.get("user_id") != None %}
-            <a href="/logout" id="logout">Logout</a><br>
-            <a href="/playlists" id="playlists">Playlists</a><br>
-            <a href="/tracks" id="tracks">Tracks</a>
+            Welcome back, {{ session["user_id"].capitalize() }}!
         {% else %}
-            <a href="/login" id="login">Login</a><br>
-            <a href="/register" id="register">Register</a>
+            Please sign in or register:
+            <form action="/login" method="POST">
+                Username: <input type='text' name='user_id'/><br>
+                Password: <input type='password' name='password'/><br>
+                <input type='submit' value='Login'>
+            </form>
+            <form action='/register'>
+                <input type='submit' value='Register'>
+            </form>
         {% endif %}
     </div>
 {% endblock %}
