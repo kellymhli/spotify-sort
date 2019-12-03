@@ -114,6 +114,8 @@ button[type="button"] {
 }
 
 body {
-    background: url(/static/img/markus-spiske-6-KP9A2t5Vg-unsplash.jpg) no-repeat center center;
-    background-size: 100%;
+    background: url(/static/img/markus-spiske-6-KP9A2t5Vg-unsplash.jpg) no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
 }
