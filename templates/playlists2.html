@@ -7,7 +7,7 @@
             <input type="checkbox" class="playlist" value="{{ playlist.playlist_id }}" name="playlist">
                 <a href="/playlist/{{ playlist.playlist_id }}">{{ playlist.pl_name }}</a>
             </input>
-            <button type="button" class="btn tracks-btn" data-toggle="modal" value="{{ playlist.playlist_id }}">T</button>
+            <button type="button" class="tracks-btn" value="{{ playlist.playlist_id }}">T</button>
 
             <div class="modal {{ playlist.playlist_id }} show-modal" id="modal-{{ playlist.playlist_id}}">
                 <button type="button" class="close-btn" id="close-btn-{{ playlist.playlist_id }}">X</button>
@@ -16,13 +16,12 @@
                 </div>
             </div>
 
-
             <!-- Button trigger modal
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
             Tracks
             </button> -->
 
-            <!-- Modal 
+            <!-- Modal
             <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -42,8 +41,6 @@
                 </div>
             </div>
             </div> -->
-
-
 
             <br>
         {% endfor %}
