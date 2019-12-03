@@ -98,6 +98,7 @@ input[type="text"], input[type="password"]{
     font-size: 40px;
     font-weight: 100;
     justify-content: center;
+    color: white;
 }
 
 #login {
@@ -111,9 +112,4 @@ input[type="text"], input[type="password"]{
 body {
     background: url(/static/img/markus-spiske-6-KP9A2t5Vg-unsplash.jpg) no-repeat center center;
     background-size: 100%;
-}
-
-.home-img {
-    width: 50%;
-    height: 50%;
 }
