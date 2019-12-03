@@ -46,8 +46,6 @@
 }
 
 .navbar {
-	background-color: rgb(163, 63, 63);
-	color: white;
 	border-radius: 0px;
 }
 
@@ -77,7 +75,7 @@ a:hover {
 }
 
 input[type="submit"] {
-    width: 100px;
+    width: 150px;
     height: 30px;
 }
 
@@ -87,7 +85,7 @@ input[type="submit"]:hover {
 }
 
 input[type="text"], input[type="password"] {
-    background: trasparent;
+    background: transparent;
     border: none;
     border-bottom: 1px solid;
     width: 150px;
