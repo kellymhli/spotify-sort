@@ -55,7 +55,7 @@ def login():
 
         session["user_id"] = user.user_id
         session["spotify_id"] = user.spotify_id
-        return redirect("/playlists")
+        return redirect("/")
 
 
 @app.route("/register", methods=["GET"])
