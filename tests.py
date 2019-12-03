@@ -102,8 +102,8 @@ class FlaskTestLoggedIn(unittest.TestCase):
     def test_loggedin(self):
         """Test user gets redirected to playlists if already logged in."""
 
-        result = self.client.get("/login")
-        self.assertEqual(result.status_code, 302)
+        result = self.client.get("/")
+        self.assertEqual(result.status_code, 200)
         self.assertIn(b"playlist", result.data)
 
     def test_logout(self):

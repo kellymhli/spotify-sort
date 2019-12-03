@@ -4,7 +4,7 @@
     <div id="home-img"></div>
     <div>
         {% if session.get("user_id") != None %}
-            Welcome back, {{ session["user_id"].capitalize() }}!
+            <p>Welcome back, {{ session["user_id"].capitalize() }}!</p>
         {% else %}
             Please sign in or register:
             <form action="/login" method="POST">
