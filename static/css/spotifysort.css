@@ -8,6 +8,11 @@ body {
     font-size: 15px;
 }
 
+.login-text {
+    font-size: 22px;
+    font-weight: 10;
+}
+
 h1, h2, h3, h4, h5, strong {
     font-family: 'Alegreya Sans SC', sans-serif;
     font-weight: 800;
@@ -30,6 +35,12 @@ a:hover {
 input[type="submit"] {
     width: 150px;
     height: 30px;
+}
+
+.login-text input[type="submit"] {
+    font-size: 20px;
+    width: 260px;
+    height: 35px;
 }
 
 input[type="submit"]:hover {
@@ -65,14 +76,6 @@ input[type="text"], input[type="password"] {
     font-weight: 100;
     justify-content: center;
     color: white;
-}
-
-#login {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
-    flex-direction: column;
 }
 
 #home-img {

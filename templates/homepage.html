@@ -2,22 +2,32 @@
 {% block title %}Homepage{% endblock %}
 {% block content %}
     <div id="home-img"></div>
-    <div>
-        {% if session.get("user_id") != None %}
-            <span class="greeting">Welcome back, {{ session["user_id"].capitalize() }}.</span>
-        {% else %}
-            <div id="login">
-                <span class="greeting">Welcome to Spotify Sort.</span>
-                Please sign in or register:
-                <form action="/login" method="POST">
-                    Username: <input type='text' name='user_id'/><br>
-                    Password: <input type='password' name='password'/><br>
-                    <input type='submit' value='Login'>
-                </form>
-                <form action='/register'>
-                    <input type='submit' value='Register'>
-                </form>
-            </div>
-        {% endif %}
+    <div class="container">
+        <div class="row">
+            {% if session.get("user_id") != None %}
+                <div class="col-12">
+                    <span class="greeting">Welcome back, {{ session["user_id"].capitalize() }}.</span>
+                </div>
+            {% else %}
+                <div class="col-12" id="login">
+                    <span class="greeting">Welcome to Spotify Sort.</span><br>
+                    <div class="col-8 offset-4 login-text">
+                        Please sign in or register:<br><br>
+                    </div>
+                    <div class="col-8 offset-4 login-text">
+                        <form action="/login" method="POST">
+                            Username: <input type='text' name='user_id'/><br>
+                            Password: <input type='password' name='password'/><br><br>
+                            <input type='submit' value='Login'>
+                        </form>
+                    </div>
+                    <div class="col-8 offset-4 login-text">
+                        <form action='/register'>
+                            <input type='submit' value='Register'>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
