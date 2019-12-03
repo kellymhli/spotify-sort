@@ -104,8 +104,16 @@ input[type="text"], input[type="password"]{
     display: flex;
     justify-content: center;
     align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
-#home-img {
-    background-image: url('./static/img/adrian-korte-5gn2soeAc40-unsplash.jpg') no-repeat center center;
+body {
+    background: url(/static/img/markus-spiske-6-KP9A2t5Vg-unsplash.jpg) no-repeat center center;
+    background-size: 100%;
+}
+
+.home-img {
+    width: 50%;
+    height: 50%;
 }
