@@ -93,7 +93,7 @@ input[type="text"], input[type="password"]{
     width: 150px;
 }
 
-#greeting {
+.greeting {
     display: flex;
     font-size: 40px;
     font-weight: 100;

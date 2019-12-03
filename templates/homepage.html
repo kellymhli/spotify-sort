@@ -4,10 +4,11 @@
     <div id="home-img"></div>
     <div>
         {% if session.get("user_id") != None %}
-            <p id="greeting">Welcome back, {{ session["user_id"].capitalize() }}!</p>
+            <p class="greeting">Welcome back, {{ session["user_id"].capitalize() }}.</p>
         {% else %}
             <div id="login">
-                Please sign in or register: 
+                <p class="greeting">Welcome to Spotify Sort.</p>
+                Please sign in or register:
                 <form action="/login" method="POST">
                     Username: <input type='text' name='user_id'/><br>
                     Password: <input type='password' name='password'/><br>
