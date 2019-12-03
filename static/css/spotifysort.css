@@ -46,7 +46,7 @@
 }
 
 .navbar {
-	background-color: #403D3D;
+	background-color: rgb(163, 63, 63);
 	color: white;
 	border-radius: 0px;
 }
@@ -74,6 +74,16 @@ a {
 a:hover {
     color: #B73947;
     text-decoration: none;
+}
+
+input[type="submit"] {
+    width: 100px;
+    height: 30px;
+}
+
+input[type="submit"]:hover {
+    background: #403D3D;
+    color: white;
 }
 
 #home-img {
