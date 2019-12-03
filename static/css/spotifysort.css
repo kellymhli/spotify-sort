@@ -113,9 +113,17 @@ button[type="button"] {
     flex-direction: column;
 }
 
-body {
-    background: url(/static/img/markus-spiske-6-KP9A2t5Vg-unsplash.jpg) no-repeat center center fixed;
+#home-img {
+    background-image: url(/static/img/markus-spiske-6-KP9A2t5Vg-unsplash.jpg);
     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white; /* Fallback if background image fails */
+    filter: blur(5px);
+    width: 100%;
     height: 100%;
-    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
