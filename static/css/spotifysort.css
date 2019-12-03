@@ -44,10 +44,19 @@ input[type="text"], input[type="password"] {
     width: 150px;
 }
 
-button[type="button"] {
+.tracks-btn {
     color: #80797A;
     background: white;
     border: none;
+}
+
+.tracks-btn:hover {
+    color: #B73947;
+    background: white;
+}
+
+.tracks-btn:focus {
+    outline: none;  /* Rid blue outline around button */
 }
 
 .greeting {
