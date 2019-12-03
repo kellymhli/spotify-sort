@@ -5,6 +5,7 @@
     <form action="/sort-playlists" method="GET">
         {% for playlist in playlists %}
             <input type="checkbox" class="playlist" value="{{ playlist.playlist_id }}" name="playlist">
+                <!-- <a href="/playlist/{{ playlist.playlist_id }}">{{ playlist.pl_name }}</a> -->
                 <button type="button" class="btn btn-primary tracks-btn" data-toggle="modal" data-target="#exampleModalLong" value="{{ playlist.playlist_id }}">
                     {{ playlist.pl_name }}
                 </button>
@@ -20,7 +21,7 @@
                             </button>
                         </div>
                         <div class="modal-body modal-{{ playlist.playlist_id }}">
-                            <ul></ul>
+                            <ol></ol>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

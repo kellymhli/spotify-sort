@@ -10,7 +10,7 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
         // Get playlist tracks and add to modal div
         $.get('/playlist-tracks', {'pl':playlistId}, (tracks) => {
             for (track of tracks) {
-                $(`.modal-${playlistId} ul`).append(`<li><a href="/tracks/${track.track_id}">${track.track_name}</a></li>`);
+                $(`.modal-${playlistId} ol`).append(`<li><a href="/tracks/${track.track_id}">${track.artist} - ${track.track_name}</a></li>`);
             }
         });
     });

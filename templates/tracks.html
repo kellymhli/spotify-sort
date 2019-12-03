@@ -3,7 +3,7 @@
 {% block content %}
     <h1>Tracks</h1>
     {% for track in tracks %}
-        <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a>
+        <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a>
         <br>
     {% endfor %}
 {% endblock %}
