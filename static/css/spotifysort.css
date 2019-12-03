@@ -86,11 +86,15 @@ input[type="submit"]:hover {
     color: white;
 }
 
-input[type="text"], input[type="password"]{
+input[type="text"], input[type="password"] {
     background: trasparent;
     border: none;
     border-bottom: 1px solid;
     width: 150px;
+}
+
+button[type="button"] {
+    background: transparent;
 }
 
 .greeting {
