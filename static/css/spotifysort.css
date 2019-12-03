@@ -86,6 +86,26 @@ input[type="submit"]:hover {
     color: white;
 }
 
+input[type="text"], input[type="password"]{
+    background: trasparent;
+    border: none;
+    border-bottom: 1px solid;
+    width: 150px;
+}
+
+#greeting {
+    display: flex;
+    font-size: 40px;
+    font-weight: 100;
+    justify-content: center;
+}
+
+#login {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
 #home-img {
     background-image: url('./static/img/adrian-korte-5gn2soeAc40-unsplash.jpg') no-repeat center center;
 }

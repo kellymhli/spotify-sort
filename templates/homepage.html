@@ -4,17 +4,19 @@
     <div id="home-img"></div>
     <div>
         {% if session.get("user_id") != None %}
-            <p>Welcome back, {{ session["user_id"].capitalize() }}!</p>
+            <p id="greeting">Welcome back, {{ session["user_id"].capitalize() }}!</p>
         {% else %}
-            Please sign in or register:
-            <form action="/login" method="POST">
-                Username: <input type='text' name='user_id'/><br>
-                Password: <input type='password' name='password'/><br>
-                <input type='submit' value='Login'>
-            </form>
-            <form action='/register'>
-                <input type='submit' value='Register'>
-            </form>
+            <div id="login">
+                Please sign in or register: 
+                <form action="/login" method="POST">
+                    Username: <input type='text' name='user_id'/><br>
+                    Password: <input type='password' name='password'/><br>
+                    <input type='submit' value='Login'>
+                </form>
+                <form action='/register'>
+                    <input type='submit' value='Register'>
+                </form>
+            </div>
         {% endif %}
     </div>
 {% endblock %}
