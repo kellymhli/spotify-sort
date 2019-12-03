@@ -1,4 +1,4 @@
-.modal {
+/* .modal {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -43,7 +43,7 @@
     transform: scale(1.0);
     transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
     z-index: -1;
-}
+} */
 
 .navbar {
 	border-radius: 0px;
@@ -92,7 +92,9 @@ input[type="text"], input[type="password"] {
 }
 
 button[type="button"] {
-    background: transparent;
+    color: #80797A;
+    background: white;
+    border: none;
 }
 
 .greeting {

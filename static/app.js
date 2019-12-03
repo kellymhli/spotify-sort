@@ -5,25 +5,14 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
     tracksBtn.on('click', (evt) => {
         evt.preventDefault();
         const playlistId = evt.target.value;
+        console.log(playlistId);
 
         // Get playlist tracks and add to modal div
         $.get('/playlist-tracks', {'pl':playlistId}, (tracks) => {
             for (track of tracks) {
-                $(`.${playlistId} ul`).append(`<li><a href="/tracks/${track.track_id}">${track.track_name}</a></li>`);
+                $(`.modal-${playlistId} ul`).append(`<li><a href="/tracks/${track.track_id}">${track.track_name}</a></li>`);
             }
         });
-
-        // Close modal upon click
-        const closeBtn = $(`#close-btn-${playlistId}`);
-        closeBtn.on('click', (e) => {
-            e.preventDefault();
-            console.log('hi')
-            modal.toggle('show-modal');
-        });
-
-        // Display the modal
-        const modal = $(`#modal-${playlistId}`);
-        modal.toggle('show-modal');
     });
 
 

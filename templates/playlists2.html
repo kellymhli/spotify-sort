@@ -5,42 +5,29 @@
     <form action="/sort-playlists" method="GET">
         {% for playlist in playlists %}
             <input type="checkbox" class="playlist" value="{{ playlist.playlist_id }}" name="playlist">
-                <a href="/playlist/{{ playlist.playlist_id }}">{{ playlist.pl_name }}</a>
+                <button type="button" class="btn btn-primary tracks-btn" data-toggle="modal" data-target="#exampleModalLong" value="{{ playlist.playlist_id }}">
+                    {{ playlist.pl_name }}
+                </button>
             </input>
-            <button type="button" class="tracks-btn" value="{{ playlist.playlist_id }}">T</button>
 
-            <div class="modal {{ playlist.playlist_id }} show-modal" id="modal-{{ playlist.playlist_id}}">
-                <button type="button" class="close-btn" id="close-btn-{{ playlist.playlist_id }}">X</button>
-                <div class="modal-guts">
-                    <ul>Tracks</ul>
-                </div>
-            </div>
-
-            <!-- Button trigger modal
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-            Tracks
-            </button> -->
-
-            <!-- Modal
             <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">{{ playlist.pl_name }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">{{ playlist.pl_name }} Tracks</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body modal-{{ playlist.playlist_id }}">
+                            <ul></ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div> -->
 
             <br>
         {% endfor %}
