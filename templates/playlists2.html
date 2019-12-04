@@ -3,9 +3,10 @@
 {% block content %}
     <div class="container">
 
-        <div class="row">
-            <div class="col-12">
-                <h1><i class="fas fa-headphones-alt"></i> Playlists</h1>
+        <div class="row justify-content-center">
+            <div class="col-6 align-self-center">
+                <center><h1><i class="fas fa-headphones-alt"></i> Playlists</h1>
+                Select playlists and features to get tracks of.</center>
             </div>
         </div>
 
@@ -13,7 +14,7 @@
             <div class="form-group row">
 
                 <!-- Display all playlists -->
-                <div class="col-4">
+                <div class="col-4 offset-2">
                     {% for playlist in playlists %}
                         <input type="checkbox" class="playlist" value="{{ playlist.playlist_id }}" name="playlist">
                             <button type="button" class="tracks-btn" data-toggle="modal" data-target="#exampleModalLong" value="{{ playlist.playlist_id }}">
@@ -46,37 +47,39 @@
                 <br>
 
                 <!-- Track features options to filter by -->
-                <div class="col-8 track-features align-self-center">
-                    <h3>Track Features</h3>
-                    <br>
-                    <i class="fas fa-heartbeat"></i> BPM:
-                    <select name="bpm">
-                        <option value="None">None</option>
-                        {% for bpm in bpm_range %}
-                            <option value="{{ bpm }}">{{ bpm }}</option>
-                        {% endfor %}
-                    </select>
+                <div class="col-6 track-features align-self-center">
+                    <center>
+                        <h3>Track Features</h3>
+                        <br>
+                        <i class="fas fa-heartbeat"></i> BPM:
+                        <select name="bpm">
+                            <option value="None">None</option>
+                            {% for bpm in bpm_range %}
+                                <option value="{{ bpm }}">{{ bpm }}</option>
+                            {% endfor %}
+                        </select>
 
-                    <br>
+                        <br>
 
-                    <i class="far fa-meh-blank"></i> Mood:
-                    <select name="valence">
-                        {% for mood, valence in valence_dict.items() %}
-                            <option value="{{ valence }}">{{ mood }}</option>
-                        {% endfor %}
-                    </select>
+                        <i class="far fa-meh-blank"></i> Mood:
+                        <select name="valence">
+                            {% for mood, valence in valence_dict.items() %}
+                                <option value="{{ valence }}">{{ mood }}</option>
+                            {% endfor %}
+                        </select>
 
-                    <br>
+                        <br>
 
-                    <i class="fas fa-key"></i> Key:
-                    <select name="key">
-                        <option value="None">None</option>
-                        {% for key in keys %}
-                            <option value="{{ key.key_id }}">{{ key.key_name.replace('{', '').replace('}', '').replace(',', '/') }}</option>
-                        {% endfor %}
-                    </select>
-                    <br><br>
-                    <input id="qualify-tracks" type="submit" value="Get Qualifying Tracks">
+                        <i class="fas fa-key"></i> Key:
+                        <select name="key">
+                            <option value="None">None</option>
+                            {% for key in keys %}
+                                <option value="{{ key.key_id }}">{{ key.key_name.replace('{', '').replace('}', '').replace(',', '/') }}</option>
+                            {% endfor %}
+                        </select>
+                        <br><br>
+                        <input id="qualify-tracks" type="submit" value="Get Qualifying Tracks">
+                    </center>
                 </div>
             </div>
         </form>
