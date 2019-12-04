@@ -23,7 +23,7 @@
                             {% for track in bpm_tracks %}
                                 <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
                                     <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a>
-                                    - {{ track.tempo }}<br>
+                                    - {{ track.tempo | int }}<br>
                                 </input>
                             {% endfor %}
                             <br>
@@ -35,9 +35,9 @@
                         <div class="col-4">
                             <h3>Tracks By BPM and Valence</h3>
                             {% for track in sorted_tracks %}
-                                <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
+                                <input type="checkbox" class="track-bx" value="{{ track.track_id }}" name="track">
                                     <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a>
-                                    - {{ track.tempo }} - {{ track.valence }}<br>
+                                    - {{ track.tempo | int }} - {{ track.valence }}<br>
                                 </input>
                             {% endfor %}
                             <br>
@@ -49,7 +49,7 @@
                         <div class="col-4">
                             <h3>Tracks By Valence</h3>
                             {% for track in valence_tracks %}
-                                <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
+                                <input type="checkbox" class="track-bx" value="{{ track.track_id }}" name="track">
                                     <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a>
                                     - {{ track.valence }}<br>
                                 </input>
@@ -63,7 +63,7 @@
                         <div class="col-6">
                             <h3>Tracks of Key: {{ keyname.key_name.replace("{", '').replace("}", '').replace(',', '/') }}</h3>
                             {% for track in key_tracks %}
-                                <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
+                                <input type="checkbox" class="track-bx" value="{{ track.track_id }}" name="track">
                                     <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a><br>
                                 </input>
                             {% endfor %}
@@ -74,7 +74,7 @@
                         <div class="col-6">
                             <h3>Tracks By Matching Keys</h3>
                             {% for track in matching_key_tracks %}
-                                <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
+                                <input type="checkbox" class="track-bx" value="{{ track.track_id }}" name="track">
                                     <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a>
                                     - {{ track.keys.key_name.replace("{", '').replace("}", '').replace(',', '/') }}<br>
                                 </input>

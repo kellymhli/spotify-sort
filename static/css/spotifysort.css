@@ -119,10 +119,6 @@ input[type="text"], input[type="password"] {
     height: 38px;
 }
 
-.drpdn {
-    font-size: 20px;
-}
-
 /* Playlist modal */
 .tracks-btn {
     color: #80797A;

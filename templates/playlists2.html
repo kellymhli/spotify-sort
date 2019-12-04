@@ -16,12 +16,13 @@
                 <!-- Display all playlists -->
                 <div class="col-4 pl-name offset-2">
                     {% for playlist in playlists %}
-                        <input type="checkbox" class="playlist" value="{{ playlist.playlist_id }}" name="playlist">
+                        <input type="checkbox" class="playlist-bx" value="{{ playlist.playlist_id }}" name="playlist">
                             <button type="button" class="tracks-btn" data-toggle="modal" data-target="#exampleModalLong" value="{{ playlist.playlist_id }}">
                                 {{ playlist.pl_name }}
                             </button>
                         </input>
 
+                        <!-- Modal displaying playlist's tracks -->
                         <div class="modal fade" id="exampleModalLong-{{ playlist.playlist_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
