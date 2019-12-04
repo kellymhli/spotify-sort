@@ -116,5 +116,7 @@ input[type="text"], input[type="password"] {
 }
 
 select {
+    background: transparent;
     width: 120px;
+    border: none;
 }

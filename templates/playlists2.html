@@ -72,7 +72,7 @@
                     <select name="key">
                         <option value="None">None</option>
                         {% for key in keys %}
-                            <option value="{{ key.key_id }}">{{ key.key_name }}</option>
+                            <option value="{{ key.key_id }}">{{ key.key_name.replace('{', '').replace('}', '').replace(',', '/') }}</option>
                         {% endfor %}
                     </select>
                     <br><br>

@@ -6,7 +6,7 @@
     <strong>Artist: </strong>{{ track_fts.artist }}<br>
     <strong>Duration: </strong>{{ track_fts.duration }}<br>
     <strong>BPM: </strong>{{ track_fts.tempo }}<br>
-    <strong>Key: </strong>{{ track_fts.keys.key_name }}<br>
+    <strong>Key: </strong>{{ track_fts.keys.key_name.replace("{", '').replace("}", '').replace(',', '/') }}<br>
     <strong>Mode: </strong>{{ track_fts.mode }}<br>
     <strong>Danceability: </strong>{{ track_fts.danceability }}<br>
     <strong>Energy: </strong>{{ track_fts.energy }}<br>
