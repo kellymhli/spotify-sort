@@ -5,23 +5,25 @@
     <div class="container">
         <div class="row">
             {% if session.get("user_id") != None %}
-                <div class="col-12">
+                <div class="col-12" align="center">
                     <span class="greeting">Welcome back, {{ session["user_id"].capitalize() }}.</span>
                 </div>
             {% else %}
-                <div class="col-12" id="login">
+                <div class="col-12" id="login" align="center">
                     <span class="greeting">Welcome to Spotify Sort.</span><br>
-                    <div class="col-8 offset-4 login-text">
+                    <div class="col-12 login-text" align="center">
                         Please sign in or register:<br><br>
                     </div>
-                    <div class="col-8 offset-4 login-text">
+                    <div class="col-12 login-text" align="center">
                         <form action="/login" method="POST">
-                            Username: <input type='text' name='user_id'/><br>
-                            Password: <input type='password' name='password'/><br><br>
+                            <input type='text' name='user_id'/><br>
+                            Username<br>
+                            <input type='password' name='password'/><br>
+                            Password<br><br>
                             <input type='submit' value='Login'>
                         </form>
                     </div>
-                    <div class="col-8 offset-4 login-text">
+                    <div class="col-12 login-text" align="center">
                         <form action='/register'>
                             <input type='submit' value='Register'>
                         </form>

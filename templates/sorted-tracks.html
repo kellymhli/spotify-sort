@@ -3,10 +3,10 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12" align="center">
                 <h1>Qualifying Tracks From:</h1>
             </div>
-            <div class="col-12">
+            <div class="col-12" align="center">
                 {% for playlist in playlists %}
                     <a href="/playlist/{{ playlist.playlist_id }}">{{ playlist.pl_name }}</a><br>
                 {% endfor %}

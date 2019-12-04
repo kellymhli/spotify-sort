@@ -42,7 +42,7 @@ input[type="text"], input[type="password"] {
     background: transparent;
     border: none;
     border-bottom: 1px solid;
-    width: 150px;
+    width: 200px;
 }
 
 /* Landing and Register page */
