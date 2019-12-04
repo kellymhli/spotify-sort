@@ -49,7 +49,6 @@ input[type="text"], input[type="password"] {
     color: white;
 }
 
-
 /* Landing and Register page */
 .login-text, .reg-text {
     font-size: 22px;
@@ -102,6 +101,18 @@ input[type="text"], input[type="password"] {
     top: 0;
     left: 0;
     z-index: -1;
+}
+
+/* Playlists page */
+.track-features {
+    font-size: 25px;
+    font-weight: 100;
+}
+
+#qualify-tracks {
+    font-size: 20px;
+    width: 250px;
+    height: 38px;
 }
 
 /* Playlist modal */
