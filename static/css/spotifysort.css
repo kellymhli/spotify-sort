@@ -114,3 +114,7 @@ input[type="text"], input[type="password"] {
 .tracks-btn:focus {
     outline: none;  /* Rid blue outline around button */
 }
+
+select {
+    width: 120px;
+}
