@@ -11,22 +11,19 @@ app.secret_key = "ILIKEWIGGLINGTOMUSIC"
 # rather than failing silently
 app.jinja_env.undefined = StrictUndefined
 
+# List of valence from 0-1 at 0.2 increments
+valence_dict = {"None": None,
+                "Bleh": 0.2,
+                "Low": 0.4,
+                "Neutral": 0.6,
+                "Happy": 0.8,
+                "Euphoric": 1}
+
 @app.route("/")
 def homepage():
     """Homepage."""
 
     return render_template("homepage.html")
-
-
-# @app.route("/login", methods=["GET"])
-# def login_page():
-#     """Render login page."""
-
-#     # Incase loggedin user manually goes to login page
-#     if session.get("user_id") != None and session.get("spotify_id") != None:
-#         return redirect("/playlists")
-
-#     return render_template("login.html")
 
 
 @app.route("/login", methods=["POST"])
@@ -116,14 +113,6 @@ def display_playlists():
 
     # List of bpms from 50-200 at 5bpm increments
     bpm_range = [bpm for bpm in range(50, 201, 5)]
-
-    # List of valence from 0-1 at 0.2 increments
-    valence_dict = {"None": None,
-                    "Bleh": 0.2,
-                    "Low": 0.4,
-                    "Neutral": 0.6,
-                    "Happy": 0.8,
-                    "Euphoric": 1}
 
     # Get music keys
     keys = Key.query.all()
@@ -241,6 +230,13 @@ def sort_tracks():
         # Add tracks of desired valence to a list
         if valence != "None":
             valence = float(valence)
+
+            # Get mood associated with selected valence
+            mood = None
+            for k, value in valence_dict.items():
+                if value == valence:
+                    mood = k
+
             if (valence - 0.1) <= track.valence <= (valence + 0.1):
                 valence_tracks.add(track)
 
@@ -262,6 +258,7 @@ def sort_tracks():
                            bpm=bpm,
                            playlists=playlists,
                            bpm_tracks=list(bpm_tracks),
+                           mood=mood,
                            valence_tracks=list(valence_tracks),
                            keyname=keyname,
                            key_tracks=list(key_tracks),
