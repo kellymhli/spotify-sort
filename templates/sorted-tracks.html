@@ -33,7 +33,7 @@
         <br>
 
         {% if keyname != "None" %}
-            <h3>Tracks of Key {{ keyname.key_name }}</h3>
+            <h3>Tracks of Key: {{ keyname.key_name.replace("{", '').replace("}", '').replace(',', '/') }}</h3>
             {% for track in key_tracks %}
                 <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
                     <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a><br>
@@ -46,7 +46,7 @@
             {% for track in matching_key_tracks %}
                 <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
                     <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a>
-                    - {{ track.keys.key_name }}<br>
+                    - {{ track.keys.key_name.replace("{", '').replace("}", '').replace(',', '/') }}<br>
                 </input>
             {% endfor %}
 
