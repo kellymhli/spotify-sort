@@ -13,6 +13,8 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
                 $(`.modal-${playlistId} ol`).append(`<li><a href="/tracks/${track.track_id}">${track.artist} - ${track.track_name}</a></li>`);
             }
         });
+
+        $(`#exampleModalLong-${playlistId}`).modal('show');
     });
 
 

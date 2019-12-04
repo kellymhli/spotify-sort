@@ -2,9 +2,8 @@
 {% block title %}Qualifying Tracks{% endblock %}
 {% block content %}
     <h1>Selected Playlists</h1>
-
     {% for playlist in playlists %}
-        <h3>{{ playlist.pl_name }}</h3>
+        <a href="/playlist/{{ playlist.playlist_id }}"><h3>{{ playlist.pl_name }}</h3></a>
     {% endfor %}
 
     <br>
