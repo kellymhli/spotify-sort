@@ -1,64 +1,64 @@
 {% extends 'base.html' %}
 {% block title %}Qualifying Tracks{% endblock %}
 {% block content %}
-    <h1>Selected Playlists</h1>
+    <h1>Qualifying Tracks From:</h1>
     {% for playlist in playlists %}
-        <a href="/playlist/{{ playlist.playlist_id }}"><h3>{{ playlist.pl_name }}</h3></a>
+        <a href="/playlist/{{ playlist.playlist_id }}">{{ playlist.pl_name }}</a><br>
     {% endfor %}
-
     <br>
 
-    <h1>Qualifying Tracks</h1>
-
     <form action="/new-playlist" method="GET">
-        <h3>Tracks By BPM: {{ bpm }}</h3>
-        {% for track in bpm_tracks %}
-            <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
-                <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a> 
-                - {{ track.tempo }}<br>
-            </input>
-        {% endfor %}
+        {% if bpm != "None" %}
+            <h3>Tracks By BPM: {{ bpm }}</h3>
+            {% for track in bpm_tracks %}
+                <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
+                    <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a> 
+                    - {{ track.tempo }}<br>
+                </input>
+            {% endfor %}
+            <br>
+        {% endif %}
 
-        <br>
+        {% if valence_tracks != [] %}
+            <h3>Tracks By Valence</h3>
+            {% for track in valence_tracks %}
+                <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
+                    <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a> 
+                    - {{ track.valence }}<br>
+                </input>
+            {% endfor %}
+            <br>
+        {% endif %}
 
-        <h3>Tracks By Valence</h3>
-        {% for track in valence_tracks %}
-            <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
-                <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a> 
-                - {{ track.valence }}<br>
-            </input>
-        {% endfor %}
-
-        <br>
+        {% if bpm != "None" and valence_tracks != [] %}
+            <h3>Tracks By BPM and Valence</h3>
+            {% for track in sorted_tracks %}
+                <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
+                    <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a>
+                    - {{ track.tempo }} - {{ track.valence }}<br>
+                </input>
+            {% endfor %}
+            <br>
+        {% endif %}
 
         {% if keyname != "None" %}
             <h3>Tracks of Key: {{ keyname.key_name.replace("{", '').replace("}", '').replace(',', '/') }}</h3>
             {% for track in key_tracks %}
                 <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
-                    <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a><br>
+                    <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a><br>
                 </input>
             {% endfor %}
-
             <br>
 
             <h3>Tracks By Matching Keys</h3>
             {% for track in matching_key_tracks %}
                 <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
-                    <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a>
+                    <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a>
                     - {{ track.keys.key_name.replace("{", '').replace("}", '').replace(',', '/') }}<br>
                 </input>
             {% endfor %}
-
             <br>
         {% endif %}
-
-        <h3>Tracks By BPM and Valence</h3>
-        {% for track in sorted_tracks %}
-            <input type="checkbox" class="track" value="{{ track.track_id }}" name="track">
-                <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a> 
-                - {{ track.tempo }} - {{ track.valence }}<br>
-            </input>
-        {% endfor %}
 
         <input type="submit" value="Create New Playlist">
     </form>
