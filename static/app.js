@@ -69,7 +69,7 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
 
             // Add playlist to db
             $.post('/add-playlist', newPl, (res) => {
-                alert(`${plName} has been created.`);
+                window.location.href = '/playlists';
             });
         }
     });
