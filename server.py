@@ -130,7 +130,15 @@ def get_pl_tracks(playlist_id):
 
     playlist = Playlist.query.get(playlist_id)
     tracks = playlist.tracks
-    return render_template("playlist_tracks.html", playlist=playlist, tracks=tracks)
+    third = int(len(tracks)/3)
+    tracks1 = tracks[:third]
+    tracks2 = tracks[third:third*2]
+    tracks3 = tracks[third*2:]
+    return render_template("playlist_tracks.html",
+                            playlist=playlist,
+                            tracks1=tracks1,
+                            tracks2=tracks2,
+                            tracks3=tracks3)
 
 
 @app.route("/playlist-tracks")

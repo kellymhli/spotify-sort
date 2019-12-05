@@ -1,9 +1,29 @@
 {% extends 'base.html' %}
 {% block title %}Tracks{% endblock %}
 {% block content %}
-    <h1>{{ playlist.pl_name }}</h1>
-    {% for track in tracks %}
-        <a href="/tracks/{{ track.track_id }}">{{ track.track_name }}</a>
-        <br>
-    {% endfor %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12" align="center">
+                <h1>{{ playlist.pl_name }}</h1>
+            </div>
+            <div class="col-4">
+                {% for track in tracks1 %}
+                    <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a>
+                    <br>
+                {% endfor %}
+            </div>
+            <div class="col-4">
+                {% for track in tracks2 %}
+                    <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a>
+                    <br>
+                {% endfor %}
+            </div>
+            <div class="col-4">
+                {% for track in tracks3 %}
+                    <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a>
+                    <br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

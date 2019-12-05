@@ -18,7 +18,7 @@
             <form action="/new-playlist" method="GET">
                 <div class="form-group row">
                     <!-- Display tracks of selected bpm -->
-                    {% if bpm != "None" %}
+                    {% if bpm_tracks != [] %}
                         <div class="col-4">
                             <h4>Tracks of {{ bpm }} &plusmn; 3bpm</h4>
                             {% for track in bpm_tracks %}
