@@ -1,6 +1,7 @@
 /* General styling */
 .navbar {
     border-radius: 0px;
+    position: sticky;
 }
 
 .nav-link {
@@ -104,6 +105,22 @@ select {
 }
 
 /* Playlists page */
+#c-5th {
+    background-image: url(/static/img/C-major.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white; /* Fallback if background image fails */
+    filter: blur(5px);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 1;
+}
+
 .pl-name {
     font-size: 18px;
 }
