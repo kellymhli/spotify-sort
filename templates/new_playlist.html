@@ -18,9 +18,9 @@
                             id="deselect-{{ track.track_id }}-div"
                             value="{{ track.track_id }}">
                             <button type="button" class="deselect" id="deselect-{{ track.track_id }}" value="{{ track.track_id }}">X</button>
-                            <a href="/tracks/{{ track.track_id }}" class="add-track" id="track-href-{{ track.track_id }}" name="track" value="{{ track.track_id }}">
+                            <!-- <a href="/tracks/{{ track.track_id }}" class="add-track" id="track-href-{{ track.track_id }}" name="track" value="{{ track.track_id }}">
                                 {{ track.artist }} - {{ track.track_name }}
-                            </a>
+                            </a> -->
                             <button type="button" class="track-dtl-btn" data-toggle="modal" data-target="#exampleModalLong" value="{{ track.track_id }}">
                                 {{ track.artist }} - {{ track.track_name }}
                             </button>
@@ -30,15 +30,16 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title" id="exampleModalLongTitle-{{ track.track_id }}">{{ track.track_name }} Details</h4>
+                                        <h4 class="modal-title" id="exampleModalLongTitle-{{ track.track_id }}">{{ track.track_name }}</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body modal-{{ track.track_id }}-body">
-                                        
+
                                     </div>
                                     <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" onclick="location.href='/tracks/{{ track.track_id }}'">More Details</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
