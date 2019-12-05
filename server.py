@@ -171,9 +171,16 @@ def display_tracks():
 
     user = User.query.filter(User.user_id == session["user_id"]).one()
 
-    tracks = Track.query.filter(Track.spotify_id == user.spotify_id)
+    tracks = list(Track.query.filter(Track.spotify_id == user.spotify_id))
+    third = int(len(tracks)/3)
+    tracks1 = tracks[:third]
+    tracks2 = tracks[third:third*2]
+    tracks3 = tracks[third*2:]
 
-    return render_template("tracks.html", tracks=tracks)
+    return render_template("tracks.html",
+                            tracks1=tracks1,
+                            tracks2=tracks2,
+                            tracks3=tracks3)
 
 
 @app.route("/tracks/<string:track_id>")
@@ -192,6 +199,7 @@ def sort_tracks():
     playlists = []
     all_tracks = []
     bpm_tracks = set()
+    mood = None
     valence_tracks = set()
     key_tracks = set()
     matching_key_tracks = set()
@@ -232,7 +240,6 @@ def sort_tracks():
             valence = float(valence)
 
             # Get mood associated with selected valence
-            mood = None
             for k, value in valence_dict.items():
                 if value == valence:
                     mood = k
