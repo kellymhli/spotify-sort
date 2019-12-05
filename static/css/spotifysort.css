@@ -1,11 +1,14 @@
 /* General styling */
 .navbar {
     border-radius: 0px;
-    position: sticky;
 }
 
 .nav-link {
     font-size: 18px;
+}
+
+.navbar-brand {
+    height: 50px;
 }
 
 body {
