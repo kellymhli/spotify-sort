@@ -1,4 +1,4 @@
-env/
+env
 *.txt
 .DS_Store
 secret.sh
