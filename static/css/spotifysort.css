@@ -152,7 +152,7 @@ select {
     top: 0;
     left: 0;
     z-index: -1;
-    opacity: 1;
+    opacity: .5;
 }
 
 /* New Playlist page */
