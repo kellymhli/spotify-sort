@@ -1,17 +1,39 @@
 {% extends 'base.html' %}
 {% block title %}Track Features{% endblock %}
 {% block content %}
-
-    <h1>{{track_fts.track_name}}</h1>
-    <strong>Artist: </strong>{{ track_fts.artist }}<br>
-    <strong>Duration: </strong>{{ track_fts.duration }}<br>
-    <strong>BPM: </strong>{{ track_fts.tempo }}<br>
-    <strong>Key: </strong>{{ track_fts.keys.key_name.replace("{", '').replace("}", '').replace(',', '/') }}<br>
-    <strong>Mode: </strong>{{ track_fts.mode }}<br>
-    <strong>Danceability: </strong>{{ track_fts.danceability }}<br>
-    <strong>Energy: </strong>{{ track_fts.energy }}<br>
-    <strong>Instrumentalness: </strong>{{ track_fts.instrumentalness }}<br>
-    <strong>Loudness: </strong>{{ track_fts.loudness }}<br>
-    <strong>Speechiness: </strong>{{ track_fts.speechiness }}<br>
-    <strong>Valence: </strong>{{ track_fts.valence }}<br>
+    <div class="container">
+        <div class="row">
+            <div class="col-12" align="center">
+                <h1>{{track_fts.track_name}}</h1>
+            </div>
+            <div class="col-6 track-details text-right">
+                <strong>Artist: </strong><br>
+                <strong>Duration: </strong><br>
+                <strong>BPM: </strong><br>
+                <strong>Key: </strong><br>
+                <strong>Mode: </strong><br>
+                <strong>Danceability: </strong><br>
+                <strong>Energy: </strong><br>
+                <strong>Instrumentalness: </strong><br>
+                <strong>Loudness: </strong><br>
+                <strong>Speechiness: </strong><br>
+                <strong>Mood (Valence): </strong><br>
+            </div>
+            <div class="col-6 track-details text-left">
+                {{ track_fts.artist }}<br>
+                {{ (track_fts.duration/60000) | int }}min
+                    {{ ((track_fts.duration/1000) % 60) | int }}sec
+                    ({{ track_fts.duration}}ms)<br>
+                {{ track_fts.tempo }}<br>
+                {{ track_fts.keys.key_name.replace("{", '').replace("}", '').replace(',', '/') }}<br>
+                {{ track_fts.mode }}<br>
+                {{ track_fts.danceability }}<br>
+                {{ track_fts.energy }}<br>
+                {{ track_fts.instrumentalness }}<br>
+                {{ track_fts.loudness }}<br>
+                {{ track_fts.speechiness }}<br>
+                {{ track_fts.valence }}<br>
+            </div>
+        </div>
+    </div>
 {% endblock %}

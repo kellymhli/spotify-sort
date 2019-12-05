@@ -153,3 +153,12 @@ select {
 #new-pl-name {
     border-bottom: 1px solid;
 }
+
+/* Track-features page */
+.track-details {
+    color: #80797A;
+    font-size: 22px;
+    text-align: left;
+    padding: 5px;
+    font-weight: 100;
+}
