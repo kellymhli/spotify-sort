@@ -123,19 +123,19 @@ select {
     height: 38px;
 }
 
-/* Playlist modal */
-.tracks-btn {
+/* Modal buttons */
+.tracks-btn, .track-dtl-btn {
     color: #80797A;
     background: white;
     border: none;
 }
 
-.tracks-btn:hover {
+.tracks-btn:hover, .track-dtl-btn[hover] {
     color: rgba(182, 80, 95, 0.719);
     background: white;
 }
 
-.tracks-btn:focus {
+.tracks-btn:focus, .track-dtl-btn:focus {
     outline: none;  /* Rid blue outline around button */
 }
 
@@ -163,6 +163,8 @@ select {
 .deselect {
     border: 0px;
 }
+
+
 
 /* Track-features page */
 .track-details {
