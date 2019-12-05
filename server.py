@@ -231,9 +231,6 @@ def sort_tracks():
         playlist = Playlist.query.get(playlist_id)
         playlists.append(playlist)
         all_tracks.extend(playlist.tracks)
-        # tracks = playlist.tracks
-        # for track in tracks:
-        #     all_tracks.append(track)
 
     for track in all_tracks:
         # Round track's bpm to nearest int
