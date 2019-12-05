@@ -2,4 +2,5 @@
 *.txt
 .DS_Store
 secret.sh
+spotify.sql
 *.sql
