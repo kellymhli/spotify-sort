@@ -7,8 +7,11 @@
             <!-- User is logged in -->
             {% if session.get("user_id") != None %}
                 <div class="col-12" align="center">
-                    <span class="greeting">Welcome back, {{ session["user_id"].capitalize() }}.</span>
+                    <br><br><br><br><br><br><br><br>
+                    <span class="greeting">Welcome back, {{ session["user_id"].capitalize() }}!</span>
                     <br>
+                    <h3 class="subgreet">Let's organize some music</h3>
+                    <br><br><br><br>
                 </div>
                 <div class="col-12" align="center">
                     <div style="font-size: 0.8rem;">
@@ -29,6 +32,7 @@
             <!-- User is not logged in -->
             {% else %}
                 <div class="col-12" id="login" align="center">
+                    <br><br><br><br><br><br><br><br>
                     <span class="greeting">Welcome to Spotify Sort. </span><br>
                     <!-- Login form -->
                     <div class="col-12 login-text" align="center">

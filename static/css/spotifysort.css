@@ -1,6 +1,6 @@
 /* General styling */
 .navbar {
-	border-radius: 0px;
+    border-radius: 0px;
 }
 
 .nav-link {
@@ -37,8 +37,9 @@ a:hover {
 }
 
 input[type="submit"] {
-    width: 150px;
-    height: 30px;
+    font-size: 20px;
+    width: auto;
+    height: auto;
 }
 
 input[type="submit"]:hover {
@@ -70,13 +71,8 @@ select {
 }
 
 .login-text input[type="submit"], .reg-text input[type="submit"] {
-    font-size: 20px;
     width: 260px;
     height: 35px;
-}
-
-.reg-text input[type="submit"] {
-    width: 350px;
 }
 
 .greeting {
@@ -84,38 +80,30 @@ select {
     font-size: 40px;
     font-weight: 100;
     justify-content: center;
-    color: white;
+    color: #403D3D;
 }
 
-#home-img {
+.subgreet {
+    font-weight: 100;
+}
+
+#home-img, #register-img {
     background-image: url(/static/img/adrian-korte-5gn2soeAc40-unsplash.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-color: white; /* Fallback if background image fails */
-    filter: blur(18px);
+    filter: blur(5px);
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     z-index: -1;
+    opacity: .4;
 }
 
-#register-img {
-    background-image: url(/static/img/markus-spiske-6-KP9A2t5Vg-unsplash.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: white; /* Fallback if background image fails */
-    filter: blur(15px);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-}
+
 
 /* Playlists page */
 .pl-name {
