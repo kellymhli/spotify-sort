@@ -142,6 +142,10 @@ select {
     border-bottom: 1px solid;
 }
 
+.deselect {
+    border: 0px;
+}
+
 /* Track-features page */
 .track-details {
     color: #80797A;
