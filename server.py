@@ -17,7 +17,7 @@ valence_dict = {"None": None,
                 "Low": 0.4,
                 "Chill": 0.6,
                 "Happy": 0.8,
-                "Euphoric": 1}
+                "Even Happier": 1}
 
 @app.route("/")
 def homepage():
