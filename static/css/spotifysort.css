@@ -3,6 +3,10 @@
 	border-radius: 0px;
 }
 
+.nav-link {
+    font-size: 18px;
+}
+
 body {
     font-family: 'Nunito Sans', sans-serif;
     font-weight: 800;
@@ -15,6 +19,10 @@ h1, h2, h3, h4, h5, strong {
     color: #403D3D;
 }
 
+h5 {
+    color: rgba(182, 80, 95, 0.719);
+}
+
 strong {
     font-size: 20px;
 }
@@ -24,7 +32,7 @@ a {
 }
 
 a:hover {
-    color: #B73947;
+    color: rgba(182, 80, 95, 0.719);
     text-decoration: none;
 }
 
@@ -127,7 +135,7 @@ input[type="text"], input[type="password"] {
 }
 
 .tracks-btn:hover {
-    color: #B73947;
+    color: rgba(182, 80, 95, 0.719);
     background: white;
 }
 
@@ -139,4 +147,9 @@ select {
     background: transparent;
     width: 120px;
     border: none;
+}
+
+/* New Playlist page */
+#new-pl-name {
+    border-bottom: 1px solid;
 }

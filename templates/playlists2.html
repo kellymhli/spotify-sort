@@ -2,11 +2,10 @@
 {% block title %}Playlists{% endblock %}
 {% block content %}
     <div class="container">
-
         <div class="row justify-content-center">
             <div class="col-12" align="center">
-                <h1><i class="fas fa-headphones-alt"></i> Playlists</h1>
-                Select playlists and features to get tracks of.
+                <h1><i class="fas fa-headphones-alt"></i> Your Playlists</h1>
+                <h5>Select playlists and features to get tracks of.<h5>
             </div>
         </div>
 
@@ -27,7 +26,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle-{{ playlist.playlist_id }}">{{ playlist.pl_name }} Tracks</h5>
+                                        <h4 class="modal-title" id="exampleModalLongTitle-{{ playlist.playlist_id }}">{{ playlist.pl_name }} Tracks</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>

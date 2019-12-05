@@ -15,7 +15,7 @@ app.jinja_env.undefined = StrictUndefined
 valence_dict = {"None": None,
                 "Bleh": 0.2,
                 "Low": 0.4,
-                "Neutral": 0.6,
+                "Chill": 0.6,
                 "Happy": 0.8,
                 "Euphoric": 1}
 

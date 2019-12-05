@@ -9,6 +9,8 @@
                 <div class="col-12" align="center">
                     <span class="greeting">Welcome back, {{ session["user_id"].capitalize() }}.</span>
                     <br>
+                </div>
+                <div class="col-12" align="center">
                     <div style="font-size: 0.8rem;">
                         <div class="row">
                             <div class="col-4">
@@ -23,6 +25,7 @@
                         </div>
                     </div>
                 </div>
+
             <!-- User is not logged in -->
             {% else %}
                 <div class="col-12" id="login" align="center">
