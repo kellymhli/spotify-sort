@@ -173,6 +173,35 @@ def return_pl_tracks():
     return jsonify(tracks)
 
 
+@app.route("/track-detail")
+def return_track_details():
+    """Return details of a track."""
+
+    track_id = request.args.get('track')
+    track = Track.query.get(track_id)
+
+    track_details = ({
+            "track_id" : track.track_id,
+            "track_name" : track.track_name,
+            "artist" : track.artist,
+            "spotify_id" : track.spotify_id,
+            "playlist_id" : track.playlist_id,
+            "key" : track.key,
+            "mode" : track.mode,
+            "danceability" : track.danceability,
+            "energy" : track.energy,
+            "instrumentalness" : track.instrumentalness,
+            "loudness" : track.loudness,
+            "speechiness" : track.speechiness,
+            "valence" : track.valence,
+            "tempo" : track.tempo,
+            "uri" : track.uri,
+            "href" : track.href,
+            "duration" : track.duration})
+
+    return jsonify(track_details)
+
+
 @app.route("/tracks")
 def display_tracks():
     """Display all user tracks."""

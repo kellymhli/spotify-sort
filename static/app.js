@@ -5,7 +5,6 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
     tracksBtn.on('click', (evt) => {
         evt.preventDefault();
         const playlistId = evt.target.value;
-        console.log(playlistId);
 
         // Get playlist tracks and add to modal div
         $.get('/playlist-tracks', {'pl':playlistId}, (tracks) => {
@@ -14,8 +13,32 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
             }
         });
 
+        // Display modal
         $(`#exampleModalLong-${playlistId}`).modal('show');
     });
+
+
+    const trackDtlBtn = $('.track-dtl-btn');
+
+    // Get track information and display in a modal
+    trackDtlBtn.on('click', (evt) => {
+        evt.preventDefault();
+        const trackId = evt.target.value;
+
+        // Get track details and add to modal div
+        $.get('/track-detail', {'track':trackId}, (track) => {
+            guts = `<strong>Artist:</strong> ${track.artist}
+                    <br><strong>Duration:</strong> ${track.duration}
+                    <br><strong>BPM:</strong> ${track.tempo}
+                    <br><strong>Key:</strong> ${track.keys}
+                    <br><strong>Danceability:</strong> ${track.danceability}
+                    <br><strong>Valence:</strong> ${track.valence}`
+            $(`.modal-${trackId}-body`).html(`${guts}`);
+        });
+
+        // Display modal
+        $(`#exampleModalLong-${trackId}`).modal('show');
+    })
 
 
     // Remove track from page when user clicks X
