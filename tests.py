@@ -41,7 +41,7 @@ class TestFlaskRoutes(unittest.TestCase):
 
         result = self.client.get("/")
         self.assertEqual(result.status_code, 200)
-        self.assertIn(b"<h1>Spotify Sort</h1>", result.data)
+        self.assertIn(b"Homepage", result.data)
 
     # def test_login_page(self):
     #     """Assure login route returns login.html."""
@@ -64,8 +64,8 @@ class TestFlaskRoutes(unittest.TestCase):
 
         result = self.client.get("/register")
         self.assertEqual(result.status_code, 200)
-        self.assertIn(b"Spotify Username: <input type=", result.data)
-        self.assertIn(b"Confirm Password:", result.data)
+        self.assertIn(b"Register New User</span><br>", result.data)
+        self.assertIn(b"Confirm Password", result.data)
 
 
 class FlaskTestLoggedIn(unittest.TestCase):
@@ -95,7 +95,7 @@ class FlaskTestLoggedIn(unittest.TestCase):
 
         result = self.client.get("/playlists")
         self.assertEqual(result.status_code, 200)
-        self.assertIn(b"<h1>Playlists</h1>", result.data)
+        self.assertIn(b"</i> Your Playlists</h1>", result.data)
         self.assertIn(b"120</option>", result.data)  # BPM
         self.assertIn(b"Happy</option>", result.data)  # Mood of tracks
 
