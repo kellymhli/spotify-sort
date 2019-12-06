@@ -33,7 +33,7 @@ Rename the playlist, view brief details of tracks by clicking on the track name,
 ![Submit new playlist](https://i.gyazo.com/64a5acd263ae92a5fbdf79514ef88f67.gif)  
 
 Your new playlist as been created! Click on it to view its details.  
-Clicking on a track name here will redirect you to it's fill features page.
+Clicking on a track name here will redirect you to it's full features page.
 ![New playlist](https://i.gyazo.com/75116765ce72c369eb1443d7f5b2a9bf.gif)  
 
 ## Future Features
