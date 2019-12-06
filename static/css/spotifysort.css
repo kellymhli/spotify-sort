@@ -17,6 +17,8 @@ body {
     font-family: 'Nunito Sans', sans-serif;
     font-weight: 800;
     font-size: 15px;
+    height: 100%;
+    padding-bottom: 20px;
 }
 
 h1, h2, h3, h4, h5, strong {
@@ -128,14 +130,16 @@ select {
 
 /* Modal buttons */
 .tracks-btn, .track-dtl-btn {
+    font-size: 18px;
     color: #80797A;
     background: white;
     border: none;
 }
 
-.tracks-btn:hover, .track-dtl-btn[hover] {
+.tracks-btn:hover, .track-dtl-btn:hover {
     color: rgba(182, 80, 95, 0.719);
     background: white;
+    font-size: 22px;
 }
 
 .tracks-btn:focus, .track-dtl-btn:focus {
