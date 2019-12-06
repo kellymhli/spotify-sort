@@ -33,3 +33,5 @@ SpotySift was created by Kelly Li. Learn more about the developer on [LinkedIn](
 ![Select tracks](https://i.gyazo.com/7c8dc24fbeb415e8ed322cb084007ffb.gif)
 
 ![Edit new playlist](https://i.gyazo.com/2e7508fca5e237cd30dd7a51db42479a.gif)
+
+![New playlsit](https://i.gyazo.com/75116765ce72c369eb1443d7f5b2a9bf.gif)
