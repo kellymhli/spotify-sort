@@ -1,5 +1,5 @@
 from jinja2 import StrictUndefined
-from flask import Flask, render_template, redirect, request, session, jsonify
+from flask import Flask, render_template, redirect, request, session, jsonify, flash
 from flask_debugtoolbar import DebugToolbarExtension
 import api, seed
 from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connect_to_db, db

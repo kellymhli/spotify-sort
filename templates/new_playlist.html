@@ -14,9 +14,7 @@
 
                 <div class="form-group col-12">
                     {% for track in tracks %}
-                        <div class="add-track-div"
-                            id="deselect-{{ track.track_id }}-div"
-                            value="{{ track.track_id }}">
+                        <div class="add-track-div" id="deselect-{{ track.track_id }}-div"value="{{ track.track_id }}">
                             <button type="button" class="deselect" id="deselect-{{ track.track_id }}" value="{{ track.track_id }}">X</button>
                             <button type="button" class="track-dtl-btn" data-toggle="modal" data-target="#exampleModalLong" value="{{ track.track_id }}">
                                 {{ track.artist }} - {{ track.track_name }}
