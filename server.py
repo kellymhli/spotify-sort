@@ -7,8 +7,7 @@ from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connec
 app = Flask(__name__)
 app.secret_key = "ILIKEWIGGLINGTOMUSIC"
 
-# Raise error when an undefined variable is used in Jinja2
-# rather than failing silently
+# Raise error when an undefined variable is used in Jinja2 rather than failing silently
 app.jinja_env.undefined = StrictUndefined
 
 # List of valence from 0-1 at 0.2 increments
@@ -290,7 +289,6 @@ def sort_tracks():
             if (int(track.key) == int(match_keys[0].matching_key)
                 or int(track.key) == int(match_keys[1].matching_key)):
                     matching_key_tracks.add(track)
-
 
     # Get all tracks that match requirements
     sorted_tracks = set(bpm_tracks) & set(valence_tracks)

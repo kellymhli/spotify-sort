@@ -1,22 +1,6 @@
 import unittest, server
 from server import app
-from selenium import webdriver
 from model import User, Playlist, PlaylistTrack, Track, Key, MatchingKey, connect_to_db, db, example_data
-
-# class TestApp(unittest.TestCase):
-
-#     def setUp(self):
-#         self.browser = webdriver.Chrome("./chromedriver")
-
-#     def tearDown(self):
-#         self.browser.quit()
-
-#     def test_title(self):
-#         self.browser.get("http://localhost:8888/")
-#         self.assertEqual(self.browser.title, "Homepage")
-
-###############################################################################
-# Unittests
 
 class TestFlaskRoutes(unittest.TestCase):
     """Test Flask routes."""
@@ -42,13 +26,6 @@ class TestFlaskRoutes(unittest.TestCase):
         result = self.client.get("/")
         self.assertEqual(result.status_code, 200)
         self.assertIn(b"Homepage", result.data)
-
-    # def test_login_page(self):
-    #     """Assure login route returns login.html."""
-
-    #     result = self.client.get("/login")
-    #     self.assertEqual(result.status_code, 200)
-    #     self.assertIn(b"<input type='submit' value='Login'>", result.data)
 
     def test_correct_login(self):
         """Assure correct login behavior when valid info is give."""
@@ -144,21 +121,6 @@ class FlaskTestLoggedIn(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
         self.assertIn(b"Track 1", result.data)
         self.assertIn(b"Track 5", result.data)
-
-    # def test_sort_tracks(self):
-    #     """Test tracks of selected playlist display in sort-playlists route."""
-
-    #     result1 = self.client.get("/sort-playlists",
-    #                               data={("playlist", "pl1")})
-    #     self.assertEqual(result1.status_code, 200)
-    #     self.assertIn(b"Track 2", result1.data)
-    #     self.assertNotIn(b"Track 4", result1.data)
-
-    #     result2 = self.client.get("/sort-playlists",
-    #                               data={("playlist", "pl1"), ("playlist", "pl2")})
-    #     self.assertEqual(result2.status_code, 200)
-    #     self.assertIn(b"Track 2", result2.data)
-    #     self.assertIn(b"Track 4", result2.data)
 
 if __name__ == "__main__":
     """Run tests when tests.py is called."""
