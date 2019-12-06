@@ -24,8 +24,12 @@ SpotySift was created by Kelly Li. Learn more about the developer on [LinkedIn](
 - Bootstrap
 - Spotify API
 
-![Image from Gyazo](https://i.gyazo.com/d8a0f5b4897fcbc11d74182c5cb19185.gif)
+![Login](https://i.gyazo.com/d8a0f5b4897fcbc11d74182c5cb19185.gif)
 
-![Image from Gyazo](https://i.gyazo.com/b03236e0e136b0afcfd50127cd0a2e3a.gif)
+![Playlists](https://i.gyazo.com/b03236e0e136b0afcfd50127cd0a2e3a.gif)
 
-![Image from Gyazo](https://i.gyazo.com/13b283b9042ce427e9c11b1d360d76e3.gif)
+![Select options](https://i.gyazo.com/13b283b9042ce427e9c11b1d360d76e3.gif)
+
+![Select tracks](https://i.gyazo.com/7c8dc24fbeb415e8ed322cb084007ffb.gif)
+
+![Edit new playlist](https://i.gyazo.com/2e7508fca5e237cd30dd7a51db42479a.gif)
