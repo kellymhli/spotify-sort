@@ -1,7 +1,9 @@
 *env
+env
 *.txt
 .DS_Store
 secret.sh
 spotify.sql
 *.sql
 *.cache*
+.cache-kalamoing
