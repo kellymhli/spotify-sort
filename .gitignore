@@ -4,3 +4,4 @@
 secret.sh
 spotify.sql
 *.sql
+*.cache*
