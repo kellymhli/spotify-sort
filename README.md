@@ -24,11 +24,9 @@ SpotySift was created by Kelly Li. Learn more about the developer on [LinkedIn](
 - Bootstrap
 - Spotify API
 
-![Login](https://i.gyazo.com/d8a0f5b4897fcbc11d74182c5cb19185.gif)
+![Homepage](https://i.gyazo.com/d8a0f5b4897fcbc11d74182c5cb19185.gif)
 
-![Tracks](/static/img/tracks.png)
-
-![Playlists](https://i.gyazo.com/b03236e0e136b0afcfd50127cd0a2e3a.gif)
+![Playlists page](https://i.gyazo.com/b03236e0e136b0afcfd50127cd0a2e3a.gif)
 
 ![Select options](https://i.gyazo.com/13b283b9042ce427e9c11b1d360d76e3.gif)
 
@@ -36,4 +34,4 @@ SpotySift was created by Kelly Li. Learn more about the developer on [LinkedIn](
 
 ![Edit new playlist](https://i.gyazo.com/2e7508fca5e237cd30dd7a51db42479a.gif)
 
-![New playlsit](https://i.gyazo.com/75116765ce72c369eb1443d7f5b2a9bf.gif)
+![New playlist](https://i.gyazo.com/75116765ce72c369eb1443d7f5b2a9bf.gif)
