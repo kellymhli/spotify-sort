@@ -5,8 +5,7 @@
     // Check or uncheck all boxes of the same track on the page.
     function checkAll(track_id) {
         $('.' + track_id).each(function(index, ckbox) {
-            if (ckbox.value === track_id) {
-                console.log("match ", track_id, ckbox.value);
+            if (ckbox.value === track_id && index > 1) {
                 ckbox.checked = !ckbox.checked;
             }
         });
