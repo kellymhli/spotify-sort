@@ -135,6 +135,10 @@ select {
 .qualified-tracks {
     height: 300px;
     overflow-y: scroll;
+    margin: 5px;
+    padding: 2px;
+    border: solid 0.5px;
+    border-radius: 5px;
 }
 
 /* Modal buttons */
