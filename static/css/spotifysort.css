@@ -132,15 +132,6 @@ select {
     height: 38px;
 }
 
-.qualified-tracks {
-    height: 300px;
-    overflow-y: scroll;
-    margin: 5px;
-    padding: 2px;
-    border: solid 0.5px;
-    border-radius: 5px;
-}
-
 /* Modal buttons */
 .tracks-btn, .track-dtl-btn {
     font-size: 18px;
@@ -173,6 +164,15 @@ select {
     left: 0;
     z-index: -1;
     opacity: .8;
+}
+
+.qualified-tracks {
+    height: 300px;
+    overflow-y: scroll;
+    margin: 5px;
+    padding: 2px;
+    border: solid 0.5px;
+    border-radius: 5px;
 }
 
 /* New Playlist page */
