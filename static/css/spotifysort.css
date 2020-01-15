@@ -74,6 +74,10 @@ select {
     color: white;
 }
 
+.home-icon:hover {
+    font-size: 135px;
+}
+
 .login-text, .reg-text {
     font-size: 22px;
     font-weight: 10;

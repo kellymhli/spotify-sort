@@ -38,6 +38,7 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
         $(`#exampleModalLong-${trackId}`).modal('show');
     });
 
+
     // Remove track from page when user clicks X
     const deselectBtn = $('.deselect');
     deselectBtn.on('click', (evt) => {
@@ -73,4 +74,13 @@ $(document).ready(function() {  // Load all html elems before adding evt handler
             });
         }
     });
+
+    // Check or uncheck all boxes of the same track on the page.
+    function checkAll(track_id) {
+        $('.' + track_id).each(function(index, ckbox) {
+            if (ckbox.value === track_id) {
+                ckbox.checked = !ckbox.checked;
+            }
+        });
+    }
 })
