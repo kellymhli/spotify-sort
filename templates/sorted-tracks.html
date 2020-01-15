@@ -28,7 +28,7 @@
                                     - {{ track.tempo | int }} - {{ track.keys.key_name.replace("{", '').replace("}", '').replace(',', '/') }}<br>
                                 </input>
                             {% endfor %}
-                            <input type="checkbox" class="all-of-bpm" onclick="selectAll('all-of-bpm', 'bpm-track')">Select All</input>
+                            <input type="checkbox" class="select-all all-of-bpm" onclick="selectAll('all-of-bpm', 'bpm-track')">Select All</input>
                             <br>
                         </div>
                     {% endif %}
@@ -43,7 +43,7 @@
                                     - {{ track.tempo | int }} - {{ track.keys.key_name.replace("{", '').replace("}", '').replace(',', '/') }}<br>
                                 </input>
                             {% endfor %}
-                            <input type="checkbox" class="all-of-intersect" onclick="selectAll('all-of-intersect', 'intersect-track')">Select All</input>
+                            <input type="checkbox" class="select-all all-of-intersect" onclick="selectAll('all-of-intersect', 'intersect-track')">Select All</input>
                             <br>
                         </div>
                     {% endif %}
@@ -58,7 +58,7 @@
                                     - {{ track.tempo | int }} - {{ track.keys.key_name.replace("{", '').replace("}", '').replace(',', '/') }}<br>
                                 </input>
                             {% endfor %}
-                            <input type="checkbox" class="all-of-mood" onclick="selectAll('all-of-mood', 'mood-track')">Select All</input>
+                            <input type="checkbox" class="select-all all-of-mood" onclick="selectAll('all-of-mood', 'mood-track')">Select All</input>
                             <br>
                         </div>
                     {% endif %}
@@ -73,7 +73,7 @@
                                     - {{ track.tempo | int }}<br>
                                 </input>
                             {% endfor %}
-                            <input type="checkbox" class="all-of-key" onclick="selectAll('all-of-key', 'key-track')">Select All</input>
+                            <input type="checkbox" class="select-all all-of-key" onclick="selectAll('all-of-key', 'key-track')">Select All</input>
                             <br>
                         </div>
 
@@ -86,7 +86,7 @@
                                     - {{ track.tempo | int }} - {{ track.keys.key_name.replace("{", '').replace("}", '').replace(',', '/') }}<br>
                                 </input>
                             {% endfor %}
-                            <input type="checkbox" class="all-match-keys" onclick="selectAll('all-match-keys','key-match-track')">Select All</input>
+                            <input type="checkbox" class="select-all all-match-keys" onclick="selectAll('all-match-keys','key-match-track')">Select All</input>
                             <br>
                         </div>
                     {% endif %}
@@ -112,7 +112,6 @@
     function selectAll(className, trackClass) {
         let ckstatus = $('.' + className).is(':checked');
         $('.' + trackClass).each(function(index, ckbox) {
-            console.log(ckbox.checked);
             ckbox.checked = ckstatus;
         });
     }
