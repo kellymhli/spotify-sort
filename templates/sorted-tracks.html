@@ -22,12 +22,14 @@
                     {% if bpm_tracks != [] %}
                         <div class="col-4">
                             <h4>Tracks of {{ bpm }} &plusmn; 3bpm</h4>
+                            <div class="qualified-tracks">
                             {% for track in bpm_tracks %}
                                 <input type="checkbox" class="bpm-track track-bx {{ track.track_id }}" value="{{ track.track_id }}" name="track" onclick="checkAll('{{ track.track_id }}'); checked = !checked">
                                     <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a>
                                     - {{ track.tempo | int }} - {{ track.keys.key_name.replace("{", '').replace("}", '').replace(',', '/') }}<br>
                                 </input>
                             {% endfor %}
+                            </div>
                             <input type="checkbox" class="select-all all-of-bpm" onclick="selectAll('all-of-bpm', 'bpm-track')">Select All</input>
                             <br>
                         </div>
@@ -37,12 +39,14 @@
                     {% if bpm != "None" and valence_tracks != [] %}
                         <div class="col-4">
                             <h4>{{ mood }} Tracks of {{ bpm }} &plusmn; 3bpm</h4>
+                            <div class="qualified-tracks">
                             {% for track in sorted_tracks %}
                                 <input type="checkbox" class="intersect-track track-bx {{ track.track_id }}" value="{{ track.track_id }}" name="track" onclick="checkAll('{{ track.track_id }}'); checked = !checked">
                                     <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a>
                                     - {{ track.tempo | int }} - {{ track.keys.key_name.replace("{", '').replace("}", '').replace(',', '/') }}<br>
                                 </input>
                             {% endfor %}
+                            </div>
                             <input type="checkbox" class="select-all all-of-intersect" onclick="selectAll('all-of-intersect', 'intersect-track')">Select All</input>
                             <br>
                         </div>
@@ -52,12 +56,14 @@
                     {% if valence_tracks != [] %}
                         <div class="col-4">
                             <h4>{{ mood }} Tracks</h4>
+                            <div class="qualified-tracks">
                             {% for track in valence_tracks %}
                                 <input type="checkbox" class="mood-track track-bx {{ track.track_id }}" value="{{ track.track_id }}" name="track" onclick="checkAll('{{ track.track_id }}'); checked = !checked">
                                     <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a>
                                     - {{ track.tempo | int }} - {{ track.keys.key_name.replace("{", '').replace("}", '').replace(',', '/') }}<br>
                                 </input>
                             {% endfor %}
+                            <div>
                             <input type="checkbox" class="select-all all-of-mood" onclick="selectAll('all-of-mood', 'mood-track')">Select All</input>
                             <br>
                         </div>
@@ -67,12 +73,14 @@
                     {% if keyname != "None" %}
                         <div class="col-6">
                             <h4>Tracks of Key: {{ keyname.key_name.replace("{", '').replace("}", '').replace(',', '/') }}</h4>
+                            <div class="qualified-tracks">
                             {% for track in key_tracks %}
                                 <input type="checkbox" class="key-track track-bx {{ track.track_id }}" value="{{ track.track_id }}" name="track" onclick="checkAll('{{ track.track_id }}'); checked = !checked">
                                     <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a>
                                     - {{ track.tempo | int }}<br>
                                 </input>
                             {% endfor %}
+                            </div>
                             <input type="checkbox" class="select-all all-of-key" onclick="selectAll('all-of-key', 'key-track')">Select All</input>
                             <br>
                         </div>
@@ -80,12 +88,14 @@
                     <!-- Display tracks of matching keys -->
                         <div class="col-6">
                             <h4>Tracks By Matching Keys</h4>
+                            <div class="qualified-tracks">
                             {% for track in matching_key_tracks %}
                                 <input type="checkbox" class="key-match-track track-bx {{ track.track_id }}" value="{{ track.track_id }}" name="track" onclick="checkAll('{{ track.track_id }}'); checked = !checked">
                                     <a href="/tracks/{{ track.track_id }}">{{ track.artist }} - {{ track.track_name }}</a>
                                     - {{ track.tempo | int }} - {{ track.keys.key_name.replace("{", '').replace("}", '').replace(',', '/') }}<br>
                                 </input>
                             {% endfor %}
+                            </div>
                             <input type="checkbox" class="select-all all-match-keys" onclick="selectAll('all-match-keys','key-match-track')">Select All</input>
                             <br>
                         </div>

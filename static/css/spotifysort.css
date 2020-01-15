@@ -132,6 +132,11 @@ select {
     height: 38px;
 }
 
+.qualified-tracks {
+    height: 300px;
+    overflow-y: scroll;
+}
+
 /* Modal buttons */
 .tracks-btn, .track-dtl-btn {
     font-size: 18px;
