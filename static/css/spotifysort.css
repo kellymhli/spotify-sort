@@ -177,6 +177,7 @@ select {
     padding: 2px;
     border: solid 0.5px;
     border-radius: 5px;
+    border-color: grey;
 }
 
 .select-all {
