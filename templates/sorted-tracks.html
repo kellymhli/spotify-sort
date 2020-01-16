@@ -132,7 +132,7 @@
     function selectAll(className, trackClass) {
         let ckstatus = $('.' + className).is(':checked');
         $('.' + trackClass).each(function(index, ckbox) {
-            ckbox.checked = ckstatus;
+            checkAll(ckbox.value);
         });
     }
     </script>
