@@ -8,7 +8,7 @@ SPOTIPY_REDIRECT_URI='http://localhost:8888/'
 def get_access_token(spotify_id):
     """Return access token from Spotify for defined scopes."""
 
-    scope = 'user-library-read'
+    scope = 'user-library-read playlist-modify-public playlist-modify-private'
 
     # Get access token from Spotify authorization server.
     token = util.prompt_for_user_token(username=spotify_id,
