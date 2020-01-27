@@ -189,6 +189,7 @@ select {
 #new-pl-name {
     border-bottom: 1px solid;
     width: 500px;
+    outline: none;
 }
 
 .deselect {
