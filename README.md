@@ -26,7 +26,8 @@ Select playlists and features you want to sort tracks by (selecting values for a
 ![Select options](https://i.gyazo.com/13b283b9042ce427e9c11b1d360d76e3.gif)  
 
 Select all tracks you would like to add to a new playlist.  
-![Select tracks](https://i.gyazo.com/7c8dc24fbeb415e8ed322cb084007ffb.gif)  
+<!-- ![Select tracks](https://i.gyazo.com/7c8dc24fbeb415e8ed322cb084007ffb.gif)   -->
+![Image from Gyazo](https://i.gyazo.com/e3896d635c279b9f4fae9e1f976e77a4.gif)
 
 Rename the playlist, view brief details of tracks by clicking on the track name, and remove tracks from the list.  
 ![Edit new playlist](https://i.gyazo.com/2e7508fca5e237cd30dd7a51db42479a.gif)  
