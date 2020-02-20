@@ -53,6 +53,7 @@ input[type="submit"] {
     width: auto;
     height: auto;
     border-radius: 4px;
+    outline: none;
 }
 
 input[type="submit"]:hover {
@@ -71,6 +72,7 @@ select {
     background: transparent;
     width: 120px;
     border: none;
+    outline: none;
 }
 
 /* Landing and Register page */
@@ -197,7 +199,12 @@ select {
 }
 
 .deselect {
+    outline: none;
     border: 0px;
+}
+
+.close {
+    outline: none;
 }
 
 /* Track-features page */
